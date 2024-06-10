@@ -1,2 +1,0 @@
-sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("com.ibspl.demoproject.controller.View1",{onInit:function(){},onNavigate:function(){var e={};var i="demo_fiori";var o={};o="#demo_fiori-display";var r=sap.ushell.Container.getService("CrossApplicationNavigation");r.toExternal({target:{shellHash:o}})}})});
-//# sourceMappingURL=View1.controller.js.map
