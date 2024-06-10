@@ -50,6 +50,10 @@
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
                         <PropertyPath>Bukrs</PropertyPath>
+                        <PropertyPath>Lifnr</PropertyPath>
+                        <PropertyPath>Land1</PropertyPath>
+                        <PropertyPath>Sperr</PropertyPath>
+                        <PropertyPath>Sperm</PropertyPath>
                     </Collection>
                 </Annotation>
             </Annotations>

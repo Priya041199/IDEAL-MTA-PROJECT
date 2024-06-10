@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1718010225131_85_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "com.ibspl.iven.ivenmasterfiorireport",
+    "packageName": "",
+    "content": {
+        "property": "width",
+        "newValue": "10%"
+    },
+    "selector": {
+        "id": "com.ibspl.iven.ivenmasterfiorireport::sap.suite.ui.generic.template.ListReport.view.ListReport::SupplierHeaderSet--listReport-Lifnr",
+        "idIsLocal": false,
+        "type": "sap.m.Column"
+    },
+    "layer": "CUSTOMER_BASE",
+    "texts": {},
+    "namespace": "apps/com.ibspl.iven.ivenmasterfiorireport/changes/",
+    "projectId": "",
+    "creation": 1718010225131,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "1.114.0",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "0.0.1",
+        "to": "0.0.1",
+        "creation": "0.0.1"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}

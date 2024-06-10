@@ -136,7 +136,8 @@
             "enableTableFilterInPageVariant": true,
             "filterSettings": {
               "dateSettings": {
-                "useDateRange": true
+                "useDateRange": true,
+                "exclude": false
               }
             },
             "tableSettings": {
