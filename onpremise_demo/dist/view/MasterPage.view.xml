@@ -1,0 +1,9 @@
+<mvc:View controllerName="com.ibspl.onpremisedemo.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content />
+         <Text text="true"/>
+         <Button text = "Navigate" type="Emphasized" press = "onNavigate"></Button>
+    </Page>
+</mvc:View>

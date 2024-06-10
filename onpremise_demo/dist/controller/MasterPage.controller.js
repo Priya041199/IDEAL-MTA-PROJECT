@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("com.ibspl.onpremisedemo.controller.MasterPage",{onInit:function(){},onNavigate:function(){var e={};var n="onPremise_Project1";var r={};r="#ZIBS_ONPREMISE_DEMO-display";var t=sap.ushell.Container.getService("CrossApplicationNavigation");t.toExternal({target:{shellHash:r}})}})});
+//# sourceMappingURL=MasterPage.controller.js.map
