@@ -1,5 +1,0 @@
-sap.ui.define([
-	"comibspl/cloud_demo_project1/test/unit/controller/MasterPage.controller"
-], function () {
-	"use strict";
-});
