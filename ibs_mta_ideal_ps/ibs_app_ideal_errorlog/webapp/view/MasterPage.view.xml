@@ -1,0 +1,62 @@
+<mvc:View controllerName="com.ibs.ibsappidealerrorlog.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar">
+    <Page id="page" showHeader="false">
+         <content>
+         <fb:FilterBar id="idFilterBar22" class="sapUiTinyMarginBottom" visible="true" clear="onReset2" search="onChange2"
+                                    showRestoreButton="true" showRestoreOnFB="false" filterContainerWidth="10rem" showClearButton="false" filterBarExpanded="true"
+                                    showGoOnFB="false" showFilterConfiguration="false" useToolbar="false">
+                                    <fb:filterItems>
+                                        <fb:FilterItem id="idMasterTblFilter222" visible="true" name="A" label="Creation Date">
+                                            <fb:control>
+                                                <DateRangeSelection id="DP1" change="onDatePickerChange" editable="true" width="2rem"/>
+                                            </fb:control>
+                                        </fb:FilterItem>
+                                        <fb:FilterItem name="C" label="{i18n>submitRefresh}">
+                                            <fb:control>
+                                            <HBox>
+                                                <Button text="Go" press="onSelectGo1" type="Emphasized"/>
+                                                <Button id="refresh" press="handleRefreshlog" icon="sap-icon://refresh" type="Transparent" visible="true"/>
+                                            </HBox>
+                                    </fb:control>
+                            </fb:FilterItem>
+                    </fb:filterItems>
+            </fb:FilterBar>
+
+         <Table growingScrollToLoad="false" id="idErrorlog" inset="false" noDataText="No available data"
+                                    items="{path: 'ErrorLog>/value', sorter: { path: 'LOG_ID', descending:true }}" selectionChange="onSelectionChange1"
+                                    sticky="HeaderToolbar,ColumnHeaders" growing="true" growingThreshold="10" autoPopinMode="true" fixedLayout="true">
+                                    <headerToolbar>
+                                        <OverflowToolbar id="idOverflowerror" visible="true">
+                                            <Title id="iderrorhead"/>
+                                            <ToolbarSpacer></ToolbarSpacer>
+                                            <SearchField id="idErrorSrchFld" width="33%" showMagnifier="false" showRefreshButton="false"
+                                                placeholder="Search by Log ID, Req No, Error Code, App Name" liveChange="onFilErrorTable"/>
+                                            <Button icon="sap-icon://excel-attachment" tooltip="Export to Excel" press="onExport" type="Emphasized"></Button>
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column demandPopin="true" width="9rem"><Label text="Log ID" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" width="6rem"><Label text="Request No." design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" width="4rem"><Label text="Error Code" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" width="13rem"><Label text="Error Description" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" width="11rem"><Label text="User ID" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" width="13rem"><Label text="App name and Type" design="Bold" wrapping="true"/></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{ErrorLog>LOG_ID}"/>
+                                                <ObjectIdentifier title="{ErrorLog>REQUEST_NO}" text="{path: 'ErrorLog>SR_NO', formatter : '.formatter.getRequestValue'}"/>
+                                                <Text text=" {parts: [{path: 'ErrorLog>ERROR_CODE'} ], formatter : '.formatter.getErrorValue' }"/>
+                                                <ExpandableText class="sapUiTinyMarginBottom sapUiTinyMarginTop" text="{ErrorLog>ERROR_DESCRPTION}" overflowMode="Popover" />
+                                                <ObjectIdentifier title="{ErrorLog>USER_ID}" 
+                                                    text="{path:'ErrorLog>CREATED_ON', type:'sap.ui.model.type.Date', formatOptions:{pattern:'YYYY.MM.dd hh:mm:ss'}}"/>
+                                                <ObjectIdentifier title="{ErrorLog>APP_NAME}" text="{ErrorLog>TYPE}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+        </content>
+    </Page>
+</mvc:View>

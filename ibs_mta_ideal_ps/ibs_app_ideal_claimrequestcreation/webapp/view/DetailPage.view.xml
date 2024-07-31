@@ -1,0 +1,385 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns="sap.uxap" xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" height="100%" xmlns:ui="sap.ui.table" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" displayBlock="true"
+	xmlns:t="sap.suite.ui.commons" xmlns:com="sap.suite.ui.commons" 
+	controllerName="com.ibs.ibsappidealclaimrequestcreation.controller.DetailPage"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <m:App> -->
+		<m:Page id="detailPageId" class="sapUiSizeCompact" showHeader="false">
+			<m:content>
+				<layout:DynamicSideContent id="DynamicSideContent" class="sapUiSizeCompact" sideContentFallDown="BelowM"
+					breakpointChanged="handleBreakpointChangeEvent" showSideContent="false">
+					<!--General Section-->
+					<ObjectPageLayout id="ObjectPageLayout" selectedSection="firstSection" enableLazyLoading="false" showEditHeaderButton="true"
+						editHeaderButtonPress="handleEditBtnPress" showTitleInHeaderContent="true">
+
+						<headerTitle>
+							<ObjectPageDynamicHeaderTitle>
+								<expandedHeading>
+									<m:Title text="Claim Request No : {cModel>/CR_NO}" wrapping="true"/>
+								</expandedHeading>
+								
+								<snappedHeading>
+									<m:FlexBox fitContainer="true" alignItems="Center">
+										<m:Title text="Claim Request No : {cModel>/CR_NO}" wrapping="true"/>
+									</m:FlexBox>
+								</snappedHeading>
+								<actions>
+
+                                    <!-- <m:Button text="{property>/Text}" press="onEdit" ></m:Button> -->
+						<m:Button text="View Events" press="handleEvents" type="Emphasized"></m:Button>
+						<m:Button id="idFullScreen" press="onFullScreen" icon="{appView>/icon}" type="Transparent" visible="true" />
+                        <!-- <Button press="onExitScreen" id="idExitScreen" icon="sap-icon://exit-full-screen" type="Transparent" visible="{ExitScreenButton}" /> -->
+						<m:Button icon="sap-icon://decline" type="Transparent" press="onExit" />
+								</actions>
+							</ObjectPageDynamicHeaderTitle>
+						</headerTitle>
+						<sections>
+
+						<!-- Section 1 Aniket-->
+							<ObjectPageSection title="Order Details" id="firstSection">
+								<subSections>
+									<ObjectPageSubSection>
+										<m:VBox>
+											<!-- <m:MessageStrip id="id_MessageStripQR" text="Please fill up the form by clicking on Edit button before approving" visible="false" showIcon="true" showCloseButton="true"></m:MessageStrip> -->
+											<f:SimpleForm id="simpleForm1" backgroundDesign="Solid" labelSpanXL="5" labelSpanL="5" labelSpanM="5"
+                                        adjustLabelSpan="false" columnsXL="4" columnsL="2" columnsM="2" layout="ResponsiveGridLayout">
+												
+												<f:content>
+                                            <core:Title/>
+												<!-- Claim From -->
+												<m:Label text="Claim From" design="Bold" required="false"/>
+												<m:Text text ="{cModel>/CLAIM_FROM}"/>
+
+                                                <!-- Claim To -->
+												<m:Label text="Claim To" design="Bold" required="false"/>
+												<m:Text text ="{cModel>/CLAIM_TO}"/>
+												
+												<core:Title/>
+												<!-- Creation Date -->
+												<m:Label text="Creation Date" design="Bold" required="false"/>
+												<m:Text text = "{path:'cModel>/CREATED_ON', formatter:'.formatter.formatDate'}"/>
+
+												<!-- Distributor Name-->
+												<m:Label text="Distributor Name" design="Bold" required="false"/>
+												<m:Text text ="Star Enterprize"/>
+
+												<!-- SAP Dist code-->
+												<m:Label id="sapId" text="SAP Document No" design="Bold" required="false" visible="false"/>
+												<m:Text text ="{cModel>/SAP_NO}"/>
+											</f:content>
+											</f:SimpleForm>
+
+										</m:VBox>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<ObjectPageSection title="Uploaded Files">
+								<subSections>
+									<ObjectPageSubSection id="uploadedFiles_Id" title="" class="sapUiTinyMarginTop">
+										<blocks>
+											<m:VBox>
+											<m:Table id="priceDifferentTable" items="{aModel>/}" class="sapUiSmallMarginBottom" autoPopinMode="true" contextualWidth="auto">
+											<m:columns>
+												<m:Column>
+													<m:Label text="File Type" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="File Name" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="Download" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="Action" design="Bold"/>
+												</m:Column>
+											</m:columns>
+
+											<m:items>
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F1} === 'X' ? true : false}">
+													<m:cells>
+													<m:Text text="Invoice"/>
+													<m:Text text="{aModel>FILE_NAME}"/>   
+													<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+													enabled="true"></m:Button>
+													<m:Button press="onDelete" type="Reject" enabled="false" tooltip="Delete" icon="sap-icon://delete"></m:Button>
+													</m:cells>
+												</m:ColumnListItem>
+											</m:items>
+										</m:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<ObjectPageSection title="Add Item">
+								<subSections>
+									<ObjectPageSubSection id="paymentInfo_Id" title="" class="sapUiTinyMarginTop">
+										<blocks>
+											<m:VBox>
+
+												<ui:Table id="invoiceTableId" rows="{cModel>/TO_ITEMS}"
+													visible="true" selectionMode="None"
+													ariaLabelledBy="title">
+													<ui:extension>
+													<!--Other Bank details Aniket-->
+														<m:OverflowToolbar style="Clear">
+															<m:Title text="Invoice Items"/>
+															<m:ToolbarSpacer/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+														<!-- INVOICE NUMBER -->
+														<ui:Column width="8rem" hAlign="Center"
+															visible="true">
+															<m:Label id="S2G2T1F1" text="Invoice Number" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{cModel>INVOICE_NO}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- ITEM CODE -->
+														<ui:Column width="7rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F2" text="Item Code" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{cModel>ITEM_CODE}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Description -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F3" text="Description" design="Bold"/>
+															<ui:template>
+																<m:Text text="{cModel>ITEM_DESC}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- INVOICE DATE-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F4"
+																text="Invoice Date" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'cModel>INVOICE_DATE'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Quantity-->
+														<ui:Column width="12rem" visible="true" hAlign="Right">
+															<m:Label id="S2G2T1F5" text="Invoice Quantity" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'cModel>INVOICE_QUANTITY', formatter : '.formatter.formatterAmount' }" textAlign="End"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Rate -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F6" text="Invoice Rate" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'cModel>INVOICE_RATE', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Requested Quantity-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="tableIbanId" text="Requested Quantity" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path : 'cModel>REQUESTED_QUANTITY', formatter : '.formatter.formatterAmount' }"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Requested Rate-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F8" text="Requested Rate" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'cModel>REQUESTED_RATE', formatter : '.formatter.formatterAmount' }"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Requested Amount -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F9_name" text="Requested Amount" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{path:'cModel>REQUESTED_AMOUNT', formatter : '.formatter.formatterAmount' }"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Action-->
+														<!-- <ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F12" text="Action" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F12} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text=""/>
+															</ui:template>
+														</ui:Column> -->
+													</ui:columns>
+												</ui:Table>
+
+											<m:Table id="idMTable" inset="false" items="{cModel>/TO_ITEMS}" sticky="ColumnHeaders,HeaderToolbar" class="sapUiContentPadding"
+						growing="true" growingThreshold="10" autoPopinMode="true" contextualWidth="Auto" fixedLayout="true" visible="false">
+						<m:OverflowToolbar style="Clear">
+							<m:Title text="Invoice Items"/>
+							<m:ToolbarSpacer/>
+						</m:OverflowToolbar>
+						<m:columns>
+							<m:Column hAlign="Left" width="9rem">
+								<m:Label id="MS2G2T1F1" text="Invoice Number" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Left" width="7rem">
+								<m:Label id="MS2G2T1F2" text="Item Code" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F3" text="Description" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F4" text="Invoice Date" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F5" text="Invoice Quantity" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F6" text="Invoice Rate" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MtableIbanId" text="Requested Quantity" design="Bold"/>
+							</m:Column>
+
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F8" text="Requested Rate" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F9_name" text="Requested Amount" design="Bold"/>
+							</m:Column>
+							
+						</m:columns>
+						<m:items>
+							<m:ColumnListItem type="Inactive">
+								<m:cells>	
+									<m:Text text="{cModel>INVOICE_NO}"/>
+									<m:Text text="{cModel>ITEM_CODE}"/>									
+									<m:Text text="{cModel>ITEM_DESC}"/>
+									<m:Text text="{path:'cModel>INVOICE_DATE', formatter:'.formatter.formatDate'}"/>
+									<m:Text text="{path:'cModel>INVOICE_QUANTITY', formatter : '.formatter.formatterAmount' }"/>
+									<m:Text text="{path:'cModel>INVOICE_RATE', formatter : '.formatter.formatterAmount'}"/>
+									<m:Text text="{path:'cModel>REQUESTED_QUANTITY', formatter : '.formatter.formatterAmount' }"/>
+									<m:Text text="{path:'cModel>REQUESTED_RATE', formatter : '.formatter.formatterAmount' }"/>
+									<m:Text text="{path:'cModel>REQUESTED_AMOUNT', formatter : '.formatter.formatterAmount' }"/>
+									</m:cells>
+							</m:ColumnListItem>
+						</m:items>
+					</m:Table>
+
+					
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<ObjectPageSection title="Reason For Claim" id="thirdSection"
+							visible="true">
+								<subSections>
+									
+									<ObjectPageSubSection id="reasonForClaim_Id" title="Reason For Claim">
+										<m:VBox>
+                                            	<m:TextArea maxLength="40" width="100%" editable="false" value="{cModel>/CLAIM_REASON}"/>
+										</m:VBox>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<ObjectPageSection title="Approval flow" id="processFlow" visible="true">
+								<subSections>
+									<ObjectPageSubSection title="Approval Flow" visible="true">
+										<!-- <m:Text text="Priya"/> -->
+										<m:Panel>
+										<!-- <m:HBox renderType="Bare"> -->
+			<m:Button text="Zoom In" press="onZoomIn" />
+			<m:Button text="Zoom Out" press="onZoomOut" />
+		<!-- </m:HBox> -->
+
+			<com:ProcessFlow
+			class="processFlow"
+			id="processflow1" 
+			scrollable="true"
+			foldedCorners="true"
+			nodePress="onNodePress"
+			wheelZoomable="false"
+			nodes="{comm>/}"
+			lanes="{comm>/}">
+			<com:nodes>
+				<!-- <com:ProcessFlowNode
+					laneId="0"
+					nodeId="1"
+					title="Created"
+					titleAbbreviation="OD 42 EVENTS"
+					children="2"
+					state="Positive"
+					stateText="Created Status"
+					texts="Created Request"
+					highlighted="true"
+					focused="true"/> -->
+
+				<com:ProcessFlowNode laneId="{comm>LANE_ID}" nodeId="{comm>NODE_ID}"
+				state="{path:'comm>EVENT_CODE', formatter : '.formatter.nodeStateFormat'}"
+				texts="{path:'comm>CREATION_DATE' , formatter : '.formatter.nodeTextFormat'}"
+				stateText="{comm>REMARK}"
+				title="{parts:[{path:'comm>USER_NAME'},{path:'comm>USER_ROLE'},{path:'comm>EVENT_CODE'}], formatter:'.formatter.nodeTitleFormat'}"
+				children="{comm>CHILDREN}"
+				highlighted="true" focused="true" visible="true">
+				<com:customData>
+                    <core:CustomData key="class" value="customNodeWidth" writeToDom="true"/>
+                </com:customData>
+				</com:ProcessFlowNode>
+			</com:nodes>
+
+			<com:lanes>
+				<com:ProcessFlowLaneHeader
+					laneId="{comm>LANE_ID}"
+					iconSrc="{path:'comm>EVENT_CODE', formatter : '.formatter.laneIconFormat'}"
+					text="{path:'comm>EVENT_CODE', formatter : '.formatter.laneTextFormat'}"
+					position="{comm>LANE_ID}" visible="true"/>
+			</com:lanes>
+
+		</com:ProcessFlow>
+		</m:Panel>
+		</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+						</sections>
+					</ObjectPageLayout>
+
+					<layout:sideContent>
+						<m:Toolbar>
+							<m:Title text="Events"/>
+							<m:ToolbarSpacer/>
+							<!-- <m:Button icon="sap-icon://refresh" type="Transparent" press="handleRefreshEvents"/> -->
+							<m:Button text="Close" type="Transparent" press="handleSideContentHide"/>
+						</m:Toolbar>
+						<!-- <m:FeedInput id="emailTextId" post="onPostMessage" showIcon="false" placeholder="Enter query here"/> -->
+						<layout:VerticalLayout width="100%">
+							<t:Timeline id="idTimeline" showHeaderBar="false" showSearch="false" showSort="false" sortOldestFirst="false" sort="false"
+								enableScroll="false" lazyLoading="false" growingThreshold="0"
+								content="{path : 'comm>/',sorter : { path : 'EVENT_NO',descending : true}}" showIcons="false"
+								noDataText="No Ticket Events are currently available" width="100%">
+								<t:content>
+									<t:TimelineItem id="idTemplateItem" userNameClickable="true"
+										text="Event : {comm>REMARK} {i18n>newLine} Comment : {comm>COMMENT}"
+										dateTime="{path:'comm>CREATION_DATE'}"
+										userName="{comm>USER_NAME}" title=": {comm>USER_ROLE}"/>
+								</t:content>
+							</t:Timeline>
+						</layout:VerticalLayout>
+					</layout:sideContent>
+
+				</layout:DynamicSideContent>
+				</m:content>
+				</m:Page>
+</mvc:View>

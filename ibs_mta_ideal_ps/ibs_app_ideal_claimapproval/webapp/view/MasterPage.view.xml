@@ -1,0 +1,65 @@
+<mvc:View controllerName="com.ibs.ibsappidealclaimapproval.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+     <Page class="sapUiSizeCompact" showHeader="false">
+				<content>
+					<Table id="idClaimTable" sticky="ColumnHeaders,HeaderToolbar" inset="false"
+						items="{path : 'cModel>/value',sorter : { path : 'CR_NO',descending : true}}" class="sapUiContentPadding" growing="true"
+						growingThreshold="30" autoPopinMode="true" fixedLayout="true">
+						<headerToolbar>
+							<OverflowToolbar>
+								<SearchField id="onSearchMasterData" width="30%" showRefreshButton="false" placeholder="Enter Claim Request Number" liveChange="onSearch" class="sapUiSmallMargin"/>
+								<content>
+									<ToolbarSpacer/>
+									<!-- <Button id="report" text ="Report" press="onReport" type="Default"/> -->
+									<Button id="sort" icon="sap-icon://sort" press="onSort" type="Default"/>
+									<Button id="filter" icon="sap-icon://filter" press="onFilter" type="Default"/>
+									<Button icon="sap-icon://refresh" press="onResetFilter" type="Default"/>
+								</content>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Center">
+								<Label text="Claim Request No" design="Bold" wrapping="true"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="Distributor Name" design="Bold"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="Claim Type" design="Bold"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="Claim From" design="Bold" wrapping="true"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="Claim To" design="Bold"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="Creation Date" design="Bold"/>
+							</Column>
+							
+							<Column hAlign="Center">
+								<Label text="Status" design="Bold"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Navigation" press="onPress">
+								<cells>
+									<!--<Label wrapping="true" text="{onBoarding>OBR_NO}" design="Bold"/>-->
+									<Text text="{cModel>CR_NO}"/>
+									<Text text="{cModel>DISTRIBUTOR_NAME}"/>
+									<Text text="{path:'cModel>CLAIM_TYPE', formatter:'.formatter.claimDesc'}"/>
+									<Text text="{path:'cModel>CLAIM_FROM', formatter:'.formatter.formatDate'}"/>
+									<Text text="{path:'cModel>CLAIM_TO', formatter:'.formatter.formatDate'}"/>
+									<Text text="{path:'cModel>CREATED_ON', formatter:'.formatter.formatDate'}"></Text>
+									<!-- <Text text="{path:'cModel>TO_STATUS/DESC'}"></Text> -->
+									<ObjectStatus text="{cModel>TO_STATUS/DESC}" inverted="false"
+										state="{path:'cModel>STATUS', formatter:'.formatter.getStatus'}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+
+</mvc:View>

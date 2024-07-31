@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ViewSettingsDialog title="Sort" sortDescending="true" groupDescending="false" 
+	confirm="handleConfirm" class="sapUiSizeCompact">
+		<sortItems>
+			<ViewSettingsItem text="RGA Request No." key="RGA_NO" selected="true"/>
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

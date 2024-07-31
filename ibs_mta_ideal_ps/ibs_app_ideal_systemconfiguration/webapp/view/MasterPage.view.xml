@@ -1,0 +1,764 @@
+<mvc:View controllerName="com.ibs.ibsappidealsystemconfiguration.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:u="sap.ui.unified"
+    xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:fc="sap.f" 
+    xmlns:card="sap.f.cards" xmlns:grid="sap.ui.layout.cssgrid" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data">
+    <!-- <Page id="page" title="{i18n>title}">
+        <content />
+    </Page> -->
+    <App>
+        <pages>
+            <Page id="idPage" class="sapUiSizeCompact" showFooter="false" showHeader="false">
+                <content>
+                    <IconTabBar id="idIconTabBar" select="onFilterSelect" class="sapUiResponsiveContentPadding">
+                        <items>
+                            <IconTabFilter showAll="true" count="" text="{i18n>admin}" key="Admin">
+                                <fc:GridList class="sapUiSmallMargin" id="idGridList">
+                                    <fc:customLayout>
+                                        <grid:GridBoxLayout boxWidth="22.5rem"/>
+                                    </fc:customLayout>
+
+                                    <fc:GridListItem>
+                                        <HBox justifyContent="SpaceBetween">
+                                            <layoutData>
+                                                <FlexItemData growFactor="1" shrinkFactor="0"/>
+                                            </layoutData>
+                                            <HBox>
+                                                <VBox class="sapUiSmallMargin" width="14rem">
+                                                    <Title text="All Masters" wrapping="true"/>
+                                                    <Label text="Count of all tables to maintain" wrapping="true" 
+                                                        class="sapUiTinyMarginBottom"/>
+                                                </VBox>
+                                                <NumericContent truncateValueTo="10" value="{dashBdModel>/value/0/ALL_MASTER_TABLES_COUNT}" valueColor="Good" withMargin="false"/>
+                                            </HBox>
+                                        </HBox>
+                                    </fc:GridListItem>
+
+                                    <fc:GridListItem>
+                                        <HBox justifyContent="SpaceBetween">
+                                            <layoutData>
+                                                <FlexItemData growFactor="1" shrinkFactor="0"/>
+                                            </layoutData>
+                                            <HBox>
+                                                <VBox class="sapUiSmallMargin masterVBox" width="12rem">
+                                                    <Title text="Master Tables" wrapping="true"/>
+                                                    <!-- <Text text=""/> -->
+                                                    <Label text="Count of all Master Tables with data" wrapping="true" 
+                                                        class="sapUiTinyMarginBottom"/>
+                                                </VBox>
+                                                <VBox>
+                                                <NumericContent truncateValueTo="15" value="{dashBdModel>/value/0/TOTAL_NO_OF_MASTERS/FILLED} / {dashBdModel>/value/0/TOTAL_NO_OF_MASTERS/TOTAL}"
+                                                    valueColor="Good" withMargin="false"/>
+                                                </VBox>
+                                            </HBox>
+                                        </HBox>
+                                    </fc:GridListItem>
+
+                                    <fc:GridListItem>
+                                        <HBox justifyContent="SpaceBetween">
+                                            <layoutData>
+                                                <FlexItemData growFactor="1" shrinkFactor="0"/>
+                                            </layoutData>
+                                            <HBox>
+                                                <VBox class="sapUiSmallMargin configVBox" width="14rem">
+                                                    <Title text="Configuration Tables" wrapping="true"/>
+                                                    <Label text="Count of all Config Tables with data" wrapping="true" 
+                                                        class="sapUiTinyMarginBottom"/>
+                                                </VBox>
+                                                <NumericContent truncateValueTo="10" value="{dashBdModel>/value/0/TOTAL_NO_OF_CONFIGS/FILLED} / {dashBdModel>/value/0/TOTAL_NO_OF_CONFIGS/TOTAL}"
+                                                    valueColor="Good" withMargin="false"/>
+                                            </HBox>
+                                        </HBox>
+                                    </fc:GridListItem>
+                                </fc:GridList>
+
+                                <fc:GridList class="sapUiSmallMargin" id="gridList2">
+                                    <fc:customLayout>
+                                        <grid:GridBoxLayout boxWidth="91%"/>
+                                    </fc:customLayout>
+
+                                    <fc:GridListItem>
+                                        <l:FixFlex id='chartFixFlex' minFlexSize="300">
+                                            <l:flexContent>
+                                                <viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" 
+                                                vizType='bar' vizProperties="{plotArea: {dataLabel: { visible: 'true', showTotal:true}},title:{ text:'Records in Masters'}}">
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset data="{chartModel_Master>/}">
+                                                            <viz.data:dimensions>
+                                                                <viz.data:DimensionDefinition name="Master Table" value="{chartModel_Master>VALUE}"/>
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                <viz.data:MeasureDefinition name="Row Count" value="{chartModel_Master>COUNT}"/>
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Row Count"/>
+                                                        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Master Table"/>
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </l:flexContent>
+                                        </l:FixFlex>
+                                    </fc:GridListItem>
+
+                                    <fc:GridListItem>
+                                        <l:FixFlex id='chartFixFlex2' minFlexSize="300">
+                                            <l:flexContent>
+                                                <viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}" height='100%' width="100%" vizType='donut'
+                                                        vizProperties="{plotArea: { colorPalette: ['#107e3e','#d2691e'], 
+                                                        dataLabel: { visible: 'true', showTotal:true}}, tooltip: {visible: true}, 
+                                                        title:{ text: 'Percentage of config completion'}}">
+                                                    <viz:dataset>
+                                                        <viz.data:FlattenedDataset data="{chartModel_Config>/}">
+                                                            <viz.data:dimensions>
+                                                                <viz.data:DimensionDefinition name="Master Table" value="{chartModel_Config>VALUE}"/>
+                                                            </viz.data:dimensions>
+                                                            <viz.data:measures>
+                                                                <viz.data:MeasureDefinition name="Row Count" value="{chartModel_Config>COUNT}"/>
+                                                            </viz.data:measures>
+                                                        </viz.data:FlattenedDataset>
+                                                    </viz:dataset>
+                                                    <viz:feeds>
+                                                        <viz.feeds:FeedItem uid="size" type="Measure" values="Row Count"/>
+                                                        <viz.feeds:FeedItem uid="color" type="Dimension" values="Master Table"/>
+                                                    </viz:feeds>
+                                                </viz:VizFrame>
+                                            </l:flexContent>
+                                        </l:FixFlex>
+                                    </fc:GridListItem>
+                                </fc:GridList>
+                            </IconTabFilter>
+
+                            <IconTabSeparator/>
+
+                            <IconTabFilter icon="sap-icon://key-user-settings" iconColor="Default" 
+                                count="{/ProductCollectionStats/Counts/Weight/Ok}" text="{i18n>masters}" key="Masters">
+                                <fb:FilterBar id="idFilterBar" class="sapUiTinyMarginBottom" hSpacing="2rem" visible="true" clear="onReset1" search="onChange1"
+                                    showRestoreButton="true" showRestoreOnFB="false" filterContainerWidth="18rem" showClearButton="false" filterBarExpanded="true"
+                                    showGoOnFB="false" showFilterConfiguration="false">
+                                    <fb:filterItems>
+                                        <fb:FilterItem id="idMasterTblFilter" visible="true" name="A" label="{i18n>mastersTableList}">
+                                            <fb:control>
+                                                <Input id="idMasterTableInp" placeholder="Select Master Table List" showSuggestion="true" showValueHelp="true"
+                                                    valueHelpRequest="onValueHelpRequest"></Input>
+                                            </fb:control>
+                                        </fb:FilterItem>
+                                        <fb:FilterItem name="F" label="{i18n>refresh}">
+                                            <fb:control>
+                                                <HBox>
+                                                    <Button id="idMasterRefresh" press="onResetMasterTab" icon="sap-icon://refresh" type="Transparent" visible="true"/>
+                                                </HBox>
+                                            </fb:control>
+                                        </fb:FilterItem>
+                                    </fb:filterItems>
+                                </fb:FilterBar>
+
+                                <Table id="idMasterTable" width="auto" growing="true" sticky="HeaderToolbar,ColumnHeaders" noDataText="No Data"
+                                growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin" visible="false">
+                                    <headerToolbar>
+                                        <OverflowToolbar id="idMasterTableOvrFTlbr" visible="false">
+                                            <Title id="idTotalItemsTtl"/>
+                                            <ToolbarSpacer></ToolbarSpacer>
+                                            <SearchField id="idMasterSrchFld" width="30%" placeholder="Search by Primary Key" showRefreshButton="false" liveChange="onSearchMasterTable"/>
+                                            <Button icon="sap-icon://add" type="Emphasized" press="onAdd"></Button>
+                                            <Button icon="sap-icon://upload" type="Emphasized" text="Upload" press="onUploadOption"></Button>
+                                            <Button icon="sap-icon://excel-attachment" tooltip="Download as Excel Attachment" type="Ghost" press="onDownload"></Button>
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                </Table>
+                            </IconTabFilter>
+
+                            <IconTabFilter icon="sap-icon://switch-classes" iconColor="Default" 
+                                count="{/ProductCollectionStats/Counts/Weight/Heavy}" text="{i18n>clientInform}" key="ClientInfo">
+                                <ProgressIndicator class="sapUiSmallMarginBottom" percentValue="{progressBarModel>/PERCENT_OF_FILEDS_COMPLETE}"
+                                    displayValue="{progressBarModel>/COMPLETED_CONFIG_FIELDS_COUNT} of {progressBarModel>/ALL_CONFIG_FIELDS_COUNT}" showValue="true"
+                                    state="{progressBarModel>/SUCCESS_STATE}"/>
+                                
+                                <OverflowToolbar>
+                                    <ToolbarSpacer/>
+                                    <!-- <Button icon="sap-icon://email" type="Emphasized" text="Test Email" iconFirst="true" press="handleTestMail" id="idTestEmail"></Button> -->
+                                    <ToggleButton id="idEditOrgInfo" text="Edit" type="Emphasized" enabled="true" pressed="false" press="handleEditPress"/>
+                                </OverflowToolbar>
+
+                                <f:SimpleForm id="idOrgSimpleFrm" editable="true" layout="ResponsiveGridLayout" title="{i18n>clientInfo}" labelSpanXL="1" labelSpanM="2"
+                                    labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="1" columnsL="1" columnsXL="3" singleContainerFullSize="false">
+                                        <f:content>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>clientFullName}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/clientinfo/CLIENT_FULL_NAME}" editable="false" id="idClientFullNameInp"/>
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>clientShortName}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/clientinfo/CLIENT_SHORT_NAME}" editable="false" id="idClientShrtNameInp" />
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>clientCountry}" design="Bold" required="true"/>
+                                                <Input id="idCountryInp" placeholder="Select Country" value="{blankJson>/clientinfo/CLIENT_COUNTRY_DESC}" showSuggestion="true"
+                                                    showValueHelp="true" valueHelpRequest="onValueHelpCountry"></Input>
+                                            </l:VerticalLayout>
+                                        </f:content>
+                                </f:SimpleForm>
+
+                                <f:SimpleForm id="idEmailSimpleForm" editable="true" layout="ResponsiveGridLayout" title="{i18n>emailInfo}" labelSpanXL="1" labelSpanM="2"
+                                    labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="1" columnsL="1" columnsXL="3" singleContainerFullSize="false">
+                                        <f:content>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>senderId}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/clientinfo/EMAIL_NOTIF_1}" editable="false" id="idSenderIdInp" change="_validateEmail"/>
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>contactId}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/clientinfo/CONTACT_ID_1}" editable="false" id="idContactIdInp" change="_validateEmail"/>
+                                            </l:VerticalLayout>
+
+                                             <l:VerticalLayout>
+                                                <Label text="CC Email" design="Bold" required="true"/>
+                                                <!-- <Input value="{blankJson>/clientinfo/CONTACT_ID_1}" editable="false" id="" change="_validateEmail"/> -->
+                                                <MultiInput id="idCcEmail" textDirection="LTR" valueHelpRequest="onTokenFrag" tokenUpdate="onTokenUpdate"
+                                                 showSuggestion="false" showValueHelp="false" valueLiveUpdate="true" type="Email"/>
+                                            </l:VerticalLayout>
+                                        </f:content>
+                                </f:SimpleForm>
+                            </IconTabFilter>
+
+                            <IconTabFilter icon="sap-icon://sap-logo-shape" iconColor="Default" count="{/ProductCollectionStats/Counts/Weight/Overweight}"
+                                text="{i18n>sapConfig}" key="SapConfig" id="Sapconfig">
+                                <ProgressIndicator class="sapUiSmallMarginBottom" percentValue="{progressBarModel>/PERCENT_OF_FILEDS_COMPLETE}"
+                                    displayValue="{progressBarModel>/COMPLETED_CONFIG_FIELDS_COUNT} of {progressBarModel>/ALL_CONFIG_FIELDS_COUNT}" showValue="true"
+                                    state="{progressBarModel>/SUCCESS_STATE}"/>
+
+                                <OverflowToolbar>
+                                    <ToolbarSpacer/>
+                                    <Button icon="sap-icon://connected" type="Emphasized" text="Test Connection" iconFirst="true" press="onTestHANAConnection"
+                                        id="idErpDestConnectBtn"></Button>
+                                    <ToggleButton id="idEditSapConfig" text="Edit" type="Emphasized" enabled="true" pressed="false" press="handleEditPress2"/>
+                                </OverflowToolbar>
+
+                                <f:SimpleForm id="idSimpleFormErpDest" editable="true" layout="ResponsiveGridLayout" title="{i18n>sapErpDest}" labelSpanXL="1"
+                                    labelSpanM="2" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="1" columnsL="1" columnsXL="3"
+                                    singleContainerFullSize="false">
+                                        <f:content>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>clientSystem}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/sapinfo/CLIENT}" editable="false" id="idClientSystInp" change="_numberValidation"/>
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>destinationFileName}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/sapinfo/DESTINTAION}" editable="false" id="idDestFileNmInp"/>
+                                            </l:VerticalLayout>
+                                        </f:content>
+                                </f:SimpleForm>
+
+                                <f:SimpleForm id="idSimpleFormSubAccInfo" editable="true" layout="ResponsiveGridLayout" title="{i18n>subaccountInfo}" labelSpanXL="1"
+                                    labelSpanM="2" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="1" columnsL="1" columnsXL="3"
+                                    singleContainerFullSize="false">
+                                        <f:content>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>subaccountName}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/subaccinfo/SUBACCOUNT}" editable="false" id="idSubAccountNameInp"/>
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>portalLink}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/subaccinfo/PORTAL_LINK}" editable="false" id="idPortalLinkInp"/>
+                                            </l:VerticalLayout>
+                                        </f:content>
+                                </f:SimpleForm>
+                            </IconTabFilter>
+<!-- 
+                            <IconTabFilter icon="sap-icon://sap-box" iconColor="Default" count="{/ProductCollectionStats/Counts/Weight/Overweight}"
+                                text="{i18n>openText}" key="OpenText">
+                                <ProgressIndicator class="sapUiSmallMarginBottom" percentValue="{progressBarModel>/PERCENT_OF_FILEDS_COMPLETE}"
+                                    displayValue="{progressBarModel>/COMPLETED_CONFIG_FIELDS_COUNT} of {progressBarModel>/ALL_CONFIG_FIELDS_COUNT}" showValue="true"
+                                    state="{progressBarModel>/SUCCESS_STATE}"/>
+
+                                <OverflowToolbar>
+                                    <ToolbarSpacer/>
+                                    <Button icon="sap-icon://connected" type="Emphasized" text="Test Connection" iconFirst="true" press="onTestConnection"
+                                        id="idOpenTextConnectBtn"></Button>
+                                    <ToggleButton id="idEditOpenTxtInfo" text="Edit" type="Emphasized" enabled="true" pressed="false" press="handleEditPress3"/>
+                                </OverflowToolbar>
+
+                                <f:SimpleForm id="idSimpleFormOpenTxtInfo" editable="true" layout="ResponsiveGridLayout" title="{i18n>openTextInfo}" labelSpanXL="1"
+                                    labelSpanM="2" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="1" columnsL="1" columnsXL="3"
+                                    singleContainerFullSize="false">
+                                        <f:content>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>username}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/mastercredinfo/USERNAME}" id="idUsernameInp" editable="false"/>
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>password}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/mastercredinfo/PASSWORD}" type="Password" id="idPasswordInp" editable="false" showValueHelp="true"
+                                                    valueHelpIconSrc="sap-icon://show" valueHelpRequest="onViewPassword"/>
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                <Label text="{i18n>ivenFolderId}" design="Bold" required="true"/>
+                                                <Input value="{blankJson>/mastercredinfo/ADD_INFO1}" editable="false" id="idFolderIdInp"/>
+                                            </l:VerticalLayout>
+                                        </f:content>
+                                </f:SimpleForm>
+
+                                <f:SimpleForm id="idSimpleFormVendorFolder" editable="true" layout="ResponsiveGridLayout" title="Vendor Folder Id's" labelSpanXL="1"
+                                        labelSpanM="2" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="3" columnsL="3" columnsXL="3"
+                                        singleContainerFullSize="false">
+                                </f:SimpleForm>
+
+                                <Table id="idVendorFolderTbl" inset="false" noDataText="No available data" sticky="HeaderToolbar,ColumnHeaders" growingThreshold="100"
+                                    growing="true" growingScrollToLoad="true" items="{path : 'otextdata>/results', sorter: { path: 'IVEN_VENDOR_CODE' } }"
+                                    selectionChange="onSelectionChange">
+                                        <headerToolbar>
+                                            <OverflowToolbar id="masterOverToolId2" visible="true">
+                                                <Title id="idTotalItemsVendrFoldr"/>
+                                                <ToolbarSpacer></ToolbarSpacer>
+                                                <SearchField id="idOpenTxtSrchFld" width="20%" showMagnifier="false" showRefreshButton="false" placeholder="Search by Iven Code"
+                                                    liveChange="onFilOpenTextTable"/>
+                                                <Button id="IdRefreshOpenText" press="onResetOpenTextTable" icon="sap-icon://refresh" type="Transparent"/>
+                                            </OverflowToolbar>
+                                        </headerToolbar>
+                                        <columns>
+                                            <Column mergeDuplicates="true" hAlign="Center"><Label text="Iven Vendor Code" design="Bold" wrapping="true"/></Column>
+                                            <Column hAlign="Center"><Label text="SAP Vendor Code" design="Bold" wrapping="true"/></Column>
+                                            <Column demandPopin="true" hAlign="Center"><Label text="Parent Folder Id" design="Bold" wrapping="true"/></Column>
+                                            <Column demandPopin="true" hAlign="Center"><Label text="Active Folder Id" design="Bold" wrapping="true"/></Column>
+                                            <Column demandPopin="true" hAlign="Center"><Label text="De-active Folder Id" design="Bold" wrapping="true"/></Column>
+                                            <Column demandPopin="true" hAlign="Center"><Label text="Action" design="Bold" wrapping="true"/></Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <Text text="{otextdata>IVEN_VENDOR_CODE}"/>
+                                                    <Text text="{otextdata>SAP_VENDOR_CODE}"/>
+                                                    <Text text="{otextdata>OT_PARENT_ID}"/>
+                                                    <Text text="{otextdata>OT_FOLDER1_ID}"/>
+                                                    <Text text="{otextdata>OT_FOLDER2_ID}"/>
+                                                    <core:Icon press="openTextUpdate" color="blue" tooltip="Update" src="sap-icon://edit"></core:Icon>
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                </Table>
+                            </IconTabFilter> -->
+
+                            <IconTabFilter icon="sap-icon://attachment" iconColor="Default" count="{/ProductCollectionStats/Counts/Weight/Overweight}"
+                                text="Attachments" key="Attachments">
+
+                                <OverflowToolbar>
+                                    <ToolbarSpacer/>
+                                    <ToggleButton id="idEditAttachInfo" text="Edit" type="Emphasized" enabled="true" pressed="false" press="handleEditPress5"/>
+                                </OverflowToolbar>
+
+                                <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="1"
+                                    labelSpanM="2" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="1" columnsL="1" columnsXL="3"
+                                    singleContainerFullSize="false"
+                                    title="Attachments URL">
+                                    <f:content>
+                                        <l:VerticalLayout>
+                                            <l:HorizontalLayout >
+                                                <Label text="{blankJson>/attchinfo/EnableUserManualViaURL/0/DESCRIPTION}" id="idVAT_lbl" design="Bold" class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginTop setFontVatSize"/>
+                                                <Switch id="idVisibilitySwitchform" customTextOn="Yes" customTextOff="No" state="{= ${blankJson>/attchinfo/EnableUserManualViaURL/0/SETTING}==='X'? true : false}" change="onSwitchChange"/>
+                                            </l:HorizontalLayout>
+                                        </l:VerticalLayout>
+                                        <l:VerticalLayout>
+                                            <l:HorizontalLayout >
+                                                <Label id="idPortalHelpLinkLabel" text="Portal Help Link : " design="Bold" required="true" class="sapUiSmallMarginEnd sapUiTinyMarginTop setFontVatSize"/>
+                                                <Input id="idPortalHelpLink" value="{blankJson>/attchinfo/UserManualURL/0/SETTING}" editable="false" width="250%" change="onPortalHelpLinkChange"/>
+                                            </l:HorizontalLayout>
+                                        </l:VerticalLayout>
+                                    </f:content>
+                                </f:SimpleForm>
+
+                                <f:SimpleForm id="idSimpleFormAttachmnts" editable="true" layout="ResponsiveGridLayout" title="iDeal Attachments" labelSpanXL="1"
+                                    labelSpanM="2" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="3" columnsL="3" columnsXL="3"
+                                    singleContainerFullSize="false">
+                                </f:SimpleForm>
+
+                                <OverflowToolbar id="idAttachmntsOvFlTbr" visible="true">
+                                    <Title id="idTotalItemsAttachmnt" title="{${ndaAttachment>/value}.length}"/>
+                                    <ToolbarSpacer></ToolbarSpacer>
+                                    <SearchField id="idAttachmntSrchFld" width="20%" liveChange="onFilterAttach" showRefreshButton="false" placeholder="Search by File Name"></SearchField>
+                                    <Button icon="sap-icon://add" type="Emphasized" press="onAddAttachment" id="idAddAttchmentBtn"></Button>
+                                    <Button id="idRefreshAttachmt" press="onResetAttachmentTable" icon="sap-icon://refresh" type="Transparent"/>
+                                </OverflowToolbar>
+
+                                <Table id="idAttachmntTable" inset="true" autoPopinMode="true" fixedLayout="true" noDataText="No available data" items="{path : 'ndaAttachment>/value', sorter: { path: 'SR_NO' } }"
+                                    selectionChange="onSelectionChange">
+                                        <columns>
+                                            <Column mergeDuplicates="true" width="6rem" hAlign="Center"><Label id="idSrNoLbl" text="Sr No" design="Bold" wrapping="true"/></Column>
+                                            <Column demandPopin="true" width="6rem" hAlign="Center"><Label text="Entity Code" design="Bold" wrapping="true"/></Column>
+                                            <Column demandPopin="true" hAlign="Center"><Label text="Description" design="Bold" wrapping="true"/></Column>
+                                            <Column demandPopin="true" width="12rem" hAlign="Center"><Label text="Attach Subtype" design="Bold" wrapping="true"/></Column>
+                                            <Column demandPopin="true" id="idFileNameClm" hAlign="Center"><Label text="File Name" design="Bold" wrapping="true"/></Column>
+                                            <Column demandPopin="true" width="10rem" hAlign="Center"><Label text="Uploaded on" design="Bold" wrapping="true"/></Column>
+                                            <Column id="idActionsAttClm" width="8rem" demandPopin="true"><Label id="idActionsAttLbl" text="Actions" design="Bold" wrapping="true"/></Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <Text text="{ndaAttachment>SR_NO}"/>
+                                                    <Text text="{ parts: [{path: 'ndaAttachment>ENTITY_CODE'} ], formatter : '.formatter.description' }"/>
+                                                    <Text text="{ parts: [{path: 'ndaAttachment>ATTACH_DESC'} ], formatter : '.formatter.description' }"/>
+                                                    <Text text="{ parts: [{path: 'ndaAttachment>ATTACH_TYPE_DESC'} ], formatter : '.formatter.description' }"/>
+                                                    <Text text="{ parts: [{path: 'ndaAttachment>FILE_NAME'} ], formatter : '.formatter.description' }"/>
+                                                    <Text text="{ parts: [{path: 'ndaAttachment>UPLOADED_ON'} ], formatter : '.formatter.formatDate' }"/>
+                                                    <HBox>
+                                                        <Button id="idDownloadAttBtn" press="onDownloadAttachDialog" type="Transparent" tooltip="Download" icon="sap-icon://download"
+                                                            class="sapUiSmallMarginEnd"></Button>
+                                                        <Button id="idEditAttBtn" press="openAttachmentDialog" type="Transparent" tooltip="Update" icon="sap-icon://edit" class="sapUiSmallMarginEnd"></Button>
+                                                        <Button id="idDeleteAttBtn" press="onDeletetbld" type="Transparent" tooltip="Delete" icon="sap-icon://delete"></Button>
+                                                    </HBox>
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                </Table>
+                            </IconTabFilter>
+
+                            <IconTabFilter icon="sap-icon://form" iconColor="Default" 
+                                count="{/ProductCollectionStats/Counts/Weight/Overweight}" text="Form Fields" key="FormField">
+                                <OverflowToolbar>
+                                    <ToolbarSpacer/>
+                                    <Button text="Outboud Payload" type="Emphasized" id="idOutboudPayloadBtn" press="onPressOutboudPayload" icon="sap-icon://offsite-work"/>
+                                    <Button text="Form Settings" type="Emphasized" id="idFromsetting" press="onFormsetting" icon="sap-icon://action-settings"/>
+                                </OverflowToolbar>
+
+                                <f:SimpleForm id="idFormTabSimpleForm" editable="true" layout="ResponsiveGridLayout" title="Registration Form Fields" labelSpanXL="1"
+                                        labelSpanM="2" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="3" columnsL="3" columnsXL="3"
+                                        singleContainerFullSize="false">
+                                </f:SimpleForm>
+
+                                <fb:FilterBar id="idFilterBar2" class="sapUiTinyMarginBottom" hSpacing="2rem" visible="true" clear="onReset2" search="onChange2"
+                                    showRestoreButton="true" showRestoreOnFB="false" filterContainerWidth="18rem" showClearButton="false" filterBarExpanded="true"
+                                    showGoOnFB="false" showFilterConfiguration="false">
+                                    <fb:filterItems>
+                                        <fb:FilterItem id="idMasterTblFilter2" visible="true" name="A" label="{i18n>requestType}">
+                                            <fb:control>
+                                                <Input width="20%" id="idFormInp" placeholder="Select Request Type" showSuggestion="true" showValueHelp="true"
+                                                    valueHelpRequest=".onValueHelpRequestForm"></Input>
+                                            </fb:control>
+                                        </fb:FilterItem>
+                                        <fb:FilterItem id="idMasterTblFilter3" visible="true" name="B" label="{i18n>entityCode}">
+                                            <fb:control>
+                                                <Input width="20%" id="idFormEntityInp" placeholder="Select Entity" showSuggestion="true" showValueHelp="true"
+                                                    valueHelpRequest=".onValueHelpEntityForm"></Input>
+                                            </fb:control>
+                                        </fb:FilterItem>
+                                        <fb:FilterItem name="C" label="{i18n>submitRefresh}">
+                                            <fb:control>
+                                                <HBox>
+                                                    <Button text="Go" press="onSelectGo" type="Emphasized"/>
+                                                    <Button id="idRefreshForm" press="onResetFormTable" icon="sap-icon://refresh" type="Transparent"/>
+                                                </HBox>
+                                            </fb:control>
+                                        </fb:FilterItem>
+                                    </fb:filterItems>
+                                </fb:FilterBar>
+
+                                <Table id="idFormTable" autoPopinMode="true" fixedLayout="true" inset="true" noDataText="No data available" sticky="HeaderToolbar,ColumnHeaders" items="{tbldata>/value/0/DATA}"
+                                    growingThreshold="100" growing="true" growingScrollToLoad="true" selectionChange="onSelectionChange">
+                                    <headerToolbar>
+                                        <OverflowToolbar id="idFormOvFlTbr1" visible="true">
+                                            <Title id="idTotalItemsFormTable"/>
+                                            <ToolbarSpacer></ToolbarSpacer>
+                                            <SearchField id="idFormSrchFld" width="30%" liveChange="onSearchForm" showRefreshButton="false" placeholder="Search by Section, Field ID or Description"></SearchField>
+                                            <Button type="Emphasized" press="onAddTable" icon="sap-icon://add" />
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column mergeDuplicates="true" hAlign="Center"><Label text="Sr no" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" hAlign="Center"><Label text="Section / Category" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" hAlign="Center"><Label text="Field ID" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" hAlign="Center"><Label text="Description" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" hAlign="Center"><Label text="Visibility" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" hAlign="Center"><Label text="Mandatory" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" hAlign="Center"><Label text="Action" design="Bold" wrapping="true"/></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{tbldata>SRNO}"/>
+                                                <ObjectIdentifier title="{tbldata>SECTION}" text="{tbldata>CATEGORY}"/>
+                                                <Text text="{tbldata>FIELDS}"/>
+                                                <Text text="{tbldata>DESCRIPTION}"/>
+                                                <ObjectStatus text="{parts: [{path: 'tbldata>VISIBILITY'}], formatter : '.formatter.formVisibility'}"
+                                                    state="{parts: [{path: 'tbldata>VISIBILITY'}], formatter : '.formatter.objectStatusState'}"/>
+                                                <ObjectStatus text="{parts: [{path: 'tbldata>MANDATORY'}], formatter : '.formatter.formVisibility'}"
+                                                    state="{parts: [{path: 'tbldata>MANDATORY'}], formatter : '.formatter.objectStatusState'}"/>
+                                                <Button icon="sap-icon://edit" type="Transparent" press="EditFormBtn"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </IconTabFilter>
+
+                            <IconTabFilter icon="sap-icon://error" iconColor="Default" visible="false"
+                                count="{/ProductCollectionStats/Counts/Weight/Overweight}" text="Error Log" key="Attachments">
+                                <f:SimpleForm id="idSimpleFormAttachmntslog" editable="true" layout="ResponsiveGridLayout" title="iDeal Error Log" labelSpanXL="1"
+                                        labelSpanM="2" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="3" columnsL="3" columnsXL="3"
+                                        singleContainerFullSize="false">
+                                </f:SimpleForm>
+
+                                <fb:FilterBar id="idFilterBar22" class="sapUiTinyMarginBottom" hSpacing="2rem" visible="true" clear="onReset2" search="onChange2"
+                                    showRestoreButton="true" showRestoreOnFB="false" filterContainerWidth="18rem" showClearButton="false" filterBarExpanded="true"
+                                    showGoOnFB="false" showFilterConfiguration="false">
+                                    <fb:filterItems>
+                                        <fb:FilterItem id="idMasterTblFilter222" visible="true" name="A" label="Creation Date">
+                                            <fb:control>
+                                                <DateRangeSelection id="DP1" change="onDatePickerChange" editable="true"/>
+                                            </fb:control>
+                                        </fb:FilterItem>
+                                        <fb:FilterItem name="C" label="{i18n>submitRefresh}">
+                                            <fb:control>
+                                                <HBox>
+                                                    <Button text="Go" press="onSelectGo1" type="Emphasized"/>
+                                                    <Button id="refresh" press="handleRefreshlog" icon="sap-icon://refresh" type="Transparent" visible="true"/>
+                                                </HBox>
+                                            </fb:control>
+                                        </fb:FilterItem>
+                                    </fb:filterItems>
+                                </fb:FilterBar>
+
+                                <Table id="idErrorlog" inset="true" noDataText="No available data"
+                                    items="{path: 'ErrorLog>/value', sorter: { path: 'LOG_ID', descending:true }}" selectionChange="onSelectionChange1"
+                                    sticky="HeaderToolbar,ColumnHeaders" growing="true" growingThreshold="50">
+                                    <headerToolbar>
+                                        <OverflowToolbar id="idOverflowerror" visible="true">
+                                            <Title id="iderrorhead"/>
+                                            <ToolbarSpacer></ToolbarSpacer>
+                                            <SearchField id="idErrorSrchFld" width="33%" showMagnifier="false" showRefreshButton="false"
+                                                placeholder="Search by Log ID, Req No, Error Code, App Name" liveChange="onFilErrorTable"/>
+                                            <!-- <Button icon="sap-icon://excel-attachment" press="onExport" type="Emphasized"></Button> -->
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column demandPopin="true" width="11rem" hAlign="Center"><Label text="Log ID" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" hAlign="Center" width="8rem"><Label text="Request No." design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" width="4rem" hAlign="Center"><Label text="Error Code" design="Bold" wrapping="true"/></Column>
+                                        <Column demandPopin="true" hAlign="Left"><Label text="Error Description" design="Bold" wrapping="true"/></Column>
+                                        <Column width="13rem" demandPopin="true" hAlign="Center"><Label text="User ID" design="Bold" wrapping="true"/></Column>
+                                        <Column width="10rem" demandPopin="true" hAlign="Center"><Label text="App Name and Type" design="Bold" wrapping="true"/></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{ErrorLog>LOG_ID}"/>
+                                                <ObjectIdentifier title="{ErrorLog>REG_NO}" text="{path: 'ErrorLog>SR_NO', formatter : '.formatter.getRequestValue'}"/>
+                                                <Text text=" {parts: [{path: 'ErrorLog>ERROR_CODE'} ], formatter : '.formatter.getErrorValue' }"/>
+                                                <ExpandableText class="sapUiTinyMarginBottom sapUiTinyMarginTop" text="{ErrorLog>ERROR_DESCRPTION}" overflowMode="Popover" />
+                                                <ObjectIdentifier title="{ErrorLog>USER_ID}" 
+                                                    text="{path:'ErrorLog>CREATED_ON', type:'sap.ui.model.type.Date', formatOptions:{pattern:'YYYY.MM.dd hh:mm:ss'}}"/>
+                                                <ObjectIdentifier title="{ErrorLog>APP_NAME}" text="{ErrorLog>TYPE}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </IconTabFilter>
+
+                            <IconTabFilter icon="sap-icon://email" iconColor="Default" text="SMTP Config." key="Smtp">
+                                <OverflowToolbar>
+                                    <ToolbarSpacer/>
+                                    <Button icon="sap-icon://email-read" type="Emphasized" text="Test Email" iconFirst="true" press="handleTestMail" id="idTestEmail"></Button>
+                                    <ToggleButton id="idEditSmtp" text="Edit" type="Emphasized" enabled="true" pressed="false" press="handleEditPress4"/>
+                                </OverflowToolbar>
+                                
+                                <f:SimpleForm title="SMTP Configuration" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+                                    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false">
+                                    <f:content>
+                                        <core:Title />
+                                            <Label text="Host Name" design="Bold" required="true"/>
+                                            <Input id="idHost" value="{blankJson>/smtpConf/HOST}" editable="false" change="onHostChange"/>
+                                            <Label text="User Name" design="Bold" required="true" class="sapUiSmallMarginTop"/>
+                                            <Input id="idUserName" value="{blankJson>/smtpConf/USERNAME}" editable="false" class="sapUiSmallMarginTop"/>
+                                            
+                                        <core:Title />
+                                            <Label text="Port" design="Bold" required="true"/>
+                                            <Input id="idPort" value="{blankJson>/smtpConf/PORT}" editable="false" change="_numberValidation" />
+                                            <Label text="Password" design="Bold" required="true" class="sapUiSmallMarginTop"/>
+                                            <Input id="idPassword" value="{blankJson>/smtpConf/PASSWORD}" editable="false" type="Password" showValueHelp="true" 
+                                                valueHelpIconSrc="sap-icon://hide" valueHelpRequest="onEyeChange" change="onPasswordChange" class="sapUiSmallMarginTop"/>
+                                          
+                                        <core:Title />
+                                            <Label text="Security" design="Bold" required="true"/>
+                                            <ComboBox id="idSecurity" width="100%" selectedKey="{blankJson>/smtpConf/SECURE}" editable="false">
+                                                <items>
+                                                    <core:ListItem text="True" key="true" ></core:ListItem>
+                                                    <core:ListItem text="False" key="false" ></core:ListItem>
+                                                </items>
+                                            </ComboBox>
+                                            <Label text="Sender ID" design="Bold" required="true" class="sapUiSmallMarginTop"/>
+                                            <Input id="idSenderID" value="{blankJson>/smtpConf/SENDER_EMAIL}" editable="false" change="_validateEmail" class="sapUiSmallMarginTop"/>   
+
+                                            
+                                    </f:content>
+                                </f:SimpleForm>
+
+                                <!-- <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false"
+                                    emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="2" singleContainerFullSize="false">
+                                    <f:content>
+                                        <core:Title />
+                                           
+
+                                            <Label text="User Name" design="Bold" required="true"/>
+                                            <Input id="idUserName" value="{blankJson>/smtpConf/USERNAME}" editable="false"/>
+                                        <core:Title />
+                                            
+                                        
+                                            <Label text="Password" design="Bold" required="true"/>
+                                            <Input id="idPassword" value="{blankJson>/smtpConf/PASSWORD}" editable="false" type="Password" showValueHelp="true" 
+                                                valueHelpIconSrc="sap-icon://hide" valueHelpRequest="onEyeChange" change="onPasswordChange" />
+                                        <core:Title />
+                                            
+
+                                            <Label text="Sender ID" design="Bold" required="true"/>
+                                            <Input id="idSenderID" value="{blankJson>/smtpConf/SENDER_EMAIL}" editable="false" change="_validateEmail"/>   
+                                    </f:content>
+                                </f:SimpleForm> -->
+
+                                <!-- <f:SimpleForm  editable="true" layout="ResponsiveGridLayout" title="SMTP Configuration" labelSpanXL="1" labelSpanM="2"
+                                    labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="1" columnsL="1" columnsXL="3" singleContainerFullSize="false">
+                                        <f:content>
+                                            <l:VerticalLayout>
+                                                
+                                                    <Label text="Host Name" design="Bold" required="true"/>
+                                                    <Input id="idHost" value="{blankJson>/smtpConf/HOST}" editable="false" change="onHostChange"/>
+                                                
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                
+                                                    <Label text="Port : " design="Bold" required="true"/>
+                                                    <Input id="idPort" value="{blankJson>/smtpConf/PORT}" editable="false" change="_numberValidation" />
+                                                
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                
+                                                    <Label text="Security" design="Bold" required="true"/>
+                                                    <ComboBox id="idSecurity" width="100%" selectedKey="{blankJson>/smtpConf/SECURE}" editable="false">
+                                                        <items>
+                                                            <core:ListItem text="True" key="true" ></core:ListItem>
+                                                            <core:ListItem text="False" key="false" ></core:ListItem>
+                                                        </items>
+                                                    </ComboBox>
+                                                
+                                            </l:VerticalLayout>
+                                        </f:content>
+                                </f:SimpleForm> -->
+
+                                <!-- <f:SimpleForm  editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="1" labelSpanM="2"
+                                    labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="1" columnsL="1" columnsXL="3" singleContainerFullSize="false">
+                                        <f:content>
+                                            <l:VerticalLayout>
+                                                
+                                                    <Label text="User Name : " design="Bold" required="true"/>
+                                                    <Input id="idUserName" value="{blankJson>/smtpConf/USERNAME}" editable="false"/>
+                                                
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                
+                                                    <Label text="Password : " design="Bold" required="true" class="sapUiTinyMarginTop"/>
+                                                    <Input id="idPassword" value="{blankJson>/smtpConf/PASSWORD}" editable="false" type="Password" showValueHelp="true" 
+                                                        valueHelpIconSrc="sap-icon://hide" valueHelpRequest="onEyeChange" change="onPasswordChange" />
+                                                
+                                            </l:VerticalLayout>
+                                            <l:VerticalLayout>
+                                                
+                                                    <Label text="Sender ID" design="Bold" required="true"/>
+                                                    <Input id="idSenderID" value="{blankJson>/smtpConf/SENDER_EMAIL}" editable="false" change="_validateEmail"/>
+                                                
+                                            </l:VerticalLayout>
+                                        </f:content>
+                                </f:SimpleForm> -->
+                            </IconTabFilter>
+
+                            <!-- <IconTabFilter icon="sap-icon://connected" iconColor="Default" text="Smtp Config." >
+                                <f:SimpleForm id="SimpleFormChange471"
+                                    editable="true"
+                                    layout="ResponsiveGridLayout"
+                                    title="Address"
+                                    labelSpanXL="4"
+                                    labelSpanL="4"
+                                    labelSpanM="4"
+                                    labelSpanS="12"
+                                    adjustLabelSpan="false"
+                                    emptySpanXL="1"
+                                    emptySpanL="1"
+                                    emptySpanM="1"
+                                    emptySpanS="0"
+                                    columnsXL="1"
+                                    columnsL="1"
+                                    columnsM="1"
+                                    singleContainerFullSize="false" >
+                                    <f:content>
+                                            
+                                        <Label text="Host" required="true" class="SapUiTinyMae"/>
+                                        <Input value="" width="40%"/>
+
+                                        <Label text="Port" required="true"/>
+                                        <Input value="" width="40%"/>
+
+                                        <Label text="Security" />
+                                        <ComboBox width="40%" >
+                                        <items>
+                                        <core:ListItem text="True" key="{True}" ></core:ListItem>
+                                        <core:ListItem text="False" key="{False}" ></core:ListItem>
+                                        </items>
+                                        </ComboBox>
+                                
+                                    <Label ></Label>
+                                    
+                                
+
+                                    </f:content>
+                                    </f:SimpleForm >
+
+                                <f:SimpleForm 
+                                editable="true"
+                                layout="ResponsiveGridLayout"
+                                title="Address"
+                                labelSpanXL="4"
+                                labelSpanL="4"
+                                labelSpanM="4"
+                                labelSpanS="12"
+                                adjustLabelSpan="false"
+                                emptySpanXL="1"
+                                emptySpanL="1"
+                                emptySpanM="1"
+                                emptySpanS="0"
+                                columnsXL="1"
+                                columnsL="1"
+                                columnsM="1"
+                                singleContainerFullSize="false" >
+                                <f:content>
+                                        
+                                    
+
+                                <Label text="User" required="true"/>
+                                <Input value="" width="40%"/>
+
+                                <Label text="Password" required="true" />
+                                <Input value="" width="40%" type="Password"/>
+
+
+                                <Label text="Sender ID" required="true"/>
+                                <Input value="" width="40%"/>
+                            
+                                <Label ></Label>
+                                
+                            
+
+                                </f:content>
+                                </f:SimpleForm >
+                            </IconTabFilter> -->
+                        </items>
+                        <content></content>
+                    </IconTabBar>
+                </content>
+
+                <footer>
+					<OverflowToolbar id="idMasterOverToolFoot" visible="false">
+						<ToolbarSpacer></ToolbarSpacer>
+						<Button text="Save" type="Success" press="onSave" class="SapUiSmallMaginEnd" visible="false" id="idSaveBtn"></Button>
+					</OverflowToolbar>
+				</footer>
+            </Page>
+        </pages>
+    </App>
+
+</mvc:View>

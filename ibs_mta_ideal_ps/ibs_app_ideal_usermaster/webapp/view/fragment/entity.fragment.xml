@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ResponsivePopover id="myPopover" title="Entity Details" class="sapUiContentPadding" placement="Bottom" contentHeight="10em"
+		contentWidth="25em">
+		<beginButton></beginButton>
+		<endButton>
+			<Button text="Close" press="handleCloseButton"/>
+		</endButton>
+		<content>
+			<List id="ShortProductList" items="{sEntityJson>/}">
+				<items>
+					<StandardListItem title="{sEntityJson>}"/>
+				</items>
+			</List>
+		</content>
+	</ResponsivePopover>
+</core:FragmentDefinition>

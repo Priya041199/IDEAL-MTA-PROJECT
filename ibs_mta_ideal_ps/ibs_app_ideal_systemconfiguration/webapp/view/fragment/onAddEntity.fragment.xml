@@ -1,0 +1,19 @@
+<!-- <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog id="idAddEntity" title="" contentWidth="400px" titleAlignment="Center" class="sapUiSizeCompact">
+		<SelectDialog  id="idAddEntityList" title="Select Entity Code" titleAlignment="Center" items="{path:'companycodes>/value'}" 
+	liveChange="onValueHelpFormSearch" confirm="handleCloseAddEntityList"
+		cancel="closeFormListDialog">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{companycodes>BUKRS}" description="{companycodes>BUTXT}"/>
+	</SelectDialog>
+	</Dialog>
+</core:FragmentDefinition> -->
+
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<!-- <Dialog id="idEntity" title="" contentWidth="400px" titleAlignment="Center" class="sapUiSizeCompact"> -->
+		<SelectDialog  id="idEntityList" title="Select Entity Code" titleAlignment="Center" items="{path:'companycodes>/value'}" 
+	liveChange="onValueHelpFormSearch" confirm="handleCloseAddEntityList"
+		cancel="closeFormListDialog">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{companycodes>BUKRS}" description="{companycodes>BUTXT}"/>
+	</SelectDialog>
+	<!-- </Dialog> -->
+</core:FragmentDefinition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="IDEAL_CREDIT_DEBIT_TX" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Credit_Debit_Tx" EntityType="IDEAL_CREDIT_DEBIT_TX.Credit_Debit_Tx"/>
+                <ActionImport Name="creditDebitTransaction" Action="IDEAL_CREDIT_DEBIT_TX.creditDebitTransaction"/>
+            </EntityContainer>
+            <EntityType Name="Credit_Debit_Tx">
+                <Key>
+                    <PropertyRef Name="DISTRIBUTOR_ID"/>
+                    <PropertyRef Name="RETAILER_ID"/>
+                    <PropertyRef Name="TX_ID"/>
+                </Key>
+                <Property Name="DISTRIBUTOR_ID" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="RETAILER_ID" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="TX_ID" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="TRANSACTION_TYPE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="POSTING_DATE" Type="Edm.Date"/>
+                <Property Name="REFERENCE_INVOICE" Type="Edm.String" MaxLength="15"/>
+                <Property Name="INVOICE_AMOUNT" Type="Edm.String" MaxLength="20"/>
+                <Property Name="REFERENCE_TEXT" Type="Edm.String" MaxLength="200"/>
+                <Property Name="AMOUNT" Type="Edm.String" MaxLength="20"/>
+                <Property Name="TAX_AMOUNT" Type="Edm.String" MaxLength="20"/>
+                <Property Name="TOTAL_AMOUNT" Type="Edm.String" MaxLength="20"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+            </EntityType>
+            <Action Name="creditDebitTransaction" IsBound="false">
+                <Parameter Name="appType" Type="Edm.String"/>
+                <Parameter Name="creditDebitTx" Type="Collection(IDEAL_CREDIT_DEBIT_TX.Credit_Debit_Tx)" Nullable="false"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

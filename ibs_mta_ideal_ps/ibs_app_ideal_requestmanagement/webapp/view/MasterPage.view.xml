@@ -1,0 +1,138 @@
+<mvc:View controllerName="com.ibs.ibsappidealrequestmanagement.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Page id="page" title="{i18n>title}" showHeader="false">
+        <content>
+        <IconTabBar
+		id="idIconTabBar"
+		select=".onFilterSelect"
+		class="sapUiResponsiveContentPadding"
+		selectedKey="NotInvited">
+
+		<items>
+			<IconTabFilter
+				icon="sap-icon://pending"
+				iconColor="Critical"
+				count="{countModel>/NotInvited}"
+				text="{i18n>icontabNotInvited}"
+				id="idNotInvited"
+				key="NotInvited"/>
+			<IconTabFilter
+				icon="sap-icon://approvals"
+				iconColor="Positive"
+				count="{countModel>/Invited}"
+				
+				text="{i18n>icontabInvited}"
+				key="Invited" />
+			<IconTabFilter
+				icon="sap-icon://clear-all"
+				iconColor="Negative"
+				count="{countModel>/InviteRejected}"
+				text="{i18n>icontabInviteReject}"
+				key="InviteRejected" />
+			<IconTabFilter
+				icon="sap-icon://delete"
+				iconColor="Negative"
+				count="{countModel>/Deleted}"
+				text="{i18n>Deleted}"
+				key="Deleted" />
+		<IconTabSeparator />
+			<IconTabFilter
+				showAll="true"
+				id="AllTab"
+				count="{countModel>/All}"
+				text="{i18n>icontabAllReq}"
+				key="All" 
+				/>
+			
+		</items>
+
+		<content>
+			<Table autoPopinMode="true"
+				id="idMasterTable"
+				inset="false"
+                sticky="HeaderToolbar,ColumnHeaders"
+				showSeparators="Inner"
+				items="{path: 'vendorjsonModel>/value',sorter: {path: 'REQUEST_NO',
+        descending : true}}" growing="true" growingThreshold="10">
+				<infoToolbar>
+					<OverflowToolbar>
+						<SearchField width="20rem" liveChange="onSearch" placeholder="Request No, Distributor Name, Email" id="id_search" />
+                        <ToolbarSpacer/>
+                        <OverflowToolbarButton type="Emphasized" text="Sort" tooltip="Sort" icon="sap-icon://sort" press="onSort"/>
+					    <OverflowToolbarButton icon="sap-icon://filter" tooltip="Filter" type="Emphasized" press="onFilter" visible="{oPropertyModel>/filter}"/>
+					    <OverflowToolbarButton icon="sap-icon://reset" tooltip="Reset" type="Emphasized" press="onResetFilter"/>
+					    <Button text="Create Request" icon="sap-icon://create-form" type="Emphasized" press="handleInviteDialog" visible="{oPropertyModel>/CreateReq}"></Button>
+						<!-- <Button text="Link" icon="sap-icon://create-form" type="Emphasized" press="onLink"></Button> -->
+					</OverflowToolbar>
+                    					
+											
+				</infoToolbar>
+				<columns>
+					<Column width="9rem">
+						<Text text="{i18n>colReqNo}" />
+					</Column>
+					<Column width="9rem" hAlign="Center">
+						<Text text="{i18n>colSupName}" />
+					</Column>
+					<Column width="12rem" hAlign="Center">
+						<Text text="{i18n>colEntity}" />
+					</Column>
+					<Column width="13rem" hAlign="Center">
+						<Text text="{i18n>colEmail}" />
+					</Column>
+					<!-- <Column width="10rem" hAlign="Center">
+						<Text text="{i18n>colSupType}" />
+					</Column>
+					<Column width="10rem" hAlign="Center">
+						<Text text="{i18n>colSubType}" />
+					</Column> -->
+					<Column width="11rem" hAlign="Center">
+						<Text text="Mobile No" />
+					</Column>
+					<Column width="9rem" hAlign="Center">
+						<Text text="{i18n>colStatus}" />
+					</Column>
+					<Column width="9rem" hAlign="Center">
+						<Text text="{i18n>colType}" />
+					</Column>
+					<Column width="11rem" hAlign="Center">
+						<Text text="{i18n>colAction}" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier title="{vendorjsonModel>REQUEST_NO}"
+							text="{parts:[{path:'vendorjsonModel>CREATION_TYPE'},{path:'vendorjsonModel>REQUEST_TYPE'}], formatter:'.formatter.creationTypeDesc'}"/>
+							<Text text="{vendorjsonModel>DIST_NAME1}" wrapping="true"/>
+							<ObjectIdentifier title="{vendorjsonModel>TO_ENTITY_CODE/BUKRS}" text="{vendorjsonModel>TO_ENTITY_CODE/BUTXT}"/>
+							<Text text="{vendorjsonModel>REGISTERED_ID}"/>
+							<!-- <Text text="{vendorjsonModel>SUPPL_TYPE_DESC}"/>
+							<Text text="{path:'vendorjsonModel>BP_TYPE_DESC', formatter:'.formatter.subType'}"/> -->
+							<Text text="{vendorjsonModel>MOBILE_NO}"/>
+							<ObjectStatus text="{parts:[{path: 'vendorjsonModel>TO_STATUS/DESCRIPTION'},{path : 'vendorjsonModel>APPROVER_ROLE'}] , formatter : '.formatter.getVisibility'}" state="{path:'vendorjsonModel>TO_STATUS/CODE',formatter:'.formatter.getStatus'}" inverted="true"></ObjectStatus>
+
+							<Text text="{path : 'vendorjsonModel>TO_STATUS/CODE', formatter : '.formatter.getType'}"/>
+                            <HBox>
+								<!-- <core:Icon src="sap-icon://discussion-2" press="forEventsRowPress" tooltip="Chat Box" color="blue" id="idChatButton"
+									enabled="{= ${vendorjsonModel>TO_STATUS/CODE} === 3 || ${vendorjsonModel>TO_STATUS/CODE} === 14 || ${vendorjsonModel>TO_STATUS/CODE} === 8 ? false : true}"></core:Icon> -->
+								<Button icon="sap-icon://discussion-2" press="forEventsRowPress" tooltip="Chat Box" type="Transparent"  
+									enabled="{= ${vendorjsonModel>TO_STATUS/CODE} === 3 || ${vendorjsonModel>TO_STATUS/CODE} === 14 || ${vendorjsonModel>TO_STATUS/CODE} === 8 || ${vendorjsonModel>TO_STATUS/CODE} === 1 ? false : true}"/>
+								<Button class="sapUiTinyMarginBegin" icon="sap-icon://email-read" press="onSendNotification" tooltip="Resend Notification"
+									type="Transparent" enabled="{= ${vendorjsonModel>TO_STATUS/CODE} === 2 ? true : false}" id="idEmailButton" ></Button>
+								<Button type="Transparent" class="sapUiTinyMarginBegin" icon="sap-icon://edit" press="onClick"  enabled="{= ${vendorjsonModel>TO_STATUS/CODE} === 3 || ${vendorjsonModel>TO_STATUS/CODE} === 14 || ${vendorjsonModel>TO_STATUS/CODE} === 8 || ${vendorjsonModel>TO_STATUS/CODE} === 11 ? false : true}" />
+								<Button icon="sap-icon://delete" class="sapUiTinyMarginBegin" type="Transparent" press="onDeleteReq" ariaHasPopup="Dialog"
+									enabled="{= ${vendorjsonModel>TO_STATUS/CODE} === 5 || ${vendorjsonModel>TO_STATUS/CODE} === 6 || ${vendorjsonModel>TO_STATUS/CODE} === 3 || ${vendorjsonModel>TO_STATUS/CODE} === 14 || ${vendorjsonModel>TO_STATUS/CODE} === 8 || ${vendorjsonModel>TO_STATUS/CODE} === 15 || ${oPropertyModel>/DeleteButton} === false ? false : true}"/>
+								
+                            </HBox>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		
+	</IconTabBar>
+    </content>
+    </Page>
+</mvc:View>

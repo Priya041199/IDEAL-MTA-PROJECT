@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog  id="idMasterTableDialog" title="Select Master" titleAlignment="Center" 
+		items="{path:'masterTable>/value'}" liveChange="onValueHelpSearch" confirm="handleCloseMasterTable"
+		cancel="closeMasterTableDialog">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{masterTable>TABLE_DESCRIPTION}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

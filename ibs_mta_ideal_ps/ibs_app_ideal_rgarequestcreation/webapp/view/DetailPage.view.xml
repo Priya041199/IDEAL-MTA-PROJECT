@@ -1,0 +1,380 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns="sap.uxap" xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" height="100%" xmlns:ui="sap.ui.table" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" displayBlock="true"
+	xmlns:t="sap.suite.ui.commons" xmlns:com="sap.suite.ui.commons" 
+	controllerName="com.ibs.ibsappidealrgarequestcreation.controller.DetailPage"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<!-- <m:App> -->
+		<!-- <m:Page id="detailPageId" class="sapUiSizeCompact" showHeader="false">
+			<m:content> -->
+				<layout:DynamicSideContent id="DynamicSideContent" class="sapUiSizeCompact" sideContentFallDown="BelowM"
+					breakpointChanged="handleBreakpointChangeEvent" showSideContent="false">
+					<!--General Section-->
+					<ObjectPageLayout id="ObjectPageLayout" selectedSection="firstSection" enableLazyLoading="false" showEditHeaderButton="true"
+						editHeaderButtonPress="handleEditBtnPress" showTitleInHeaderContent="true">
+
+						<headerTitle>
+							<ObjectPageDynamicHeaderTitle>
+								<expandedHeading>
+									<m:Title text="RGA Request No : {cModel>/RGA_NO}" wrapping="true"/>
+								</expandedHeading>
+								
+								<snappedHeading>
+									<m:FlexBox fitContainer="true" alignItems="Center">
+										<m:Title text="RGA Request No : {cModel>/RGA_NO}" wrapping="true"/>
+									</m:FlexBox>
+								</snappedHeading>
+								<actions>
+
+                        <m:Button text="View Events" press="handleEvents" type="Emphasized"></m:Button>
+						<m:Button id="idFullScreen" press="onFullScreen" icon="{appView>/icon}" type="Transparent" visible="{FullScreenButton}" />
+                        <!-- <Button press="onExitScreen" id="idExitScreen" icon="sap-icon://exit-full-screen" type="Transparent" visible="{ExitScreenButton}" /> -->
+						<m:Button icon="sap-icon://decline" type="Transparent" press="onExit" />
+								</actions>
+							</ObjectPageDynamicHeaderTitle>
+						</headerTitle>
+						<sections>
+
+						<!-- Section 1 Aniket-->
+							<ObjectPageSection title="Header Details" id="firstSection">
+								<subSections>
+									<ObjectPageSubSection>
+										<m:VBox>
+											<!-- <m:MessageStrip id="id_MessageStripQR" text="Please fill up the form by clicking on Edit button before approving" visible="false" showIcon="true" showCloseButton="true"></m:MessageStrip> -->
+											<f:SimpleForm id="simpleForm1" labelSpanL="2" labelSpanM="2" labelSpanXL="2" editable="false" layout="ColumnLayout" columnsM="2"
+												columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+
+												<!-- Business Unit -->
+												<m:Label text="Business Unit" design="Bold" required="false"/>
+												<m:Text text ="{cModel>/BU_CODE}"/>
+
+                                                <!-- Reason For Return -->
+												<m:Label text="Reason For Return" design="Bold" required="false"/>
+												<m:Text text ="{cModel>/DISTRIBUTOR_REASON}"/>
+
+												<!-- Creation Date -->
+												<m:Label text="Creation Date" design="Bold" required="false"/>
+												<m:Text text = "{path:'cModel>/CREATED_ON', formatter:'.formatter.formatDate'}"/>
+
+												<!-- SAP NO-->
+												<m:Label id="sapno" text="SAP Return Code" design="Bold" required="false" visible="false"/>
+												<m:Text text ="{cModel>/SAP_RETURN_CODE}"/>
+   
+											</f:SimpleForm>
+										</m:VBox>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<!-- <ObjectPageSection title="Uploaded Files">
+								<subSections>
+									<ObjectPageSubSection id="uploadedFiles_Id" title="" class="sapUiTinyMarginTop">
+										<blocks>
+											<m:VBox>
+											<m:Table id="priceDifferentTable" class="sapUiSmallMarginBottom" autoPopinMode="true" contextualWidth="auto" items="{aModel>/}">
+											<m:columns>
+												<m:Column>
+													<m:Label text="File Type" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="File Name" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="Download" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="Action" design="Bold"/>
+												</m:Column>
+											</m:columns>
+
+											<m:items>
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F1} === 'X' ? true : false}">
+													<m:cells>
+													<m:Text text="Invoice"/>
+													<m:Text text="{aModel>FILE_NAME}"/>   
+													<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+													enabled="false"></m:Button>
+													<m:Button press="onDelete" type="Reject" enabled="false" tooltip="Delete" icon="sap-icon://delete"></m:Button>
+													</m:cells>
+												</m:ColumnListItem>
+											</m:items>
+										</m:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection> -->
+
+							<ObjectPageSection title="Item Details">
+								<subSections>
+									<ObjectPageSubSection id="paymentInfo_Id" title="" class="sapUiTinyMarginTop">
+										<blocks>
+											<m:VBox>
+											<ui:Table id="invoiceTableId" rows="{cModel>/RGA_ITEMS_REF}"
+													visible="true" selectionMode="None"
+													ariaLabelledBy="title">
+													<ui:extension>
+													<!--Other Bank details Priya-->
+														<m:OverflowToolbar style="Clear">
+															<m:Title text="Invoice Items"/>
+															<m:ToolbarSpacer/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+														<!-- INVOICE NUMBER -->
+														<ui:Column width="8rem" hAlign="Center" visible="true">
+															<m:Label id="S2G2T1F1" text="Invoice Number" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{cModel>INVOICE_NO}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- MATERIAL -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F2" text="Material" design="Bold"/>
+															<ui:template>
+																<!-- <m:Text text="{parts : [{path:'cModel>ITEM_CODE'},{path:'cModel>ITEM_DESC'}], formatter :'.formatter.material'}"/> -->
+															<m:ObjectIdentifier title="{cModel>ITEM_CODE}" text="{path:'cModel>ITEM_DESCRIPTION'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Batch -->
+														<ui:Column width="8rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F3" text="Batch" design="Bold"/>
+															<ui:template>
+																<m:Text text="{cModel>BATCH}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Expiry DATE-->
+														<ui:Column width="8rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F4"
+																text="Expiry Date" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'cModel>EXPIRY_DATE', formatter:'.formatter.formatDate'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Date-->
+														<ui:Column width="8rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F5" text="Invoice Date" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path : 'cModel>INVOICE_DATE', formatter:'.formatter.formatDate'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Quantity -->
+														<ui:Column width="8rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F6" text="Invoice Quantity" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'cModel>INVOICE_QUANTITY', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Invoice Price-->
+														<ui:Column width="8rem" visible="true" hAlign="Center">
+															<m:Label id="tableIbanId" text="Invoice Price (₹)" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path : 'cModel>PRICE' , formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- RGA Quantity-->
+														<ui:Column width="7rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F8" text="RGA Quantity" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'cModel>RETURN_QUANTITY', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- RGA Amount -->
+														<ui:Column width="8rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F9_name" text="RGA Amount (₹)" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{path : 'cModel>EXTENDED', formatter : '.formatter.formatterAmount' }"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Action-->
+														<!-- <ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F12" text="Action" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F12} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text=""/>
+															</ui:template>
+														</ui:Column> -->
+													</ui:columns>
+												</ui:Table>
+
+						<m:Table id="idMTable" inset="false" items="{cModel>/RGA_ITEMS_REF}" sticky="ColumnHeaders,HeaderToolbar" class="sapUiContentPadding"
+						growing="true" growingThreshold="10" autoPopinMode="true" contextualWidth="Auto" fixedLayout="true" visible="false">
+						<m:OverflowToolbar style="Clear">
+							<m:Title text="Invoice Items"/>
+							<m:ToolbarSpacer/>
+						</m:OverflowToolbar>
+						<m:columns>
+							<m:Column hAlign="Left" width="9rem">
+								<m:Label id="MS2G2T1F1" text="Invoice Number" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Left" width="7rem">
+								<m:Label id="MS2G2T1F2" text="Material" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F3" text="Batch" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F9" text="Expiry Date" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F4" text="Invoice Date" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F5" text="Invoice Quantity" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F6" text="Invoice Price" design="Bold"/>
+							</m:Column>
+
+							<m:Column hAlign="Center">
+								<m:Label id="MtableIbanId" text="RGA Quantity" design="Bold"/>
+							</m:Column>
+							<m:Column hAlign="Center">
+								<m:Label id="MS2G2T1F8" text="RGA Price" design="Bold"/>
+							</m:Column>
+							
+						</m:columns>
+						<m:items>
+							<m:ColumnListItem type="Inactive">
+								<m:cells>	
+									<m:Text text="{cModel>INVOICE_NO}"/>
+									<m:ObjectIdentifier title="{cModel>ITEM_CODE}" text="{path:'cModel>ITEM_DESCRIPTION'}"/>
+									<m:Text text="{cModel>BATCH}"/>
+									<m:Text text="{path:'cModel>EXPIRY_DATE', formatter:'.formatter.formatDate'}"/>
+									<m:Text text="{path : 'cModel>INVOICE_DATE', formatter:'.formatter.formatDate'}"/>
+									<m:Text text="{path:'cModel>INVOICE_QUANTITY', formatter : '.formatter.formatterAmount'}"/>
+									<m:Text text="{path : 'cModel>PRICE' , formatter : '.formatter.formatterAmount'}"/>
+									<m:Text text="{path:'cModel>RETURN_QUANTITY', formatter : '.formatter.formatterAmount'}"/>
+									<m:Text text="{path : 'cModel>EXTENDED', formatter : '.formatter.formatterAmount' }"/>
+									</m:cells>
+							</m:ColumnListItem>
+						</m:items>
+					</m:Table>
+
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<ObjectPageSection title="Comments" id="thirdSection"
+							visible="true">
+								<subSections>
+									
+									<ObjectPageSubSection id="reasonForClaim_Id" title="Comments">
+										<m:VBox>
+                                            	<m:TextArea maxLength="40" width="100%" editable="false" value="{cModel>/COMMENT}"/>
+										</m:VBox>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<ObjectPageSection title="Approval flow" id="processFlow" visible="true">
+								<subSections>
+									<ObjectPageSubSection title="Approval Flow" visible="true">
+									<m:Panel>
+										<!-- <m:HBox renderType="Bare"> -->
+			<m:Button text="Zoom In" press="onZoomIn" />
+			<m:Button text="Zoom Out" press="onZoomOut" />
+										<!-- <m:Text text="Priya"/> -->
+			<com:ProcessFlow
+			class="processFlow"
+			id="processflow1" 
+			scrollable="true"
+			foldedCorners="true"
+			nodePress="onNodePress"
+			wheelZoomable="false"
+			nodes="{comm>/}"
+			lanes="{comm>/}">
+			<com:nodes>
+				<!-- <com:ProcessFlowNode
+					laneId="0"
+					nodeId="1"
+					title="Created"
+					titleAbbreviation="OD 42 EVENTS"
+					children="2"
+					state="Positive"
+					stateText="Created Status"
+					texts="Created Request"
+					highlighted="true"
+					focused="true"/> -->
+
+				<com:ProcessFlowNode laneId="{comm>LANE_ID}" nodeId="{comm>NODE_ID}"
+				state="{path:'comm>EVENT_CODE', formatter : '.formatter.nodeStateFormat'}"
+				texts="{path:'comm>CREATION_DATE' , formatter : '.formatter.nodeTextFormat'}"
+				stateText="{comm>REMARK}"
+				title="{parts:[{path:'comm>USER_NAME'},{path:'comm>USER_ROLE'},{path:'comm>EVENT_CODE'}], formatter:'.formatter.nodeTitleFormat'}"
+				children="{comm>CHILDREN}"
+				highlighted="true" focused="true" visible="true">
+				<com:customData>
+                    <core:CustomData key="class" value="customNodeWidth" writeToDom="true"/>
+                </com:customData>
+				</com:ProcessFlowNode>
+			</com:nodes>
+
+			<com:lanes>
+				<com:ProcessFlowLaneHeader
+					laneId="{comm>LANE_ID}"
+					iconSrc="{path:'comm>EVENT_CODE', formatter : '.formatter.laneIconFormat'}"
+					text="{path:'comm>EVENT_CODE', formatter : '.formatter.laneTextFormat'}"
+					position="{comm>LANE_ID}" visible="true"/>
+			</com:lanes>
+
+		</com:ProcessFlow>
+		</m:Panel>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							
+						</sections>
+					</ObjectPageLayout>
+					
+					<layout:sideContent>
+						<m:Toolbar>
+							<m:Title text="Events"/>
+							<m:ToolbarSpacer/>
+							<!-- <m:Button icon="sap-icon://refresh" type="Transparent" press="handleRefreshEvents"/> -->
+							<m:Button text="Close" type="Transparent" press="handleSideContentHide"/>
+						</m:Toolbar>
+						<!-- <m:FeedInput id="emailTextId" post="onPostMessage" showIcon="false" placeholder="Enter query here"/> -->
+						<layout:VerticalLayout width="100%">
+							<t:Timeline id="idTimeline" showHeaderBar="false" showSearch="false" showSort="false" sortOldestFirst="false" sort="false"
+								enableScroll="false" lazyLoading="false" growingThreshold="0"
+								content="{path : 'comm>/',sorter : { path : 'EVENT_NO',descending : true}}" showIcons="false"
+								noDataText="No Ticket Events are currently available" width="100%">
+								<t:content>
+									<t:TimelineItem id="idTemplateItem" userNameClickable="true"
+										text="Event : {comm>REMARK} {i18n>newLine} Comment : {comm>COMMENT}"
+										dateTime="{path:'comm>CREATION_DATE'}"
+										userName="{comm>USER_NAME}" title=": {comm>USER_ROLE}"/>
+								</t:content>
+							</t:Timeline>
+						</layout:VerticalLayout>
+					</layout:sideContent>
+				</layout:DynamicSideContent>
+				<!-- </m:content> -->
+				<!-- <m:footer>
+				<m:Bar>
+					<m:contentRight> -->
+						<!-- <m:Button id="approveBt" text="Approve" press="onApprove" type="Success"/>
+						<m:Button id="rejectBt" text="Reject" press="onReject" type="Negative"/> -->
+						<!-- <m:Button id="sendbackBt" icon="sap-icon://undo" text="Send Back" press="onSendBack" type="Emphasized"/> -->
+					<!-- </m:contentRight>
+				</m:Bar>
+			</m:footer>
+			</m:Page> -->
+</mvc:View>

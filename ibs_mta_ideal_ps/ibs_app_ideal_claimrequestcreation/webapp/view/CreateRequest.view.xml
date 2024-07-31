@@ -1,0 +1,317 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns="sap.uxap" xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" height="100%" xmlns:ui="sap.ui.table" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" displayBlock="true"
+	xmlns:t="sap.suite.ui.commons" 
+	controllerName="com.ibs.ibsappidealclaimrequestcreation.controller.CreateRequest"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<m:App>
+		<m:Page id="detailPageId" class="sapUiSizeCompact" showHeader="false">
+			<m:content>
+				<layout:DynamicSideContent id="DynamicSideContent" class="sapUiSizeCompact" sideContentFallDown="BelowM"
+					breakpointChanged="handleBreakpointChangeEvent" showSideContent="false">
+					<!--General Section-->
+					<ObjectPageLayout id="ObjectPageLayout" selectedSection="firstSection" enableLazyLoading="false" showEditHeaderButton="false"
+						editHeaderButtonPress="handleEditBtnPress">
+
+						<headerTitle>
+							<ObjectPageDynamicHeaderTitle>
+								<expandedHeading>
+									<m:Title text="Claim Request" wrapping="true"/>
+								</expandedHeading>
+								
+								<snappedHeading>
+									<m:FlexBox fitContainer="true" alignItems="Center">
+										<m:Title text="Claim Request" wrapping="true"/>
+									</m:FlexBox>
+								</snappedHeading>
+								
+								<actions>
+									<!-- <m:ObjectStatus class="sapUiMediumMarginEnd" title="Status"
+										text="{parts:[{path: 'vendorDetails>/TO_STATUS/DESCRIPTION'},{path : 'vendorDetails>/APPROVER_ROLE'}] , formatter : '.formatter.getVisibility'}" inverted="true"
+										state="{path:'vendorDetails>/STATUS', formatter:'.formatter.getStatus'}"/> -->
+									<!-- <m:Button id="editBtn" text="Edit" press="handleEditForm" type="Emphasized"></m:Button> -->
+									<!-- <m:Button text="My Buddy" press="handleMyBuddyDetails" type="Emphasized"></m:Button> -->
+									<!-- <m:Button text="Log" press="handleLogDetails" type="Emphasized"></m:Button> -->
+									<!-- <m:Button text="Messenger" press="handleEvents" type="Emphasized"></m:Button> -->
+									<m:Button icon="sap-icon://nav-back" press="onBack" type="Emphasized"></m:Button>
+								</actions>
+							</ObjectPageDynamicHeaderTitle>
+						</headerTitle>
+						<sections>
+
+						<!-- Section 1 Aniket-->
+							<ObjectPageSection title="Order Details" id="firstSection">
+								<subSections>
+									<ObjectPageSubSection>
+										<m:VBox>
+											<!-- <m:MessageStrip id="id_MessageStripQR" text="Please fill up the form by clicking on Edit button before approving" visible="false" showIcon="true" showCloseButton="true"></m:MessageStrip> -->
+											<f:SimpleForm id="simpleForm1" labelSpanL="2" labelSpanM="2" labelSpanXL="2" editable="false" layout="ColumnLayout" columnsM="2"
+												columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+
+												<!-- Customer -->
+												<m:Label text="Customer" design="Bold" 
+													required="false"/>
+												<!-- <m:Text id="S1G1T1F1" text="" visible="true"></m:Text> -->
+                                                <m:Input value="Star Enterprise" visible="true" placeholder="" maxLength="40" editable="false" width="70%"/>
+
+												<!-- sales associate -->
+												<m:Label text="Sales Associate" design="Bold"
+													required="false"/>
+												<!-- <m:Text id = "S1G1T1F2" text="" visible="true"></m:Text> -->
+                                                <m:Input value="Priya Gawde" visible="true" placeholder="" maxLength="40" editable="false" width="70%"/>
+
+												<!-- Claim From -->
+												<m:Label text="Claim From" design="Bold" required="true"/>
+												<m:DatePicker id="DP1" placeholder="Select Date" change="onClaimFrom" class="sapUiSmallMarginBottom" width="70%" value="{path:'blankJson>/claimFrom',type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}" maxDate="{minDateModel>/minDate}"/>
+
+                                                <!-- Business Unit -->
+												<m:Label text="Business Unit" design="Bold" required="true"/>
+                                                <m:ComboBox id="bUnit" placeholder="Select Business Unit"
+														visible="true" selectionChange="handleBUnit" width="70%" value="{blankJson>/businessUnit}">
+														<core:Item key="INTELLECT" text="INTELLECT"/>
+													</m:ComboBox>
+
+                                                <!-- Claim To -->
+												<m:Label text="Claim To" design="Bold" required="true"/>
+												<m:DatePicker id="DP2" placeholder="Select Date" change="onClaimTo" class="sapUiSmallMarginBottom" width="70%" value="{path:'blankJson>/claimTo',type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}" maxDate="{minDateModel>/minDate}"/>
+
+                                                <!-- TYPE OF CLAIM-->
+												<m:Label text="Type of Claim" design="Bold" required="true"/>
+                                                <m:ComboBox id="typeofClaim" placeholder="Select Type of Claim"
+														visible="true" selectionChange="handleClaimType" width="70%" value="{blankJson>/typeOfClaim}">
+														<core:Item key="Price Different" text="Price Different"/>
+                                                        <core:Item key="Product Complaint" text="Product Complaint"/>
+                                                        <core:Item key="Workshops" text="Workshops"/>
+                                                        <core:Item key="Evaluation" text="Evaluation"/>
+                                                        <core:Item key="Invoice Correction" text="Invoice Correction"/>
+													</m:ComboBox>
+											</f:SimpleForm>
+										</m:VBox>
+									</ObjectPageSubSection>
+
+									
+									
+								<ObjectPageSubSection id="priceDifferent" title="Attachments" visible="false">
+										<blocks>
+											<m:VBox>
+											<!-- PRICE DIFFERENCE TABLE -->
+											<m:Table id="priceDifferentTable" items="{claimAttachMapJson>/}" class="sapUiSmallMarginBottom" autoPopinMode="true" contextualWidth="auto">
+											<m:columns>
+												<m:Column>
+													<m:Label text="Document to be Uploaded" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="Upload" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="File Name" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="Download" design="Bold"/>
+												</m:Column>
+
+												<m:Column>
+													<m:Label text="Action" design="Bold"/>
+												</m:Column>
+											</m:columns>
+
+											<m:items>
+												<m:ColumnListItem visible="true">
+													<m:cells>
+														<m:Text text="{claimAttachMapJson>ATTACH_NAME}"/>
+														<u:FileUploader name="myFileUpload" uploadUrl="upload/" buttonOnly="true" buttonText="Choose File" sameFilenameAllowed="true"
+													change="handleUpload" enabled="true" fileType="txt,jpg,docx,docm,pdf,xlsx" typeMissmatch="handleTypeMissmatch"/>
+													<m:Text text="{claimAttachMapJson>FILE_NAME}"/> 
+													<m:Button press="downloadFileContent" type="Transparent" tooltip="Download" icon="sap-icon://download"
+													enabled="false"></m:Button>
+													<m:Button press="onDelete" type="Reject" enabled="false" tooltip="Delete" icon="sap-icon://delete"></m:Button>
+													</m:cells>
+												</m:ColumnListItem>
+
+											</m:items>
+										</m:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							
+							<ObjectPageSection title="Add Item">
+								<subSections>
+									<ObjectPageSubSection id="paymentInfo_Id" title="" class="sapUiTinyMarginTop">
+										<blocks>
+											<m:VBox>
+												<!--<m:MessageStrip id="msgSCID" text="Supplier has entered New Swift Code that doesn't exist in the bank master. kindly share the bank details with the Treasury team."-->
+												<!--		showIcon="true" type="Warning" />-->
+												<f:SimpleForm id="simpleForm6" labelSpanL="7" labelSpanM="7" labelSpanXL="7" editable="true" layout="ColumnLayout" columnsM="2"
+													columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+
+													<!-- <core:Title text=""/> -->
+													<!-- Invoice No-->
+													<m:Label text="Invoice Number" design="Bold"
+														visible="true" required="true"/>
+													<!-- <m:Text id="S2G1T1F1" visible="true" ></m:Text> -->
+                                                    <m:Input id="invoiceNumber" value="" visible="true" placeholder="Select invoice number" maxLength="40" editable="true" width="70%" showValueHelp="true" valueHelpRequest="handleInvoiceDialog" valueHelpOnly="true"/>
+
+												</f:SimpleForm>
+
+
+												<ui:Table id="invoiceTableId" rows="{fragModel>/}"
+													visible="true" selectionMode="None"
+													ariaLabelledBy="title">
+													<ui:extension>
+													<!--Other Bank details Aniket-->
+														<m:OverflowToolbar style="Clear">
+															<m:Title text="Invoice Items"/>
+															<m:ToolbarSpacer/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+														<!-- INVOICE NUMBER -->
+														<ui:Column width="8rem" hAlign="Center"
+															visible="true">
+															<m:Label id="S2G2T1F1" text="Invoice Number" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{fragModel>Vbeln}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- ITEM CODE -->
+														<ui:Column width="7rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F2" text="Item Code" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{fragModel>Matnr}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Description -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F3" text="Description" design="Bold"/>
+															<ui:template>
+																<m:Text text="{fragModel>Arktx}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- INVOICE DATE-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F4"
+																text="Invoice Date" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'fragModel>Fkdat',type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Quantity-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F5" text="Invoice Quantity" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'fragModel>Fkimg', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Rate -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F6" text="Invoice Rate" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'fragModel>Rate', formatter : '.formatter.formatterAmount' }"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Requested Quantity-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="tableIbanId" text="Requested Quantity" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'fragModel>Fkimg', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Requested Rate-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F8" text="Requested Rate" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'fragModel>Rate', formatter : '.formatter.formatterAmount' }"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Requested Amount -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F9_name" text="Requested Amount" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{path:'fragModel>Netwr', formatter : '.formatter.formatterAmount' }"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Action-->
+														<!-- <ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F12" text="Action" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F12} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text=""/>
+															</ui:template>
+														</ui:Column> -->
+													</ui:columns>
+												</ui:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<ObjectPageSection title="Reason For Claim" id="thirdSection"
+							visible="true">
+								<subSections>
+									
+									<ObjectPageSubSection id="orderDetails_Id" title="{labelJson>/S3G3T1F8}">
+										<m:VBox>
+                                            	<m:TextArea id="reasonText" required="true" maxLength="1000" width="100%" placeholder="Enter text here" change="onReason" value="{blankJson>/claimReason}"/>
+										</m:VBox>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+							
+						</sections>
+					</ObjectPageLayout>
+					<!-- <layout:sideContent>
+						<m:Toolbar>
+							<m:Title text="Events"/>
+							<m:ToolbarSpacer/>
+							<m:Button icon="sap-icon://refresh" type="Transparent" press="handleRefreshEvents"/>
+							<m:Button text="Close" type="Transparent" press="handleSideContentHide"/>
+						</m:Toolbar>
+						<m:FeedInput id="emailTextId" post="onPostMessage" showIcon="false" placeholder="Enter query here"/>
+						<layout:VerticalLayout width="100%">
+							<t:Timeline id="idTimeline" showHeaderBar="false" showSearch="false" showSort="false" sortOldestFirst="false" sort="false"
+								enableScroll="false" lazyLoading="false" growingThreshold="0"
+								content="{path : 'comm>/',sorter : { path : 'EVENT_NO',descending : true}}" showIcons="false"
+								noDataText="No Ticket Events are currently available" width="100%">
+								<t:content>
+									<t:TimelineItem id="idTemplateItem" userNameClickable="true"
+										text="Event : {comm>REMARK} {i18n>newLine} Comment : {comm>COMMENT}"
+										dateTime="{path:'comm>CREATED_ON', type: 'sap.ui.model.type.DateTime', formatOptions: { style : 'medium', GMT: false }}"
+										userName="{comm>USER_NAME}"/>
+								</t:content>
+							</t:Timeline>
+						</layout:VerticalLayout>
+					</layout:sideContent> -->
+				</layout:DynamicSideContent>
+			</m:content>
+			<m:footer>
+				<m:Bar>
+					<m:contentRight>
+						<m:Button id="approveBt" text="Submit" press="onSubmtit" type="Success" enabled="true"/>
+						<!-- <m:Button id="rejectBt" text="Reject" press="onReject" type="Negative"/>
+						<m:Button id="sendbackBt" icon="sap-icon://undo" text="Send Back" press="onSendBack" type="Emphasized"/> -->
+
+					</m:contentRight>
+				</m:Bar>
+			</m:footer>
+		</m:Page>
+		<!--</pages>-->
+	</m:App>
+</mvc:View>

@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:u="sap.ui.unified"
+	xmlns:l="sap.ui.layout">
+	<Dialog id="idHelloDialog1919" draggable="true" title="Form Settings" titleAlignment="Center" contentWidth="55%" resizable="false" contentHeight="25rem">
+	<VBox>
+		<Table sticky="HeaderToolbar,ColumnHeaders" items="{idealsetdata>/value}" growing="true" growingThreshold="100" 
+		growingScrollToLoad="true" id="idtblform" class="sapUiSizeCompact" autoPopinMode="true">
+		 <headerToolbar>
+            <OverflowToolbar visible="true">
+                <!-- <Title id="idTotalItemsFormTable"/> -->
+                <!-- <ToolbarSpacer></ToolbarSpacer> -->
+                <SearchField id="idSectionSrchFld" width="38%" liveChange="onSearchSection" showRefreshButton="false" placeholder="Search by Code or Description"></SearchField>
+            </OverflowToolbar>
+        </headerToolbar>
+			<columns>
+				<Column demandPopin="true" hAlign="Center" width="13rem">
+                    <Label text="Code" design="Bold" wrapping="true"/>
+                </Column>
+				<Column demandPopin="true" hAlign="Center" width="14rem">
+					<Label text="Description" design="Bold" wrapping="true"/>
+				</Column>
+				 <Column demandPopin="true" hAlign="Center" width="4rem">
+                    <Label text="Setting" design="Bold"/>
+                </Column>
+                <Column demandPopin="true" hAlign="Center" width="4rem">
+                    <Label text="Action" design="Bold"/>
+                </Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{idealsetdata>CODE}"/>
+						<Text text="{idealsetdata>DESCRIPTION}"/>
+						<Switch id="idVisibilitySwitchform" enabled="false" customTextOn="Yes" customTextOff="No" 
+						state="{parts:[{path:'idealsetdata>SETTING'}], formatter:'.formatter.stateChange'}" blocked="false"/>
+						<Button press="onSectionEdit" icon="sap-icon://edit" type="Transparent"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		</VBox>
+		<endButton>
+			<Button text="Close" press="onCloseFormsetting" icon="sap-icon://cancel"></Button>
+		</endButton>
+		<!-- <beginButton>
+			<Button text="Save" press="onSubmitFormSetting" icon="sap-icon://accept"></Button>
+		</beginButton> -->
+	</Dialog>
+</core:FragmentDefinition>

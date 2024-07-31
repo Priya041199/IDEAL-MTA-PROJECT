@@ -1,0 +1,77 @@
+<!-- <mvc:View controllerName="com.ibs.ibsappidealusermaster.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content />
+    </Page>
+</mvc:View> -->
+
+<mvc:View controllerName="com.ibs.ibsappidealusermaster.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Page id="page" showHeader="false">
+        <content>
+ <Panel>
+                <Table id="id_Table" inset="false" 
+					items="{path: 'newMatrixJson>/',
+					sorter: {path: 'EMAIL',
+						descending: false}}">
+                    <headerToolbar>
+						<Toolbar>
+                            <SearchField placeholder="Search with User Name and User ID" width="25%" liveChange="onSearch"></SearchField>
+                                <ToolbarSpacer/>
+                                <Button text="Add New" icon="sap-icon://create-form" type="Emphasized" press="handleMatrixDialog"></Button>
+						</Toolbar>
+					</headerToolbar>
+
+                    <columns>
+						<Column demandPopin="true" minScreenWidth="Phone" width = "20%"><Label text="User ID" design="Bold"/></Column>
+						<Column demandPopin="true"  minScreenWidth="Desktop" width = "20%"><Label text="User Name" design="Bold"/></Column>
+						<Column demandPopin="true"  minScreenWidth="Phone" width = "20%"><Label text="Entity" design="Bold"/></Column>
+						<Column demandPopin="true"  minScreenWidth="Desktop"  width = "20%"><Label text="User Role" design="Bold"/></Column>
+						<Column demandPopin="true" minScreenWidth="Phone" width = "20%"><Label text="Action" design="Bold"/></Column>
+					</columns>
+
+                    <items>
+						<ColumnListItem>
+							<cells>
+								<Label text="{newMatrixJson>EMAIL}" design="Bold" wrapping="true"/>
+								<Text text="{newMatrixJson>USER_NAME}"/>
+								<Button icon="sap-icon://company-view" press="handleEntityDesc" tooltip="Entity Details"/>
+								<!-- <Text text="{newMatrixJson>USER_ROLE}"/> -->
+							<!-- <MultiInput id="multiInputId" editable="false"></MultiInput> -->
+							<MultiInput
+		id="multiinput1"
+		showValueHelp="false"
+		showSuggestion="false"
+	editable="false">
+		<tokens>
+			<Token key="{newMatrixJson>USER_ROLE}" text="{newMatrixJson>DESCRIPTION}"/>
+		</tokens>
+	</MultiInput>
+	<!-- <MultiInput id="multiInput_{userId}" tokens="{USER_ROLE}" /> -->
+	<!-- <MultiInput tokens="{USER_ROLE}" />  -->
+	 <!-- <MultiInput tokens="{newMatrixJson>USER_ROLE}" showValueHelp="true"/> -->
+
+	 <!-- <MultiInput id="{= 'multiInput_' + ${userId} }" showValueHelp="true" /> -->
+	 <!-- <MultiInput tokens="{USER_ROLE}" showValueHelp="true" /> -->
+<!-- <MultiInput tokens="{USER_ROLE}" showValueHelp="true" /> -->
+<!-- <MultiInput tokens="{ path: 'newMatrixJson>USER_ROLE', formatter : '.formatRoles' }" /> -->
+<!-- <MultiInput showValueHelp="false">
+                        <tokens>
+                            <Token text="{newMatrixJson>USER_ROLE}" key="{newMatrixJson>USER_ROLE}"/>
+                        </tokens>
+                    </MultiInput> -->
+
+								<HBox>
+									<Button press="onUpdate"  tooltip="Update" icon="sap-icon://edit" class="sapUiSmallMarginEnd"></Button>
+									<Button press="onDelete"  tooltip="Delete" icon="sap-icon://delete" type="Reject"></Button>
+								</HBox>
+							</cells>
+						</ColumnListItem>
+					</items>
+                </Table>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

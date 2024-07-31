@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ViewSettingsDialog class="sapUiSizeCompact" id="viewSettingsDialog" cancel="handleCancel"
+	confirm="onConfirmViewSettingsDialog">
+		<filterItems>
+			<ViewSettingsFilterItem text="Request Type" id="filterItems3" key="request" items="{typeJson>/value}">
+				<items>
+					<ViewSettingsItem text="{typeJson>DESCRIPTION}" key="request"/>
+				</items>
+			</ViewSettingsFilterItem>
+			
+			 <ViewSettingsCustomItem text="Creation Date" key="3">
+                <customControl>
+                <FlexBox justifyContent="Center">
+                   <DateRangeSelection id="date_fId" placeholder="Select Date Range"/>
+                   </FlexBox>
+                </customControl>
+            </ViewSettingsCustomItem>
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

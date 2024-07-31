@@ -1,0 +1,80 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ui="sap.ui.table" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified">
+	<Dialog title="{i18n>fragmentRequestForm}" verticalScrolling="false" draggable="true" resizable="true" contentWidth="700px" titleAlignment="Center"
+		class="sapUiSizeCompact">
+		<f:SimpleForm id="SimpleFormDisplay354" editable="false" layout="ColumnLayout" title="" columnsM="2" columnsL="3" columnsXL="4">
+			<f:content>
+				<Label text="{i18n>fragmentRequestType}" required="true" design="Bold"/>
+				<ComboBox id="id_type" value="{typeJson>/SUPPLIER_TYPE}" items="{typeJson>/value}" change="onTypeChange" placeholder="Select Request Type" valueState="{oPropertyModel>/idTypeState}">
+					<items>
+						<core:Item text="{typeJson>DESCRIPTION}" enabled="true" key="{typeJson>CODE}"/>
+					</items>
+				</ComboBox>
+				
+
+				<Label text="{i18n>fragmentDistributorName}" required="true" design="Bold"/>
+				<Input id="id_vendor" placeholder="Enter Distributor Name" autocomplete="{oPropertyModel>/autoName}" showValueHelp="false" maxLength="80"
+					showSuggestion="true" suggestionItemSelected="onSuggestionItemSelected" editable="{oPropertyModel>/valName}" value="{tableJsonModel>/VNAME}"
+					change="onVnameChange" suggestionItems="{path: 'vendorDataModel>/results'}" valueState="{oPropertyModel>/vendorName}">
+					<suggestionItems>
+						<core:Item text="{vendorDataModel>Kunnr}-{vendorDataModel>Name1}"/>
+					</suggestionItems>
+				</Input>
+
+				<Label text="Mobile No" visible="true" required="true" design="Bold"/>
+				<Input value="{tableJsonModel>/MOBILE_NO}" change="mobnovalidation" maxLength="10" editable="{oPropertyModel>/valEmail}" id="id_mobile"
+					placeholder="Enter Mobile No"/>
+
+				<!-- <Label text="{i18n>fragmentTradingPartnerNumber}" visible="{oPropertyModel>/sapCode}" required="true" design="Bold"/>
+				<ComboBox id="id_sapCode" items="{tpJsonModel>/results}" visible="{oPropertyModel>/sapCode}" placeholder="Select Trading Partner"
+					selectedKey="{tableJsonModel>/SAP_VENDOR_CODE}" selectionChange="onSelectionTradingPartner" showSecondaryValues="true"
+					filterSecondaryValues="true" valueState="{oPropertyModel>/sapCodeState}">
+					<items>
+						<core:ListItem text="{tpJsonModel>Rcomp}" key="{tpJsonModel>Rcomp}" additionalText="{tpJsonModel>Name1}"/>
+					</items>
+				</ComboBox> -->
+
+				<!-- <Label text="{i18n>fragmentVendorName}" required="true" design="Bold"/>
+				<Input id="id_vendor" placeholder="Enter Vendor Name" autocomplete="{oPropertyModel>/autoName}" showValueHelp="false" maxLength="80"
+					showSuggestion="true" suggestionItemSelected="onSuggestionItemSelected" editable="{oPropertyModel>/valName}" value="{tableJsonModel>/VNAME}"
+					change="onVnameChange" suggestionItems="{path: 'vendorDataModel>/value'}" valueState="{oPropertyModel>/vendorName}">
+					<suggestionItems>
+						<core:Item text="{vendorDataModel>LIFNR}-{vendorDataModel>NAME1}"/>
+					</suggestionItems>
+				</Input> -->
+
+				<Label text="Entity" required="true" design="Bold" />
+				<!-- editable="{oPropertyModel>/valEntity}" -->
+				<ComboBox id="id_entity" items="{EntityDropDownModel>/}" change="handleEntityCodeCb" editable="{oPropertyModel>/valEntity}" placeholder="Select Entity" valueState="{oPropertyModel>/EntityState}">
+					<core:Item key="{EntityDropDownModel>ENTITY_CODE}" text="{EntityDropDownModel>ENTITY_CODE} - {EntityDropDownModel>ENTITY_DESC}"/>
+				</ComboBox>
+
+				<Label text="{i18n>fragmentCreationType}" visible="{oPropertyModel>/valCreateType}" required="true" design="Bold"/>
+				<ComboBox visible="{oPropertyModel>/valCreateType}" id="id_createType" placeholder="Select Creation Type">
+					<items>
+						<core:Item text="Create Normal" enabled="true" key="1"/>
+						<core:Item text="Create Low Value" enabled="true" key="2"/>
+						<core:Item text="Create Exceptional" enabled="true" key="3"/>
+						<core:Item text="Update Supplier" enabled="true" key="5"/>
+						<core:Item text="Quick Registration (Sourcing)" enabled="true" key="7"/>
+					</items>
+				</ComboBox>
+
+				<Label text="{i18n>fragmentDistributorEmail}" required="true" design="Bold"/>
+				<Input value="{tableJsonModel>/VEMAIL}" change="emailvalidation" maxLength="241" editable="{oPropertyModel>/valEmail}" id="id_email"
+					placeholder="Enter Distributor Email" valueState="{oPropertyModel>/EmailState}"/>
+				
+			</f:content>
+		</f:SimpleForm>
+		<VBox>
+			<Label text="{i18n>fragmentCommentForApprover}" design="Bold" class="sapUiSmallMarginBegin"/>
+			<TextArea editable="{oPropertyModel>/valComment}" id="id_comment" width="95%" class="sapUiSmallMarginBegin" value="{tableJsonModel>/COMMENT}"
+				showExceededText="true" rows="3" maxLength="1000" change="handleLiveChange"/>
+		</VBox>
+		<buttons>
+			<Button text="{i18n>fragmentInviteSubmit}" press="handleVendorSubmit" enabled="{oPropertyModel>/submitBtn}" icon="sap-icon://accept"/>
+			<Button text="{i18n>fragmentInviteReset}" press="onReset" icon="sap-icon://reset" visible="{oPropertyModel>/resetBtn}"/>
+			<Button text="{i18n>fragmentInviteClose}" press="_closeDialog" icon="sap-icon://cancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

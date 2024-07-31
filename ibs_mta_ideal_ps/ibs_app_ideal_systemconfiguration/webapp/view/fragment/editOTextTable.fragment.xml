@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog id="idOpenTextDialog" title="Edit Open Text Details" contentWidth="400px" titleAlignment="Center" class="sapUiSizeCompact">
+		<f:SimpleForm id="idSimpleFormOpenText" editable="false" layout="ColumnLayout" title="" columnsM="2" columnsL="2" columnsXL="2">
+			<f:content>
+				<Label text="Iven Vendor Code" required="true"/>
+				<Input id="idIVenCodeInp" editable="false" value=""></Input>
+				<Label text="Parent Folder Id" required="true"/>
+				<Input id="idParntFoldInp" editable="true" value=""></Input>
+				<Label text="Active Folder Id" required="true"/>
+				<Input id="idActFoldInp" editable="true" value=""></Input>
+				<Label text="De-active Folder Id" required="true"/>
+				<Input id="idDeActFoldInp" editable="true" value=""></Input>
+			</f:content>
+		</f:SimpleForm>
+		<buttons>
+			<Button text="Submit" press="handleSubmitOpenTextEdit" visible="{oPropertyModel>/submit}" icon="sap-icon://accept"/>
+			<Button text="Close" press="handleCloseOtxtDialog" icon="sap-icon://cancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

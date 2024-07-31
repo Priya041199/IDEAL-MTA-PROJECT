@@ -1,0 +1,65 @@
+<mvc:View controllerName="com.ibs.ibsappidealcreditdebitnote.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt">
+    <Page id="page" title="{i18n>title}" showHeader="false">
+        <!-- <content /> -->
+         <form:SimpleForm editable="true" title="Retailer Information" layout="ResponsiveGridLayout" visible="true" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="3"
+					adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+					singleContainerFullSize="false">
+					<form:content>
+						<core:Title/>
+						<Label text="Retailer" design="Bold" required="true"/>
+						<Input id="retlrId" width="13rem" placeholder="Select Retailer Name" showSuggestion="true" showValueHelp="true" valueHelpOnly="true"
+							valueHelpRequest="handleValueHelp" editable="true"></Input>
+						<core:Title/>
+
+						<Label text="Transaction Type" design="Bold"/>
+						<Select forceSelection="true" id="tType" width="13rem" change="onchangeTransType" >
+							<core:Item key="5" text="Credit Note"/>
+							<core:Item key="6" text="Debit Note"/>
+						</Select>
+					</form:content>
+				</form:SimpleForm>
+
+				<form:SimpleForm id="custform" editable="true" layout="ResponsiveGridLayout" title="Credit Note" visible="true" labelSpanXL="4"
+					labelSpanL="5" labelSpanM="4" labelSpanS="4" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+					columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false" class="form">
+					<form:content>
+						<core:Title/>
+						<Label text="Posting Date" design="Bold"/>
+						<!-- <DatePicker id="fdate" width="13rem" placeholder="Enter Date ..." editable="true" displayFormat="dd.MM.yyyy"
+							valueFormat="yyyy-MM-ddTHH:mm:ss" change="onDate"/> -->
+						<Input id="fdate" change="onDate" width="13rem" value="{path:'currDate>/dtValue', type: 'sap.ui.model.type.Date',formatOptions: {style: 'short', pattern:'dd.MM.yyyy'}}" editable="false"/>
+
+						<Label text="Amount" design="Bold" required="true"/>
+						<Input id="amt" liveChange="onChange" width="13rem" type="Number"/>
+						<core:Title/>
+						
+						<Label text="Reference Invoice" design="Bold" required="true"/>
+						<ComboBox items="{invoice>/value}" id="invoice" width="13rem" loadItems="onChangeInvoice" change="onInvoiceSelect" selectionChange="on" >
+							<core:Item key="{invoice>INVOICE_NO}" text="{invoice>INVOICE_NO}"/>
+						</ComboBox>
+						<!-- <Input width="13rem" value="1000000036" id="invoice" editable="false"/> -->
+
+						<Label text="Tax Amount" design="Bold"/>
+						<Input width="13rem" value="0" id="taxAmt" editable="false"/>
+
+						<core:Title/>
+						<Label text="Reference Text" design="Bold" required="true"/>
+						<Input width="13rem" id="refText" liveChange="onRef" />
+
+						<Label text="Total Amount" design="Bold"/>
+						<Input id="tAmount" value="0" width="13rem" editable="false"/>
+					</form:content>
+				</form:SimpleForm>
+				<!--</VBox>-->
+				<footer>
+					<Bar>
+						<contentRight>
+							<Button type="Emphasized" id="sButton" enabled="false" icon="sap-icon://sys-enter" text="Submit" press="onSubmit"/>
+						</contentRight>
+					</Bar>
+				</footer>
+    </Page>
+</mvc:View>

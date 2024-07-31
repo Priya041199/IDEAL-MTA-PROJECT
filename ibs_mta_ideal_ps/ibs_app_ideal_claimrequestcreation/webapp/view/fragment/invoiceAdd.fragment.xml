@@ -1,0 +1,116 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:ui="sap.ui.table">
+<m:Dialog title="Invoice Items" 
+		class="sapUiSizeCompact">
+<m:VBox>
+<f:SimpleForm id="simpleForm6" labelSpanL="7" labelSpanM="7" labelSpanXL="7" editable="true" layout="ColumnLayout" columnsM="2"
+columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+
+													<!-- <core:Title text=""/> -->
+													<!-- Invoice No-->
+													<m:Label id="S2G1T1F1_lbl" text="Invoice Number" design="Bold"
+														visible="true"/>
+													<!-- <m:Text id="S2G1T1F1" visible="true" ></m:Text> -->
+                                                    <m:Input value="{itemModel>/results/0/Vbeln}" visible="true" placeholder="Select invoice number" maxLength="40" editable="true" width="70%" showValueHelp="true" valueHelpRequest="invoiceItemsDialog" change="onItemChange"/>
+
+												</f:SimpleForm>
+
+                                                <!-- ADD ITEMS -->
+												<ui:Table id="itemsTableId" rows="{itemModel>/results}"
+													visible="true" selectionMode="MultiToggle"
+													ariaLabelledBy="title">
+													
+													<ui:columns>
+														<!-- INVOICE NUMBER -->
+														<ui:Column width="8rem" hAlign="Center"
+															visible="true">
+															<m:Label id="S2G2T1F1" text="Invoice Number" design="Bold"/>
+															<ui:template>
+																<m:Text text="{itemModel>Vbeln}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- ITEM CODE -->
+														<ui:Column width="7rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F2" text="Item Code" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{itemModel>Matnr}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Description -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F3" text="Description" design="Bold"/>
+															<ui:template>
+																<m:Text text="{itemModel>Arktx}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- INVOICE DATE-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F4"
+																text="Invoice Date" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'itemModel>Fkdat',type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Quantity-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F5" text="Invoice Quantity" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'itemModel>Fkimg', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Rate -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F6" text="Invoice Rate" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'itemModel>Rate', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Requested Quantity-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="tableIbanId" text="Requested Quantity" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'itemModel>Fkimg',formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Requested Rate-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F8" text="Requested Rate" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'itemModel>Rate', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Requested Amount -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F9_name" text="Requested Amount" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{path:'itemModel>Netwr', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Action-->
+														<!-- <ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F12" text="Action" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F12} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text=""/>
+															</ui:template>
+														</ui:Column> -->
+													</ui:columns>
+												</ui:Table>
+											</m:VBox>
+
+                                            <m:buttons>
+			<m:Button text="Ok" press="addInvoice" type="Emphasized" />
+            <m:Button text="Close" press="closeAddInvoiceDialog" type="Emphasized" />
+		</m:buttons>
+</m:Dialog>
+</core:FragmentDefinition>

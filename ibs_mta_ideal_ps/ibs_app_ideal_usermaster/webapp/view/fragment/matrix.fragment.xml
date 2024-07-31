@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ui="sap.ui.table" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified">
+	<Dialog title="{oPropertyModel>/title}" resizable="true" contentWidth="700px" verticalScrolling="false" titleAlignment="Center" class="sapUiSizeCompact">
+		<f:SimpleForm id="SimpleFormDisplay354" editable="true" layout="ColumnLayout" title="" columnsM="2" columnsL="2" columnsXL="3">
+			<f:content>
+				<Label text="User ID" required="{oPropertyModel>/require}" design="Bold"/>
+				<Input id="id_entity" value="{tableJson>/EMAIL}" editable="{oPropertyModel>/valEntity}" valueHelpOnly="true"
+					valueHelpRequest="handleValueEntityHelp" placeholder="Select User ID" showValueHelp="true"></Input>
+
+				<Label text="User Name" required="false" design="Bold"/>
+				<Input id="fName" value="{tableJson>/USER_NAME}" editable="false"></Input>
+
+				<Label text="Entity" required="true" design="Bold"/>
+				<MultiComboBox width="100%" id="id_entityCode" items="{entityDetails>/value}" change="onEntityChange">
+					<core:Item key="{entityDetails>BUKRS}" text="{entityDetails>BUKRS} - {entityDetails>BUTXT}"/>
+				</MultiComboBox>
+
+				<Label text="User Role" required="true" design="Bold"/>
+				<MultiComboBox width="100%" id="id_userRole" items="{userRoleModel>/value}" change="onUserRoleChange">
+					<core:Item key="{userRoleModel>CODE}" text="{userRoleModel>DESCRIPTION}"/>
+				</MultiComboBox>
+
+				<!-- <ComboBox items="{userRoleModel>/value}" editable="true" id="id_userRole" placeholder="Select User Role" change="onUserRoleChange">
+					<items>
+						<core:Item text="{userRoleModel>DESCRIPTION}" key="{userRoleModel>CODE}"/>
+					</items>
+				</ComboBox> -->
+			</f:content>
+		</f:SimpleForm>
+
+		<buttons>
+			<Button text="Submit" press="handleSubmit" visible="{oPropertyModel>/submit}" icon="sap-icon://accept"/>
+			<Button text="Update" press="handleSubmit" visible="{oPropertyModel>/update}" icon="sap-icon://accept"/>
+			<Button text="Close" press="_closeDialog" icon="sap-icon://cancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

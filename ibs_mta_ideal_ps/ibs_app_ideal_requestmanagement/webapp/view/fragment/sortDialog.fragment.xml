@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ViewSettingsDialog confirm="handleSortDialogConfirm" cancel="handleSortCancel" class="sapUiSizeCompact" reset="onSortReset" sortDescending="true">
+		<sortItems>
+			<ViewSettingsItem text="Request Number" key="REQUEST_NO" selected="true"/>
+			<ViewSettingsItem text="Distributor Name" key="DIST_NAME1"/>
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

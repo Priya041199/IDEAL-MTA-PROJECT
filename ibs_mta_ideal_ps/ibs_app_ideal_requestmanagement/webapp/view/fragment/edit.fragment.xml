@@ -1,0 +1,87 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ui="sap.ui.table" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" width="100px" xmlns:layout="sap.ui.layout">
+	<Dialog title="{changeRequestModel>/REQUEST_NO} -  {changeRequestModel>/DIST_NAME1}" contentWidth="400px" draggable="true" resizable="true" class="sapUiSizeCompact" titleAlignment="Center" contentHeight="auto">
+		
+		<IconTabBar
+		id="idIconTabBarNoIcons"
+		expanded="true"
+		expandable="false"
+		class="sapUiResponsiveContentPadding" select="onIconTab" selectedKey="{oPropertyModel>/selectedTabKey}">
+		<items>
+			<IconTabFilter text="{i18n>tabFilter1}" key="RequestChangeKey" id="idRequestChange" visible="{oPropertyModel>/RequestTypeTab}">
+				<!--<Text text="Attachments go here ..." />-->
+					<f:SimpleForm id="SimpleFormChange354" editable="true" layout="ColumnLayout" title=""
+				singleContainerFullSize="false" visible="true">
+				<f:content>
+
+					<Label text="{i18n>requestTypelabel1}" design="Bold" id="requestTypelabel1_id2"/>
+					<ComboBox id="reqTypeId2" items="{typeJsonEditModel2>/}"  change="onRequestTypeChange2" selectedKey="{changeRequestModel>/CREATION_TYPE}">
+						<items>
+							<core:Item text="{typeJsonEditModel2>DESCRIPTION}" key="{typeJsonEditModel2>CODE}"/>
+						</items>
+					</ComboBox>
+					
+					<Label text="{i18n>requestTypelabel1}" design="Bold" id="requestTypelabel1_id"/>
+					<ComboBox id="reqTypeId" items="{typeJsonEditModel>/}"  change="onRequestTypeChange" selectedKey="{changeRequestModel>/REQUEST_TYPE}">
+						<items>
+							<core:Item text="{typeJsonEditModel>DESCRIPTION}" key="{typeJsonEditModel>CODE}"/>
+						</items>
+					</ComboBox>
+					
+					<!-- <Label text="{i18n>supplierTypelabel1}" design="Bold"/>
+					<ComboBox id="supTypeId"  change="onSupplierTypeChange" items="{suppModel>/}" selectedKey="{changeRequestModel>/SUPPL_TYPE}" editable="{oPropertyModel>/SupTypeEdit}">
+						<items>
+							<core:Item text="{suppModel>Txt30}" key="{suppModel>Ktokk}"/>
+							
+						</items>
+					</ComboBox>
+					
+					<Label text="{i18n>supplierCatlabel1}" design="Bold" />
+					<ComboBox id="subTypeId"  change="onSupplierSubTypeChange" items="{bpTypeJson>/results}" selectedKey="{changeRequestModel>/BP_TYPE_CODE}"
+					visible="true" editable="{oPropertyModel>/SubTypeEdit}">
+						<items>
+							<core:Item text="{bpTypeJson>Text40}" key="{bpTypeJson>Bpkind}"/>
+						</items>
+					</ComboBox> -->
+
+				</f:content>
+			</f:SimpleForm>
+			</IconTabFilter>
+
+			<IconTabFilter text="{i18n>tabFilter3}" key="StatusChange" visible="{oPropertyModel>/StatusDeleteTab}">
+				<!--<Text text="Notes go here ..." />-->
+				<f:SimpleForm id="SimpleFormChange3" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3"
+				singleContainerFullSize="false" visible="true">
+				<f:content>
+				
+					<HBox>
+					<VBox width="370px">
+					<Label text="Created On: " design="Bold"/>
+					<!-- <Text text="{path:'changeRequestModel>/CREATED_ON', type:'sap.ui.model.type.Date', formatOptions:{pattern:'yyyy-mm-dd'}}"/> -->
+					<Text text="{path:'changeRequestModel>/CREATED_ON',formatter:'.formatter.formatDate' }"/>
+					</VBox>
+				
+					<VBox>					
+					<Label text="{i18n>rejectreqlabel3}" design="Bold" required="true"/>
+					<!--state="{= ${changeRequestModel>/STATUS} === 4 ? true : (${changeRequestModel>/STATUS} === 7 ? false : false)}"-->
+					<Switch id="idVisibilitySwitchform" customTextOn="Yes" customTextOff="No"  blocked="false" state="false" change="onSwitchStateChange"/>
+					</VBox>
+					</HBox>
+					<Label text="Comment" required="true" design="Bold"/>
+				
+					<TextArea id="textareaIdStatus" rows="3" value="{oPropertyModel>/TextValue}" maxLength="1000" showExceededText="true"/>
+				</f:content>
+			</f:SimpleForm>
+			</IconTabFilter>
+		</items>
+	</IconTabBar>
+
+
+
+			
+		<buttons>
+			<Button id="idsubmit" text="{i18n>fragmentSubmit}" press="handleSubmitReqType" enabled="{oPropertyModel>/SubmitButton}" type="Emphasized"/>
+			<Button text="{i18n>fragmentCancel}" press="onCloseDialog" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

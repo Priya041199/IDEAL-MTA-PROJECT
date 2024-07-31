@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog id="idAddFields" class="sapUiSizeCompact" title="Add Form Fields" titleAlignment="Center" contentWidth="20rem" contentHeight="18rem" resizable="true" draggable="true">
+		<f:SimpleForm id="addFieldsTable" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false">
+			<f:content>
+				<Label text="Request Type" required="true"/>
+				<Input width="100%" id="idFragInp" placeholder="Select Request Type" showSuggestion="true" showValueHelp="true"
+                    valueHelpRequest="onValueHelpReqType" valueState="{addFieldsData>/requestType}"
+						valueStateText="{addFieldsData>/requestTypeText}"></Input>
+
+            	<Label text="Entity" required="true"/>
+                 <Input width="100%" id="idFragEntityInp" placeholder="Select Entity" showSuggestion="true" showValueHelp="true"
+                    valueHelpRequest="onValueHelpEntity" valueState="{addFieldsData>/entityCode}"
+						valueStateText="{addFieldsData>/entityCodeText}"></Input>
+				
+				<Label text="Do you want to copy the form fields from the previous entity ? " width="100%"/>
+				<!-- <RadioButtonGroup select="onSelectRB"> -->
+				<HBox>
+					<RadioButton id="RB-1" text="Yes" select="onSelectRB1"/>
+					<RadioButton id="RB-2" text="No" select="onSelectRB2"/>
+				</HBox>
+				<!-- </RadioButtonGroup> -->
+				<Label text="Previous Entity" id="idCopyEntityLbl" visible="false" required="true"/>
+                 <Input width="100%" id="idCopyEntity" visible = "false" placeholder="Select previous entity for copy" showSuggestion="true" showValueHelp="true"
+                    valueHelpRequest=".onValueHelpCopyEntity" valueState="{addFieldsData>/copyEntityCode}"
+						valueStateText="{addFieldsData>/copyEntityCodeText}"></Input>
+                </f:content>
+		</f:SimpleForm>
+		<endButton>
+			<Button text="Close" press="onCloseAddTable" icon="sap-icon://cancel"></Button>
+		</endButton>
+		<beginButton>
+			<Button text="Submit" press="onSubmitAdd" icon="sap-icon://accept"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>
+
+

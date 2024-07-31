@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+	<Dialog id="idUploadOptionDlg" title="Upload Options" class="sapUiSizeCompact" icon="sap-icon://information" titleAlignment="Center"
+		resizable="true">
+		<customHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer></ToolbarSpacer>
+				<Button icon="sap-icon://information" class="size1"/>
+				<Title text="Upload Options"/>
+				<ToolbarSpacer></ToolbarSpacer>
+				<Button icon="sap-icon://decline" press="handleUploadOptionFragClose"/>
+			</OverflowToolbar>
+		</customHeader>
+		<Label text="Please select an option to upload data." class="sapUiSmallMargin"/>
+		
+			<Toolbar>
+				<content>
+					<ToolbarSpacer/>
+					<u:FileUploader id="idFileUploaderBtn" buttonText="CSV" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true"
+						fileType="csv" style="Emphasized" change="onTemplateUpload" width="5rem"/>
+					<Button text="JSON" type="Emphasized" press="handleUploadJson" width="5rem"/>
+					<ToolbarSpacer/>
+				</content>
+			</Toolbar>
+	</Dialog>
+</core:FragmentDefinition>

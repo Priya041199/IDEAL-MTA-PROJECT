@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog id="idEditSections" draggable="true" title="Edit Form Settings" titleAlignment="Center" contentWidth="300px">
+		<f:SimpleForm id="idSectionForm" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false">
+			<f:content>
+				<Label text="Code "/>
+				<Input id="idSectionCode" value="{oSelectedRowModel>/CODE}" editable="false" />				
+				<Label text="Description "/>
+				<TextArea value="{oSelectedRowModel>/DESCRIPTION}" rows="2" 
+				editable="true" id="idSectionDescription"/>
+				
+				<VBox class="sapUiTinyMarginTop">
+					<Label text="Setting :" />
+					<Switch change="onChangeSettings" id="idSwitchformSection" customTextOn="Yes" customTextOff="No" state="{parts:[{path:'oSelectedRowModel>/SETTING'}], formatter:'.formatter.stateChange'}"/>
+					<Input value = "{path:'oSelectedRowModel>/SETTING'}" id="appLimitId" placeholder = "Enter approver limit" visible="false"/>
+				</VBox>
+
+				<!-- <Label text="Approver Limit"/>
+				<Input value = "{path:'oSelectedRowModel>/SETTING'}" id="appLimitId" placeholder = "Enter approver limit" visible="false"/> -->
+
+			</f:content>
+		</f:SimpleForm>
+		<endButton>
+			<Button text="Close" press="onCloseEditTable" icon="sap-icon://cancel"></Button>
+		</endButton>
+		<beginButton>
+			<Button text="Submit" press="onSubmitSettings" icon="sap-icon://accept"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

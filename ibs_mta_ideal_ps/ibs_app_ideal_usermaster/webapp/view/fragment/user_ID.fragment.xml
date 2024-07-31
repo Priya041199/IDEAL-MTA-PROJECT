@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog contentHeight="450px" class="sapUiSizeCompact" 
+    titleAlignment="Center"  contentWidth="350px"
+		id="id_F4Entity" 
+        title="Select User ID"
+        noDataText="Not Found" 
+        liveChange="handleEntityValueHelpSearch"
+		confirm="handleEntityValueHelpClose" 
+        cancel="handleEntityValueHelpClose" 
+        items="{user_ID_Model>/value}">
+			<StandardListItem id="plantTempId" title="{user_ID_Model>EMAIL}" 
+            description="{user_ID_Model>FIRST_NAME} {user_ID_Model>LAST_NAME}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,61 @@
+<mvc:View controllerName="com.ibs.ibsappidealrequestapproval.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <!-- <pages> -->
+			<Page id="page" title="Request Approval" showHeader="false" class="sapUiSizeCompact">
+				<content>
+					<VBox class="sapUiSmallMargin">
+						<Table id="idVendorTable" growing="true" growingThreshold="50" sticky="HeaderToolbar,ColumnHeaders" 
+							items="{path : 'vendorJson>/value',sorter : { path : 'REQUEST_NO',descending : true}}" inset="false" autoPopinMode="true"
+							contextualWidth="Auto">
+							<headerToolbar>
+								<Toolbar>
+									<SearchField id="id_search" placeholder="Search by Distributor Name or Request No." width="30%" liveChange="onSearch"></SearchField>
+									<ToolbarSpacer/>
+									<OverflowToolbarButton id="sort" type="Default" text="Sort" tooltip="Sort" icon="sap-icon://sort" press="onSort"/>
+									<OverflowToolbarButton id="filter" icon="sap-icon://filter" tooltip="Filter" type="Default" press="onFilter"/>
+									<OverflowToolbarButton icon="sap-icon://reset" tooltip="Reset" type="Default" press="onResetFilter"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column width="9rem"><Label text="Request No." design="Bold"/></Column>
+								<Column width="8rem"><Label text="Distributor Name" design="Bold"/></Column>
+								<Column width="10rem" hAlign="Center"><Label text="Entity" design="Bold"/></Column>
+								<Column hAlign="Center" width="10rem"><Label text="Distributor Email" design="Bold"/></Column>
+								<Column hAlign="Center" width="9rem"><Label text="Mobile no" design="Bold"/></Column>
+								<!-- <Column hAlign="Center" width="9rem"><Label text="Distributor Type" design="Bold" wrapping="true"/></Column>
+								<Column hAlign="Center" width="9rem"><Label text="Distributor Sub Type" wrapping="true" design="Bold"/></Column> -->
+								<Column hAlign="Center" width="10rem"><Label text="Requested By / Date" design="Bold" wrapping="true"/></Column>
+								<Column hAlign="Center" width="10rem"><Label text="Status" design="Bold" wrapping="true"/></Column>
+								<Column hAlign="Center" width="6rem"><Label text="Comment" design="Bold" wrapping="true"/></Column>
+								<Column width="6rem"><Label text="Action" design="Bold" class="sapUiSmallMarginBegin"/></Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier title="{vendorJson>REQUEST_NO}"
+											text="{parts:[{path:'vendorJson>CREATION_TYPE'},{path:'vendorJson>REQUEST_TYPE'}], formatter:'.formatter.creationTypeDesc'}"/>
+										<Text text="{vendorJson>DIST_NAME1}" wrapping="true"/>
+										<ObjectIdentifier title="{vendorJson>TO_ENTITY_CODE/BUKRS}" text="{vendorJson>TO_ENTITY_CODE/BUTXT}"/>
+										<Text text="{vendorJson>REGISTERED_ID}"/>
+										<Text text="{vendorJson>MOBILE_NO}"/>
+										<!-- <Text text="{vendorJson>SUPPL_TYPE_DESC}"/>
+										<Text text="{vendorJson>BP_TYPE_DESC}"/> -->
+										<ObjectIdentifier title="{vendorJson>REQUESTER_ID}"
+											text="{path: 'vendorJson>CREATED_ON', formatter:'.formatter.getDate'}"/>
+										<ObjectStatus text="{parts:[{path: 'vendorJson>TO_STATUS/DESCRIPTION'},{path : 'vendorJson>APPROVER_ROLE'}] , formatter : '.formatter.getVisibility'}" state="{path:'vendorJson>STATUS',formatter:'.formatter.getStatus'}" inverted="true"></ObjectStatus>
+										<Button icon="sap-icon://comment" press="displayBuyerComment" type="{= ${vendorJson>COMMENT} ? 'Reject' : 'Default'}"/>
+										<HBox>
+											<Button press="onApprove" tooltip="Send Invite" icon="sap-icon://complete" type="Accept" class="sapUiTinyMarginEnd"></Button>
+											<Button press="onReject" tooltip="Reject Invite" icon="sap-icon://decline" type="Reject"></Button>
+										</HBox>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</VBox>
+				</content>
+			</Page>
+		<!-- </pages> -->
+
+</mvc:View>

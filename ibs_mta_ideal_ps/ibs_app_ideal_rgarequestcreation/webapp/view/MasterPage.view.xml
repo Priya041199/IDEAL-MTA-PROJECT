@@ -1,0 +1,108 @@
+<mvc:View controllerName="com.ibs.ibsappidealrgarequestcreation.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page class="sapUiSizeCompact" showHeader="false">
+			<content>
+			<IconTabBar
+			id="idIconTabBar"
+			select=".onFilterSelect"
+			class="sapUiResponsiveContentPadding"
+			selectedKey="Created">
+			<items>
+
+			<IconTabFilter
+				icon="sap-icon://approvals"
+				iconColor="Positive"
+				count="{countModel>/Created}"
+				text="Created"
+				key="Created"/>
+
+			<IconTabFilter
+				icon="sap-icon://pending"
+				iconColor="Marker"
+				count="{countModel>/InApproval}"
+				text="In-Approval"
+				key="InApproval"/>
+			
+			<IconTabFilter
+				icon="sap-icon://accept"
+				iconColor="Positive"
+				count="{countModel>/Approved}"
+				text="Approved"
+				key="Approved"/>
+
+			<IconTabFilter
+				icon="sap-icon://clear-all"
+				iconColor="Negative"
+				count="{countModel>/Rejected}"
+				text="Rejected"
+				key="Rejected"/>
+		<IconTabSeparator/>
+
+		<IconTabFilter
+				showAll="true"
+				id="AllTab"
+				count="{countModel>/All}"
+				text="All Requests"
+				key="All"/>
+			
+		</items>
+
+
+				<content>
+					<Table id="idProductsTable" sticky="ColumnHeaders,HeaderToolbar" inset="false"
+						items="{path : 'rModel>/value',sorter : { path : 'RGA_NO',descending : true}}" class="sapUiContentPadding" growing="true"
+						growingThreshold="30" autoPopinMode="true" fixedLayout="true">
+						<headerToolbar>
+							<OverflowToolbar>
+								<SearchField id="onSearchMasterData" width="30%" showRefreshButton="false" placeholder="Enter RGA Request Number" liveChange="onSearch" class="sapUiSmallMargin"/>
+								<content>
+									<ToolbarSpacer/>
+									<Button text = "Create Request" type="Emphasized" press="pressCreate"/>
+									<Button id="sort" icon="sap-icon://sort" press="onSort" type="Default"/>
+									<Button id="filter" icon="sap-icon://filter" press="onFilter" type="Default"/>
+									<Button icon="sap-icon://refresh" press="onReset" type="Default"/>
+									<Button icon="sap-icon://excel-attachment" press="onExport"  id="exportTable"/>  
+								</content>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Center">
+								<Label text="RGA Request Number" design="Bold" wrapping="true"/>
+							</Column>
+
+							<Column hAlign="Center">
+								<Label text="RGA Type" design="Bold"/>
+							</Column>
+
+							<Column hAlign="Center">
+								<Label text="Created On" design="Bold"/>
+							</Column>
+							
+							<Column hAlign="Center">
+								<Label text="Status" design="Bold"/>
+							</Column>
+						</columns>
+						
+						<items>
+							<ColumnListItem type="Navigation" press="onPress">
+								<cells>
+									<!--<Label wrapping="true" text="{onBoarding>OBR_NO}" design="Bold"/>-->
+									<Text text="{rModel>RGA_NO}"/>
+									<!-- <Text text="{rModel>DISTRIBUTOR_NAME}"/> -->
+									<Text text="{path:'rModel>DISTRIBUTOR_REASON'}"/>
+
+									<Text text="{path:'rModel>CREATED_ON'}"></Text>
+									<!-- <Text text="{path:'cModel>TO_STATUS/DESC'}"></Text> -->
+									<ObjectStatus text="{rModel>TO_STATUS/DESC}" inverted="false"
+										state="{path:'rModel>STATUS', formatter:'.formatter.getStatus'}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+					</content>
+					</IconTabBar>
+				</content>
+			</Page>
+
+</mvc:View>

@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="idMasterTableDialog" title="Invoice Items" titleAlignment="Center" 
+		items="{path:'iModel>/results'}" liveChange="onValueHelpSearch" confirm="onSelectInvoice"
+		cancel="closeInvoiceItemDialog">
+		<StandardListItem id="listItem" iconDensityAware="false" iconInset="false" title="{iModel>Vbeln}" 
+		description="{path:'iModel>Fkdat', formatter:'.formatter.formatDate'}" info="{iModel>Netwr} INR"/>
+	</SelectDialog>
+	
+	<!-- <Dialog title="Invoice Items" contentHeight="80%"
+		class="sapUiSizeCompact">
+		<subHeader>
+			<Toolbar>
+				<SearchField id="bcSrchIdHQ" liveChange="onValueHelpSearch" />
+			</Toolbar>
+		</subHeader>
+
+		<List id="bankCountry_IdHQ" items="{path:'iModel>/results'}"e
+			mode="SingleSelectMaster" selectionChange="onSelectInvoice">
+			<StandardListItem title="{iModel>Vbeln}"/>
+		</List>
+        
+		<buttons>
+			<Button text="Cancel" press="closeInvoiceItemDialog" type="Emphasized" />
+		</buttons>
+	</Dialog> -->
+</core:FragmentDefinition>
+
+
+<!-- <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog title="Select Sales Order" contentHeight="80%"
+        class="sapUiSizeCompact">
+         <subHeader>
+            <Toolbar>
+                <SearchField id="contctCountry_Id" liveChange="handleOTHContactCountrySearch" />
+            </Toolbar>
+        </subHeader>
+ 
+        <List id="contactcntry_listId" items="{path:'iModel>/results'}"
+            mode="SingleSelectMaster" selectionChange="contactOTHCountrySelection">
+            <StandardListItem title="{iModel>Vbeln}"  
+            description="{path:'iModel>Fkdat',formatter: '.formatter.formatDate'}" />
+        </List>
+       
+            <buttons>
+            <Button text="Cancel" press="closeInvoiceItemDialog" type="Emphasized" />
+        </buttons>
+
+    </Dialog>
+</core:FragmentDefinition> -->

@@ -137,6 +137,919 @@
         "FIORI_TOOLS_URL_PARAMS": "sap-client=009&sap-ui-xx-viewCache=false",
         "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/iven_master_report_fiori\"}"
       }
+    },
+    {
+      "name": "Start ibs_app_ideal_usermaster",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_usermaster",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealusermaster-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_usermaster\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_usermaster Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_usermaster",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealusermaster-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_usermaster\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_usermaster Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_usermaster",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealusermaster-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_usermaster\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_errorlog",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_errorlog",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealerrorlog-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_errorlog\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_errorlog Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_errorlog",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealerrorlog-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_errorlog\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_errorlog Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_errorlog",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealerrorlog-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_errorlog\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_errorlog",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_errorlog",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealerrorlog-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_errorlog\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_errorlog Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_errorlog",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealerrorlog-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_errorlog\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_errorlog Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_errorlog",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealerrorlog-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_errorlog\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_systemconfiguration",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_systemconfiguration",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealsystemconfigu-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_systemconfiguration\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_systemconfiguration Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_systemconfiguration",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealsystemconfigu-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_systemconfiguration\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_systemconfiguration Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_systemconfiguration",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealsystemconfigu-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_systemconfiguration\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_creditdebitnote",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_creditdebitnote",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealcreditdebitno-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_creditdebitnote\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_creditdebitnote Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_creditdebitnote",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealcreditdebitno-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_creditdebitnote\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_creditdebitnote Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_creditdebitnote",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealcreditdebitno-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_creditdebitnote\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_requestmanagement",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_requestmanagement",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealrequestmanage-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_requestmanagement\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_requestmanagement Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_requestmanagement",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealrequestmanage-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_requestmanagement\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_requestmanagement Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_requestmanagement",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealrequestmanage-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_requestmanagement\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_requestapproval",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_requestapproval",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealrequestapprov-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_requestapproval\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_requestapproval Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_requestapproval",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealrequestapprov-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_requestapproval\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_requestapproval Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_requestapproval",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealrequestapprov-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_requestapproval\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_claimrequestcreation",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_claimrequestcreation",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappclaimrequestcreati-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_claimrequestcreation\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_claimrequestcreation Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_claimrequestcreation",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappclaimrequestcreati-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_claimrequestcreation\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_claimrequestcreation Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_claimrequestcreation",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappclaimrequestcreati-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_claimrequestcreation\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_claimrequestcreation",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_claimrequestcreation",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealclaimrequestc-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_claimrequestcreation\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_claimrequestcreation Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_claimrequestcreation",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealclaimrequestc-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_claimrequestcreation\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_claimrequestcreation Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_claimrequestcreation",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealclaimrequestc-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_claimrequestcreation\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_claimapproval",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_claimapproval",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealclaimapproval-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_claimapproval\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_claimapproval Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_claimapproval",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealclaimapproval-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_claimapproval\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_claimapproval Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_claimapproval",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealclaimapproval-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_claimapproval\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_rgarequestcreation",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_rgarequestcreation",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealrgarequestcre-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_rgarequestcreation\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_rgarequestcreation Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_rgarequestcreation",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-mock.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealrgarequestcre-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_rgarequestcreation\"}"
+      }
+    },
+    {
+      "name": "Start ibs_app_ideal_rgarequestcreation Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/ibs_mta_ideal_ps/ibs_app_ideal_rgarequestcreation",
+      "runtimeExecutable": "npx",
+      "windows": {
+        "runtimeExecutable": "npx.cmd"
+      },
+      "runtimeArgs": [
+        "fiori",
+        "run"
+      ],
+      "args": [
+        "--config",
+        "./ui5-local.yaml",
+        "--open",
+        "test/flpSandbox.html#comibsibsappidealrgarequestcre-display"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "outputCapture": "std",
+      "port": 9229,
+      "env": {
+        "FIORI_TOOLS_URL_PARAMS": "sap-ui-xx-viewCache=false",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/ibs_mta_ideal_ps/ibs_app_ideal_rgarequestcreation\"}"
+      }
     }
   ],
   "compounds": [],

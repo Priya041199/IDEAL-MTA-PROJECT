@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog id="idGeneratePayloadDialog" title="Generate Payload" titleAlignment="Center" resizable="true">
+		<customHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer></ToolbarSpacer>
+				<Title text="Generate Outbound Payload" id="idGeneratePayTitle"/>
+				<ToolbarSpacer></ToolbarSpacer>
+				<Button id="idJSONFragPayloadClear" text="Clear" press="handleJsonPayloadClear"/>
+			</OverflowToolbar>
+		</customHeader>
+		<HBox>
+			<VBox width="22rem">
+				<f:SimpleForm id="idGeneratePaylSimpleFrm" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="1" labelSpanM="2"
+					labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0" columnsM="1" columnsL="1" columnsXL="3" singleContainerFullSize="false">
+					<f:content>
+						<l:VerticalLayout>
+							<Label text="Request No:" design="Bold" required="true"/>
+							<Input id="idRequestNoInp" value="{payloadData>/REQUEST_NO}" editable="true" placeholder="Enter Request No." 
+							maxLength="9" change="onGetRequestNumber" liveChange="onRequestNumberValidate"/>
+						</l:VerticalLayout>
+						<l:VerticalLayout>
+							<Label text="Company Name:" design="Bold"/>
+							<Text text="{payloadData>/VENDOR_NAME1}" id="idCompanyNameInp"/>
+						</l:VerticalLayout>
+						<l:VerticalLayout>
+							<Label text="Request Type:" design="Bold"/>
+							<Text id="idRequestTypeInp" text="{payloadData>/TO_REQUEST_TYPE/DESCRIPTION}"></Text>
+						</l:VerticalLayout>
+						<l:VerticalLayout>
+							<Label text="Supplier Type:" design="Bold"/>
+							<Text id="idSupplierTypeInp" text="{payloadData>/SUPPL_TYPE_DESC}"></Text>
+						</l:VerticalLayout>
+						<l:VerticalLayout>
+							<Label text="Status:" design="Bold"/>
+							<Text id="idStatusInp" text="{payloadData>/TO_STATUS/DESCRIPTION}"></Text>
+						</l:VerticalLayout>
+					</f:content>
+				</f:SimpleForm>
+				<HBox fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
+					<Button id="idJSONFragPaylClose1" text="Get Payload" press="onGeneratePayload" icon="sap-icon://cause" type="Emphasized"
+					enabled="{payloadData>/enableGetPayloadBtn}"/>
+				</HBox>
+			</VBox>
+			<VBox>
+				<TextArea id="idjsonPayloadTextArea" width="40rem" height="25rem" class="sapUiSmallMargin" value="{payloadData>/TextArea}"
+					editable="false" visible="true" change="onPayloadTextAreaLiveChng"/>
+			</VBox>
+		</HBox>
+		<buttons>
+			<Button id="idJSONFragPaylCopy" text="Copy" press="onGeneratePayloadCopy" icon="sap-icon://copy" type="Transparent" enabled="{payloadData>/enableCopyBtn}"/>
+			<Button id="idJSONFragPaylDownload" text="Download" press="onGeneratePayloadDownload" icon="sap-icon://download" type="Transparent" enabled="{payloadData>/enableDownloadBtn}"/>
+			<Button id="idJSONFragPaylClose" text="Close" press="onGeneratePayloadClose" icon="sap-icon://cancel" type="Transparent"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog title = "Assign To"
+		class="sapUiPopupWithPadding"
+		items = "{masterivenModel>/value}"
+		confirm="_F4AssignToClose"
+		cancel="_F4AssignToClose"
+		liveChange = "_F4AssignTo">
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+			title="{masterivenModel>USER_NAME}"
+			description="{masterivenModel>EMAIL}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,247 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns="sap.uxap" xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" height="100%" xmlns:ui="sap.ui.table" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" displayBlock="true"
+	xmlns:t="sap.suite.ui.commons" 
+	controllerName="com.ibs.ibsappidealrgarequestcreation.controller.CreateRequest"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<m:App>
+		<m:Page id="detailPageId" class="sapUiSizeCompact" showHeader="false">
+			<m:content>
+				<layout:DynamicSideContent id="DynamicSideContent" class="sapUiSizeCompact" sideContentFallDown="BelowM"
+					breakpointChanged="handleBreakpointChangeEvent" showSideContent="false">
+					<!--General Section-->
+					<ObjectPageLayout id="ObjectPageLayout" selectedSection="firstSection" enableLazyLoading="false" showEditHeaderButton="false"
+						editHeaderButtonPress="handleEditBtnPress">
+
+						<headerTitle>
+							<ObjectPageDynamicHeaderTitle>
+								<expandedHeading>
+									<m:Title text="RGA Request" wrapping="true"/>
+								</expandedHeading>
+								
+								<snappedHeading>
+									<m:FlexBox fitContainer="true" alignItems="Center">
+										<m:Title text="RGA Request" wrapping="true"/>
+									</m:FlexBox>
+								</snappedHeading>
+								
+								<actions>
+									<!-- <m:ObjectStatus class="sapUiMediumMarginEnd" title="Status"
+										text="{parts:[{path: 'vendorDetails>/TO_STATUS/DESCRIPTION'},{path : 'vendorDetails>/APPROVER_ROLE'}] , formatter : '.formatter.getVisibility'}" inverted="true"
+										state="{path:'vendorDetails>/STATUS', formatter:'.formatter.getStatus'}"/> -->
+									<!-- <m:Button id="editBtn" text="Edit" press="handleEditForm" type="Emphasized"></m:Button> -->
+									<!-- <m:Button text="My Buddy" press="handleMyBuddyDetails" type="Emphasized"></m:Button> -->
+									<!-- <m:Button text="Log" press="handleLogDetails" type="Emphasized"></m:Button> -->
+									<!-- <m:Button text="Messenger" press="handleEvents" type="Emphasized"></m:Button> -->
+									<m:Button icon="sap-icon://nav-back" press="onBack" type="Emphasized"></m:Button>
+								</actions>
+							</ObjectPageDynamicHeaderTitle>
+						</headerTitle>
+						<sections>
+
+						<!-- Section 1 Aniket-->
+							<ObjectPageSection title="Header Details" id="firstSection">
+								<subSections>
+									<ObjectPageSubSection>
+										<m:VBox>
+											<!-- <m:MessageStrip id="id_MessageStripQR" text="Please fill up the form by clicking on Edit button before approving" visible="false" showIcon="true" showCloseButton="true"></m:MessageStrip> -->
+											<f:SimpleForm id="simpleForm1" labelSpanL="2" labelSpanM="2" labelSpanXL="2" editable="false" layout="ColumnLayout" columnsM="2"
+												columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+
+                                                <!-- INVOICE NO -->
+												<m:Label text="Invoice Number" design="Bold"
+														visible="true" required="true"/>
+                                                <m:Input id="invoiceNumber" value="" visible="true" placeholder="Select invoice number" maxLength="40" editable="true" width="70%" showValueHelp="true" valueHelpRequest="handleInvoiceDialog" valueHelpOnly="true" change = "onInvoiceChange"/>
+
+                                                <!-- Business Unit -->
+												<m:Label text="Business Unit" design="Bold" required="true"/>
+                                                <m:ComboBox id="bUnit" placeholder="Select Business Unit"
+														visible="true" selectionChange="handleBUnit" width="70%" value="{blankJson>/businessUnit}">
+														<core:Item key="INTELLECT" text="INTELLECT"/>
+													</m:ComboBox>
+
+                                                  <!-- TYPE OF CLAIM-->
+												<m:Label text="Reason for Return" design="Bold" required="true"/>
+                                                <m:ComboBox id="typeofReturn" placeholder="Select Reason for Return"
+														visible="true" selectionChange="handleReturnType" width="70%" value="{blankJson>/typeOfReturn}">
+														<core:Item key="Poor quality" text="Poor quality"/>
+                                                        <core:Item key="Damaged in transit" text="Damaged in transit"/>
+                                                        <core:Item key="Quantity discrepancy" text="Quantity discrepancy"/>
+                                                        <core:Item key="Material ruined" text="Material ruined"/>
+                                                        <core:Item key="Free of charge sample" text="Free of charge sample"/>
+													</m:ComboBox>
+											</f:SimpleForm>
+										</m:VBox>
+									</ObjectPageSubSection>
+
+								</subSections>
+							</ObjectPageSection>
+
+							
+							<ObjectPageSection title="Item Details">
+								<subSections>
+									<ObjectPageSubSection id="paymentInfo_Id" title="" class="sapUiTinyMarginTop">
+										<blocks>
+											<m:VBox>
+												<ui:Table id="invoiceTableId" rows="{fragModel>/}"
+													visible="true" selectionMode="None"
+													ariaLabelledBy="title">
+													<ui:extension>
+													<!--Other Bank details Aniket-->
+														<m:OverflowToolbar style="Clear">
+															<m:Title text="Invoice Items"/>
+															<m:ToolbarSpacer/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+														<!-- INVOICE NUMBER -->
+														<ui:Column width="8rem" hAlign="Center"
+															visible="true">
+															<m:Label id="S2G2T1F1" text="Invoice Number" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{fragModel>INVOICE_NO}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- ITEM CODE -->
+														<ui:Column width="7rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F2" text="Item Code" design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{fragModel>ITEM_CODE}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Description -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F3" text="Description" design="Bold"/>
+															<ui:template>
+																<m:Text text="{fragModel>ITEM_DESC}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- BATCH -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="batch" text="Batch" design="Bold"/>
+															<ui:template>
+																<m:Text text="{fragModel>BATCH}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- EXPIRY DATE-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="expiry"
+																text="Expiry Date" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'fragModel>EXPIRY_DATE',type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- INVOICE DATE-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F4"
+																text="Invoice Date" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'fragModel>INVOICE_DATE',type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' }}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Quantity-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F5" text="Invoice Quantity" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'fragModel>INVOICE_QUANTITY', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- Invoice Price -->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F6" text="Invoice Price" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path : 'fragModel>PRICE' , formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- RGA Quantity-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="tableIbanId" text="RGA Quantity" design="Bold"/>
+															<ui:template>
+																<m:Input value="{path:'fragModel>RETURN_QUANTITY', formatter : '.formatter.formatterAmount'}" liveChange="onChange" editable="true" textAlign="Right"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- RGA PRICE-->
+														<ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F8" text="RGA Price" design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'fragModel>EXTENDED', formatter : '.formatter.formatterAmount'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- Action-->
+														<!-- <ui:Column width="12rem" visible="true" hAlign="Center">
+															<m:Label id="S2G2T1F12" text="Action" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F12} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text=""/>
+															</ui:template>
+														</ui:Column> -->
+													</ui:columns>
+												</ui:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<ObjectPageSection title="Comments" id="thirdSection" visible="true">
+								<subSections>
+									
+									<ObjectPageSubSection id="orderDetails_Id" title="Comments">
+										<m:VBox>
+                                            	<m:TextArea id="commentsText" maxLength="1000" width="100%" placeholder="Enter text here" change="onComments" value="{blankJson>/returnReason}" required="true"/>
+										</m:VBox>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+							
+						</sections>
+					</ObjectPageLayout>
+					<!-- <layout:sideContent>
+						<m:Toolbar>
+							<m:Title text="Events"/>
+							<m:ToolbarSpacer/>
+							<m:Button icon="sap-icon://refresh" type="Transparent" press="handleRefreshEvents"/>
+							<m:Button text="Close" type="Transparent" press="handleSideContentHide"/>
+						</m:Toolbar>
+						<m:FeedInput id="emailTextId" post="onPostMessage" showIcon="false" placeholder="Enter query here"/>
+						<layout:VerticalLayout width="100%">
+							<t:Timeline id="idTimeline" showHeaderBar="false" showSearch="false" showSort="false" sortOldestFirst="false" sort="false"
+								enableScroll="false" lazyLoading="false" growingThreshold="0"
+								content="{path : 'comm>/',sorter : { path : 'EVENT_NO',descending : true}}" showIcons="false"
+								noDataText="No Ticket Events are currently available" width="100%">
+								<t:content>
+									<t:TimelineItem id="idTemplateItem" userNameClickable="true"
+										text="Event : {comm>REMARK} {i18n>newLine} Comment : {comm>COMMENT}"
+										dateTime="{path:'comm>CREATED_ON', type: 'sap.ui.model.type.DateTime', formatOptions: { style : 'medium', GMT: false }}"
+										userName="{comm>USER_NAME}"/>
+								</t:content>
+							</t:Timeline>
+						</layout:VerticalLayout>
+					</layout:sideContent> -->
+				</layout:DynamicSideContent>
+			</m:content>
+			<m:footer>
+				<m:Bar>
+					<m:contentRight>
+						<m:Button id="approveBt" text="Submit" press="onSubmtit" type="Success" enabled="true" visible="true"/>
+						<!-- <m:Button id="rejectBt" text="Reject" press="onReject" type="Negative"/>
+						<m:Button id="sendbackBt" icon="sap-icon://undo" text="Send Back" press="onSendBack" type="Emphasized"/> -->
+
+					</m:contentRight>
+				</m:Bar>
+			</m:footer>
+		</m:Page>
+		<!--</pages>-->
+	</m:App>
+</mvc:View>

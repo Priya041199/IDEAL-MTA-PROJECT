@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog  id="idCountryDialog" title="Select Country" titleAlignment="Center" items="{path:'countryJson>/value'}" 
+	liveChange="onValueHelpSearchCountry" confirm="onSelectCountryDialog"
+		cancel="closeCountryDialog">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{countryJson>LANDX}" description="{countryJson>LAND1}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

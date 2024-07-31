@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="retalrF4Id" title="Retailers Name" noDataText="No Retailers Found" liveChange="handledelvrValueHelpSearch"
+		confirm="handledelvrValueHelpClose" items="{Retailerinvoice>/value}">
+			<StandardListItem id="retalrTempId" title="{Retailerinvoice>RETAILER_ID}" description="{Retailerinvoice>RETAILER_NAME}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

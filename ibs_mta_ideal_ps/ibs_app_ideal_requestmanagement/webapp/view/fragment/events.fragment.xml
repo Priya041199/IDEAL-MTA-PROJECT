@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns:core="sap.ui.core" xmlns:ui="sap.ui.table" xmlns:f="sap.ui.layout.form"
+    xmlns:t="sap.suite.ui.commons" xmlns:l="sap.ui.layout" width="100px" xmlns:layout="sap.ui.layout">
+    <m:Dialog title="Messenger - {vendorDetails>/REQUEST_NO}" titleAlignment="Center" contentWidth="800px" contentHeight="400px">
+        <m:VBox>
+								<m:FeedInput id="FeedInId" post="onPost" showIcon="false"/>
+								<t:Timeline id="idTimeline" showHeaderBar="false" showSearch="false" showSort="false" sortOldestFirst="false" sort="false"
+									enableScroll="false" lazyLoading="false" growingThreshold="0" content="{path:'eventJson>/value', sorter:{ path : 'EVENT_NO',descending : true}}" showIcons="false"
+									noDataText="No messages are available" width="100%">
+									<t:content>
+										<t:TimelineItem id="idTemplateItem" userNameClickable="true" text="Comment : {eventJson>COMMENT}" dateTime="{eventJson>CREATED_ON}"
+											userName="{eventJson>USER_NAME}"/>
+									</t:content>
+								</t:Timeline>
+                                
+							</m:VBox>
+                            <m:buttons>
+			<!-- <m:Button id="idsubmit" text="Send" press="handleSubmitReqType" enabled="{oPropertyModel>/SendButton}" type="Emphasized"/> -->
+			<m:Button text="Cancel" press="onReadFragmentClose" type="Emphasized"/>
+		</m:buttons>
+    </m:Dialog>
+</core:FragmentDefinition>

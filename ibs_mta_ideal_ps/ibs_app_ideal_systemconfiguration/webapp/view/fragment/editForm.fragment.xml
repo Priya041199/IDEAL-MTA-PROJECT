@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog id="idEditFormDialog" title="Edit Form Field" titleAlignment="Center" contentWidth="400px">
+		<f:SimpleForm id="SimpleFormChange354211" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false">
+			<f:content>
+				<Label text="Field ID"/>
+				<Input id="idFieldInp" editable="false" value="{editformtable>/FIELDS}"/>
+				<HBox/>
+				<HBox>
+					<VBox class="sapUiSmallMarginBottom sapUiSmallMarginTop" width="12rem">
+						<HBox>
+							<Button icon="sap-icon://show" class="sapUiMediumMarginBegin sapUiSmallMarginEnd"/>
+							<VBox>
+								<Label text="Visibility:" class="sapUiSmallMarginEnd"/>
+								<Switch id="idVisibilitySwitch" customTextOn="Yes" customTextOff="No" state="{= ${editformtable>/VISIBILITY} ? true : false}"
+									blocked="false"/>
+							</VBox>
+						</HBox>
+					</VBox>
+					<VBox class="sapUiSmallMarginBottom sapUiSmallMarginTop">
+						<HBox>
+							<Button icon="sap-icon://favorite" class=" sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
+							<VBox>
+								<Label text="Mandatory:" />
+								<Switch id="idMandatorySwitch" customTextOn="Yes" customTextOff="No" state="{= ${editformtable>/MANDATORY} ? true : false}" blocked="false"/>
+							</VBox>
+						</HBox>
+					</VBox>
+				</HBox>
+				<Label text="Description"/>
+				<TextArea id="idDescription" value="{editformtable>/DESCRIPTION}" rows="10"/>
+			</f:content>
+		</f:SimpleForm>
+		<endButton>
+			<Button text="Close" press="onCloseEditForm" icon="sap-icon://cancel"></Button>
+		</endButton>
+		<beginButton>
+			<Button text="Submit" press="onSubmitEditForm" icon="sap-icon://accept"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

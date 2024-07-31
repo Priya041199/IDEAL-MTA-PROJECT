@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog  id="idFormListDialog" title="Select Request Type" titleAlignment="Center" items="{path:'formdata>/value'}" 
+	liveChange="onValueHelpFormSearch" confirm="handleCloseFormList"
+		cancel="closeFormListDialog">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{formdata>DESCRIPTION}"/>
+	</SelectDialog>
+</core:FragmentDefinition> 

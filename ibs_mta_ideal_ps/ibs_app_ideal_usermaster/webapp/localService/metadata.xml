@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Alias="Communication" Namespace="com.sap.vocabularies.Communication.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ideal_master_maintenance" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="MasterCountry" EntityType="ideal_master_maintenance.MasterCountry"/>
+                <EntitySet Name="MasterUserRole" EntityType="ideal_master_maintenance.MasterUserRole"/>
+                <EntitySet Name="MasterTableNames" EntityType="ideal_master_maintenance.MasterTableNames"/>
+                <EntitySet Name="MasterRegion" EntityType="ideal_master_maintenance.MasterRegion"/>
+                <EntitySet Name="MasterCurrency" EntityType="ideal_master_maintenance.MasterCurrency"/>
+                <EntitySet Name="MasterTelecode" EntityType="ideal_master_maintenance.MasterTelecode">
+                    <NavigationPropertyBinding Path="TO_COUNTRY" Target="MasterCountry"/>
+                </EntitySet>
+                <EntitySet Name="MasterEntityCode" EntityType="ideal_master_maintenance.MasterEntityCode"/>
+                <EntitySet Name="MasterAttachmentTypes" EntityType="ideal_master_maintenance.MasterAttachmentTypes"/>
+                <EntitySet Name="MasterIasUser" EntityType="ideal_master_maintenance.MasterIasUser"/>
+                <EntitySet Name="MasterIbanCountry" EntityType="ideal_master_maintenance.MasterIbanCountry"/>
+                <EntitySet Name="MasterIdealSettings" EntityType="ideal_master_maintenance.MasterIdealSettings"/>
+                <EntitySet Name="MasterRegexPostalCode" EntityType="ideal_master_maintenance.MasterRegexPostalCode"/>
+                <EntitySet Name="MasterIdealAttachments" EntityType="ideal_master_maintenance.MasterIdealAttachments"/>
+                <EntitySet Name="MasterStatus" EntityType="ideal_master_maintenance.MasterStatus"/>
+                <EntitySet Name="MasterRequestType" EntityType="ideal_master_maintenance.MasterRequestType"/>
+                <EntitySet Name="MasterRequestEvents" EntityType="ideal_master_maintenance.MasterRequestEvents"/>
+                <EntitySet Name="MasterRegformFieldsIdDesc" EntityType="ideal_master_maintenance.MasterRegformFieldsIdDesc"/>
+                <EntitySet Name="MatrixRequestAppr" EntityType="ideal_master_maintenance.MatrixRequestAppr">
+                    <NavigationPropertyBinding Path="TO_USER_ROLE" Target="MasterUserRole"/>
+                    <NavigationPropertyBinding Path="TO_ENTITY_CODE" Target="MasterEntityCode"/>
+                </EntitySet>
+                <EntitySet Name="MatrixRegistrationAppr" EntityType="ideal_master_maintenance.MatrixRegistrationAppr">
+                    <NavigationPropertyBinding Path="TO_USER_ROLE" Target="MasterUserRole"/>
+                    <NavigationPropertyBinding Path="TO_ENTITY_CODE" Target="MasterEntityCode"/>
+                </EntitySet>
+                <EntitySet Name="MasterIdealUsers" EntityType="ideal_master_maintenance.MasterIdealUsers">
+                    <NavigationPropertyBinding Path="TO_USER_ROLE" Target="MasterUserRole"/>
+                    <NavigationPropertyBinding Path="TO_ENTITY_CODE" Target="MasterEntityCode"/>
+                    <NavigationPropertyBinding Path="TO_USER_ENTITIES" Target="MasterUserEntityUsers"/>
+                </EntitySet>
+                <EntitySet Name="MasterUserEntityUsers" EntityType="ideal_master_maintenance.MasterUserEntityUsers"/>
+                <EntitySet Name="MasterCredential" EntityType="ideal_master_maintenance.MasterCredential"/>
+                <EntitySet Name="MasterEmailContactId" EntityType="ideal_master_maintenance.MasterEmailContactId"/>
+                <EntitySet Name="MasterIdealSapVendorNo" EntityType="ideal_master_maintenance.MasterIdealSapVendorNo"/>
+                <EntitySet Name="MasterSapClient" EntityType="ideal_master_maintenance.MasterSapClient"/>
+                <EntitySet Name="MasterSubaccount" EntityType="ideal_master_maintenance.MasterSubaccount"/>
+                <EntitySet Name="MasterApprovalHierarchy" EntityType="ideal_master_maintenance.MasterApprovalHierarchy">
+                    <NavigationPropertyBinding Path="TO_ROLE_DESC" Target="MasterUserRole"/>
+                    <NavigationPropertyBinding Path="TO_ENTITY_HIERARCHY" Target="MasterEntityAndType"/>
+                </EntitySet>
+                <EntitySet Name="MasterEntityAndType" EntityType="ideal_master_maintenance.MasterEntityAndType">
+                    <NavigationPropertyBinding Path="TO_ENTITY_CODE" Target="MasterEntityCode"/>
+                    <NavigationPropertyBinding Path="TO_REQUEST_CODE" Target="MasterApprovalTypes"/>
+                    <NavigationPropertyBinding Path="TO_MASTER_APPROVAL_HIERARCHY" Target="MasterApprovalHierarchy"/>
+                </EntitySet>
+                <EntitySet Name="MasterApprovalTypes" EntityType="ideal_master_maintenance.MasterApprovalTypes"/>
+                <ActionImport Name="PostUserMaster" Action="ideal_master_maintenance.PostUserMaster"/>
+                <ActionImport Name="PostApprovalMatrix" Action="ideal_master_maintenance.PostApprovalMatrix"/>
+            </EntityContainer>
+            <EntityType Name="MasterCountry">
+                <Key>
+                    <PropertyRef Name="LAND1"/>
+                    <PropertyRef Name="LANDX"/>
+                    <PropertyRef Name="NATIO"/>
+                </Key>
+                <Property Name="LAND1" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="LANDX" Type="Edm.String" MaxLength="15" Nullable="false"/>
+                <Property Name="NATIO" Type="Edm.String" MaxLength="25" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="MasterUserRole">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.String" MaxLength="25" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterTableNames">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="TABLE_CODE" Type="Edm.String" MaxLength="25" Nullable="false"/>
+                <Property Name="TABLE_NAME" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="TABLE_TYPE" Type="Edm.String" MaxLength="25" Nullable="false"/>
+                <Property Name="COLUMN_COUNT" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="TABLE_DESCRIPTION" Type="Edm.String" MaxLength="100"/>
+                <Property Name="PRIMARY_KEY" Type="Edm.String" MaxLength="300"/>
+            </EntityType>
+            <EntityType Name="MasterRegion">
+                <Key>
+                    <PropertyRef Name="LAND1"/>
+                    <PropertyRef Name="BLAND"/>
+                    <PropertyRef Name="BEZEI"/>
+                </Key>
+                <Property Name="LAND1" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="BLAND" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="BEZEI" Type="Edm.String" MaxLength="20" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="MasterCurrency">
+                <Key>
+                    <PropertyRef Name="WAERS"/>
+                </Key>
+                <Property Name="WAERS" Type="Edm.String" MaxLength="5" Nullable="false"/>
+                <Property Name="LTEXT" Type="Edm.String" MaxLength="40"/>
+            </EntityType>
+            <EntityType Name="MasterTelecode">
+                <Key>
+                    <PropertyRef Name="LAND1"/>
+                </Key>
+                <Property Name="LAND1" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="TELEFTO" Type="Edm.String" MaxLength="4"/>
+                <NavigationProperty Name="TO_COUNTRY" Type="ideal_master_maintenance.MasterCountry">
+                    <ReferentialConstraint Property="LAND1" ReferencedProperty="LAND1"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MasterEntityCode">
+                <Key>
+                    <PropertyRef Name="BUKRS"/>
+                </Key>
+                <Property Name="BUKRS" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="BUTXT" Type="Edm.String" MaxLength="50"/>
+                <Property Name="ORT01" Type="Edm.String" MaxLength="25"/>
+                <Property Name="WAERS" Type="Edm.String" MaxLength="5"/>
+            </EntityType>
+            <EntityType Name="MasterAttachmentTypes">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SHORT_DESCRIPTION" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="GROUP1" Type="Edm.String" MaxLength="10"/>
+                <Property Name="GROUP2" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="MasterIasUser">
+                <Key>
+                    <PropertyRef Name="USER_ID"/>
+                    <PropertyRef Name="EMAIL"/>
+                </Key>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="STATUS" Type="Edm.String" MaxLength="50"/>
+                <Property Name="LOGIN" Type="Edm.String" MaxLength="50"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150" Nullable="false"/>
+                <Property Name="FIRST_NAME" Type="Edm.String" MaxLength="250"/>
+                <Property Name="LAST_NAME" Type="Edm.String" MaxLength="250"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="EMP_NO" Type="Edm.String" MaxLength="100"/>
+                <Property Name="MOBILE_NO" Type="Edm.String" MaxLength="15"/>
+            </EntityType>
+            <EntityType Name="MasterIbanCountry">
+                <Key>
+                    <PropertyRef Name="LAND1"/>
+                    <PropertyRef Name="LANDX"/>
+                    <PropertyRef Name="LENGTH"/>
+                </Key>
+                <Property Name="LAND1" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="LANDX" Type="Edm.String" MaxLength="25" Nullable="false"/>
+                <Property Name="LENGTH" Type="Edm.Int32" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="MasterIdealSettings">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.String" MaxLength="25" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SETTING" Type="Edm.String" MaxLength="100"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="MasterRegexPostalCode">
+                <Key>
+                    <PropertyRef Name="LAND1"/>
+                </Key>
+                <Property Name="LAND1" Type="Edm.String" MaxLength="3" Nullable="false"/>
+                <Property Name="REGEX" Type="Edm.String" MaxLength="250"/>
+                <Property Name="REGEX_EXP" Type="Edm.String" MaxLength="250"/>
+            </EntityType>
+            <EntityType Name="MasterIdealAttachments">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                    <PropertyRef Name="ENTITY_CODE"/>
+                    <PropertyRef Name="ATTACH_CODE"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="ATTACH_CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="ATTACH_GROUP" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ATTACH_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="FILE_NAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="FILE_TYPE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="FILE_MIMETYPE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="FILE_CONTENT" Type="Edm.Binary"/>
+                <Property Name="UPLOADED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="ATTACH_TYPE_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="ATTACH_TYPE_DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterStatus">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="MasterRequestType">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="50"/>
+                <Property Name="SUPPLIER_TYPE" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="MasterRequestEvents">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="50"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="25"/>
+            </EntityType>
+            <EntityType Name="MasterRegformFieldsIdDesc">
+                <Key>
+                    <PropertyRef Name="FIELDS"/>
+                </Key>
+                <Property Name="FIELDS" Type="Edm.String" MaxLength="15" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="500"/>
+                <Property Name="CATEGORY" Type="Edm.String" MaxLength="50"/>
+                <Property Name="SECTION" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="MatrixRequestAppr">
+                <Key>
+                    <PropertyRef Name="APPROVER_LEVEL"/>
+                    <PropertyRef Name="USER_ROLE"/>
+                    <PropertyRef Name="USER_ID"/>
+                    <PropertyRef Name="ENTITY_CODE"/>
+                </Key>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <NavigationProperty Name="TO_USER_ROLE" Type="ideal_master_maintenance.MasterUserRole">
+                    <ReferentialConstraint Property="USER_ROLE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_ENTITY_CODE" Type="ideal_master_maintenance.MasterEntityCode">
+                    <ReferentialConstraint Property="ENTITY_CODE" ReferencedProperty="BUKRS"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MatrixRegistrationAppr">
+                <Key>
+                    <PropertyRef Name="APPROVER_LEVEL"/>
+                    <PropertyRef Name="USER_ROLE"/>
+                    <PropertyRef Name="USER_ID"/>
+                    <PropertyRef Name="ENTITY_CODE"/>
+                </Key>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="100" Nullable="false"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <NavigationProperty Name="TO_USER_ROLE" Type="ideal_master_maintenance.MasterUserRole">
+                    <ReferentialConstraint Property="USER_ROLE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_ENTITY_CODE" Type="ideal_master_maintenance.MasterEntityCode">
+                    <ReferentialConstraint Property="ENTITY_CODE" ReferencedProperty="BUKRS"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MasterIdealUsers">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                    <PropertyRef Name="USER_ROLE"/>
+                    <PropertyRef Name="EMAIL"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="500"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150" Nullable="false"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="500"/>
+                <Property Name="EMP_NO" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="ACTIVE" Type="Edm.String" MaxLength="1"/>
+                <NavigationProperty Name="TO_USER_ROLE" Type="ideal_master_maintenance.MasterUserRole">
+                    <ReferentialConstraint Property="USER_ROLE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_ENTITY_CODE" Type="ideal_master_maintenance.MasterEntityCode">
+                    <ReferentialConstraint Property="COMPANY_CODE" ReferencedProperty="BUKRS"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_USER_ENTITIES" Type="Collection(ideal_master_maintenance.MasterUserEntityUsers)"/>
+            </EntityType>
+            <EntityType Name="MasterUserEntityUsers">
+                <Key>
+                    <PropertyRef Name="USER_ID"/>
+                    <PropertyRef Name="USER_ROLE"/>
+                    <PropertyRef Name="ENTITY_CODE"/>
+                </Key>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150"/>
+                <Property Name="ENTITY_DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterCredential">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="USERNAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="PASSWORD" Type="Edm.String" MaxLength="100"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="ADD_INFO1" Type="Edm.String" MaxLength="100"/>
+                <Property Name="ADD_INFO2" Type="Edm.String" MaxLength="100"/>
+                <Property Name="ADD_INFO3" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+            </EntityType>
+            <EntityType Name="MasterEmailContactId">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="EMAIL_NOTIF_1" Type="Edm.String" MaxLength="100"/>
+                <Property Name="EMAIL_NOTIF_2" Type="Edm.String" MaxLength="100"/>
+                <Property Name="EMAIL_NOTIF_3" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CONTACT_ID_1" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CONTACT_ID_2" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CONTACT_ID_3" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CLIENT_FULL_NAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CLIENT_SHORT_NAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CLIENT_COUNTRY" Type="Edm.String" MaxLength="100"/>
+                <Property Name="EMAIL_CC" Type="Edm.String" MaxLength="1000"/>
+            </EntityType>
+            <EntityType Name="MasterIdealSapVendorNo">
+                <Key>
+                    <PropertyRef Name="IDEAL_DIST_CODE"/>
+                </Key>
+                <Property Name="SAP_DIST_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IDEAL_DIST_CODE" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="ACCOUNT_GROUP" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="MasterSapClient">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="CLIENT" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESTINTAION" Type="Edm.String" MaxLength="25" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="MasterSubaccount">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="SUBACCOUNT" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="PORTAL_LINK" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterApprovalHierarchy">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="LEVEL" Type="Edm.Int32"/>
+                <Property Name="ROLE_CODE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="USER_IDS" Type="Edm.String"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ACCESS_EDIT" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="ACCESS_APPROVE" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="ACCESS_SENDBACK" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="ACCESS_REJECT" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="ACCESS_HOLD" Type="Edm.Boolean" DefaultValue="false"/>
+                <NavigationProperty Name="TO_ROLE_DESC" Type="ideal_master_maintenance.MasterUserRole">
+                    <ReferentialConstraint Property="ROLE_CODE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_ENTITY_HIERARCHY" Type="ideal_master_maintenance.MasterEntityAndType" Partner="TO_MASTER_APPROVAL_HIERARCHY">
+                    <ReferentialConstraint Property="TO_ENTITY_HIERARCHY_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="TO_ENTITY_HIERARCHY_ID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="MasterEntityAndType">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="TO_ENTITY_CODE" Type="ideal_master_maintenance.MasterEntityCode">
+                    <ReferentialConstraint Property="ENTITY_CODE" ReferencedProperty="BUKRS"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_REQUEST_CODE" Type="ideal_master_maintenance.MasterApprovalTypes">
+                    <ReferentialConstraint Property="TYPE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_MASTER_APPROVAL_HIERARCHY" Type="Collection(ideal_master_maintenance.MasterApprovalHierarchy)" Partner="TO_ENTITY_HIERARCHY">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MasterApprovalTypes">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <ComplexType Name="UserMasterPayload">
+                <Property Name="ACTION" Type="Edm.String"/>
+                <Property Name="USER_DETAILS" Type="ideal_master_maintenance.User_Details"/>
+                <Property Name="VALUE" Type="Collection(ideal_master_maintenance.UserMasterPayload_VALUE)" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="User_Details">
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+            </ComplexType>
+            <ComplexType Name="approvalMatrixPayload">
+                <Property Name="ACTION" Type="Edm.String"/>
+                <Property Name="APP_TYPE" Type="Edm.String" MaxLength="30"/>
+                <Property Name="USER_DETAILS" Type="ideal_master_maintenance.User_Details"/>
+                <Property Name="VALUE" Type="Collection(ideal_master_maintenance.approvalMatrixPayload_VALUE)" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="UserMasterPayload_VALUE">
+                <Property Name="USERMASTER" Type="Collection(ideal_master_maintenance.UserMasterPayload_VALUE_USERMASTER)" Nullable="false"/>
+                <Property Name="ENTITYDATA" Type="Collection(ideal_master_maintenance.UserMasterPayload_VALUE_ENTITYDATA)" Nullable="false"/>
+            </ComplexType>
+            <ComplexType Name="UserMasterPayload_VALUE_USERMASTER">
+                <Property Name="SR_NO" Type="Edm.Int32"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="500"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="500"/>
+                <Property Name="EMP_NO" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="ACTIVE" Type="Edm.String" MaxLength="1"/>
+            </ComplexType>
+            <ComplexType Name="UserMasterPayload_VALUE_ENTITYDATA">
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150"/>
+                <Property Name="ENTITY_DESC" Type="Edm.String" MaxLength="100"/>
+            </ComplexType>
+            <ComplexType Name="approvalMatrixPayload_VALUE">
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="50"/>
+            </ComplexType>
+            <Action Name="PostUserMaster" IsBound="false">
+                <Parameter Name="input" Type="ideal_master_maintenance.UserMasterPayload"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Action Name="PostApprovalMatrix" IsBound="false">
+                <Parameter Name="input" Type="ideal_master_maintenance.approvalMatrixPayload"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="ideal_master_maintenance.MasterIasUser/EMAIL">
+                <Annotation Term="Communication.IsEmailAddress" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterIasUser/MOBILE_NO">
+                <Annotation Term="Communication.IsPhoneNumber" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/ENTITY_CODE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/LEVEL">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/ROLE_CODE">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/USER_IDS">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterApprovalHierarchy/TYPE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterEntityAndType/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterEntityAndType/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterEntityAndType/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterEntityAndType/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterEntityAndType/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterEntityAndType/TYPE">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ideal_master_maintenance.MasterEntityAndType/ENTITY_CODE">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core"
+	xmlns:f="sap.ui.layout.form">
+	<Dialog title="Edit Attachment Details" titleAlignment="Center">
+		<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+			singleContainerFullSize="false">
+			<f:content>
+				<l:VerticalLayout>
+					<Label text="Attach Type" required="true"/>
+					<Select id="idAttachTypeSlct" items="{path:'ndaAttachmentType>/value'}" selectedKey="26" width="100%" change="onSelectNdaAttach">
+						<core:Item text="{ndaAttachmentType>DESCRIPTION}" key="{ndaAttachmentType>CODE}"/>
+					</Select>
+					<u:FileUploader id="idEditAttchFileUploader" width="100%" sameFilenameAllowed="true" iconOnly="false" buttonOnly="true"
+						fileType="txt,jpg,docx,docm,pdf,xlsx,csv" icon="sap-icon://upload" iconFirst="true" style="Emphasized" change="onAttchUpload"/>
+					
+                    <Label id="idEntityCodeLblEdit" text="Entity Code" required="true"/>
+					<ComboBox id="idEntityCodeInpt" placeholder="Search by Description" width="100%" items="{ path: 'companycodes>/value', sorter: { path: 'text' } }">
+						<core:Item key="{companycodes>BUKRS}" text="({companycodes>BUKRS}) {companycodes>BUTXT}"/>
+					</ComboBox>
+					
+					<Label text="File Name" required="false"/>
+					<Input id="idFileNameInp" editable="false"></Input>
+
+					<Label id="idAttachSubTypeLbl" visible="false" text="Attachment Sub Type" required="true"/>
+					<Select id="idAttachSubTypeSlct" visible="false" width="100%">
+						<core:Item text="Unilateral NDA (Local)" key="LU"/>
+						<core:Item text="Unilateral NDA (Overseas)" key="OU"/>
+						<core:Item text="Mutual NDA (Local)" key="LM"/>
+						<core:Item text="Mutual NDA (Overseas)" key="OM"/>
+					</Select>
+				</l:VerticalLayout>
+			</f:content>
+		</f:SimpleForm>
+		<endButton>
+			<Button text="Close" press="onAttachmentDialogClose" icon="sap-icon://cancel"></Button>
+		</endButton>
+		<beginButton>
+			<Button text="Submit" press="onAttachmentDialogSave" icon="sap-icon://accept"></Button>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>

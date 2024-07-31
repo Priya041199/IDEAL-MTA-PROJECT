@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ViewSettingsDialog class="sapUiSizeCompact" id="viewSettingsDialog1" cancel="handleCancel" confirm="onConfirmViewSettingsDialog">
+		<filterItems>
+			<ViewSettingsFilterItem multiSelect="true"  text="Status" id="filterItems1" key="FilterID2" items="{masterstatusModel>/value}"  enabled="{oPropertyModel>/statusFilterEnabled}" >
+				<items>
+					<!-- <ViewSettingsItem text="Not Invited" key="status"/>
+					<ViewSettingsItem text="Invited" key="status"/>
+					<ViewSettingsItem text="Invite Rejected" key="status"/>
+					<ViewSettingsItem text="Form In Progress" key="status"/>
+					<ViewSettingsItem text="In Approval - BUYER" key="status"/>
+					<ViewSettingsItem text="In Approval - SMDM" key="status"/>
+					<ViewSettingsItem text="Form Sent Back" key="status"/>
+					<ViewSettingsItem text="Form Rejected" key="status"/>
+					<ViewSettingsItem text="In Approval - SMDM Team (Resubmit)" key="status"/>
+					<ViewSettingsItem text="In Approval - MDG" key="status"/>
+					<ViewSettingsItem text="Registered" key="status"/>
+					<ViewSettingsItem text="Invite Resent" key="status"/>
+					<ViewSettingsItem text="Rejected - MDG" key="status"/>
+					<ViewSettingsItem text="Request Deleted" key="status"/> -->
+					
+					<ViewSettingsItem text="{masterstatusModel>DESCRIPTION}" key="status" enabled="{oPropertyModel>/statusFilterEnabledItem}" id="idFilterItemData"/>
+				</items>
+			</ViewSettingsFilterItem>
+			
+			<ViewSettingsFilterItem text="Request Type" id="filterItems3" key="request" items="{typeJson>/value}">
+				<items>
+					<ViewSettingsItem text="{typeJson>DESCRIPTION}" key="request"/>
+				</items>
+			</ViewSettingsFilterItem>
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

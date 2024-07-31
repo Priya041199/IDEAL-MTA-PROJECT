@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ideal_claim_creation_srv" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="ClaimHeader" EntityType="ideal_claim_creation_srv.ClaimHeader">
+                    <NavigationPropertyBinding Path="TO_STATUS" Target="MasterClaimStatus"/>
+                    <NavigationPropertyBinding Path="TO_ITEMS" Target="ClaimItems"/>
+                    <NavigationPropertyBinding Path="TO_ATTACHMENT" Target="ClaimAttachments"/>
+                    <NavigationPropertyBinding Path="TO_EVENT" Target="ClaimEventLog"/>
+                </EntitySet>
+                <EntitySet Name="ClaimItems" EntityType="ideal_claim_creation_srv.ClaimItems"/>
+                <EntitySet Name="ClaimAttachments" EntityType="ideal_claim_creation_srv.ClaimAttachments"/>
+                <EntitySet Name="ClaimEventLog" EntityType="ideal_claim_creation_srv.ClaimEventLog">
+                    <NavigationPropertyBinding Path="TO_EVENT_STATUS" Target="MasterClaimEvent"/>
+                </EntitySet>
+                <EntitySet Name="MasterClaimStatus" EntityType="ideal_claim_creation_srv.MasterClaimStatus"/>
+                <EntitySet Name="MasterClaimEvent" EntityType="ideal_claim_creation_srv.MasterClaimEvent"/>
+                <EntitySet Name="MasterClaimType" EntityType="ideal_claim_creation_srv.MasterClaimType"/>
+                <ActionImport Name="CreateClaimReq" Action="ideal_claim_creation_srv.CreateClaimReq"/>
+            </EntityContainer>
+            <EntityType Name="ClaimHeader">
+                <Key>
+                    <PropertyRef Name="CR_NO"/>
+                </Key>
+                <Property Name="CR_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="SAP_NO" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DISTRIBUTOR_ID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DISTRIBUTOR_NAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CLAIM_TYPE" Type="Edm.Int32"/>
+                <Property Name="CLAIM_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CLAIM_REASON" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CLAIM_FROM" Type="Edm.Date"/>
+                <Property Name="CLAIM_TO" Type="Edm.Date"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="APPROVER_ROLE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="SALES_ASSOCIATE_ID" Type="Edm.String" MaxLength="500"/>
+                <Property Name="REGION_CODE" Type="Edm.String" MaxLength="1"/>
+                <Property Name="SAP_CREDIT_NOTE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="LAST_UPDATED" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <NavigationProperty Name="TO_STATUS" Type="ideal_claim_creation_srv.MasterClaimStatus">
+                    <ReferentialConstraint Property="STATUS" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_ITEMS" Type="Collection(ideal_claim_creation_srv.ClaimItems)"/>
+                <NavigationProperty Name="TO_ATTACHMENT" Type="Collection(ideal_claim_creation_srv.ClaimAttachments)"/>
+                <NavigationProperty Name="TO_EVENT" Type="Collection(ideal_claim_creation_srv.ClaimEventLog)"/>
+            </EntityType>
+            <EntityType Name="ClaimItems">
+                <Key>
+                    <PropertyRef Name="CR_NO"/>
+                    <PropertyRef Name="ITEM_NO"/>
+                </Key>
+                <Property Name="CR_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="ITEM_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="ITEM_CODE" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ITEM_DESC" Type="Edm.String" MaxLength="200"/>
+                <Property Name="UNIT_OF_MEASURE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="HOSPITAL_CODE" Type="Edm.Int32"/>
+                <Property Name="INVOICE_NO" Type="Edm.Int64"/>
+                <Property Name="INVOICE_DATE" Type="Edm.Date"/>
+                <Property Name="INVOICE_QUANTITY" Type="Edm.Int32"/>
+                <Property Name="INVOICE_RATE" Type="Edm.Double"/>
+                <Property Name="REQUESTED_RATE" Type="Edm.Double"/>
+                <Property Name="REQUESTED_QUANTITY" Type="Edm.Int32"/>
+                <Property Name="REQUESTED_AMOUNT" Type="Edm.Double"/>
+                <Property Name="PROCESSSED_RATE" Type="Edm.Double"/>
+                <Property Name="PROCESSSED_QUANTITY" Type="Edm.Int32"/>
+                <Property Name="PROCESSSED_AMOUNT" Type="Edm.Double"/>
+            </EntityType>
+            <EntityType Name="ClaimAttachments">
+                <Key>
+                    <PropertyRef Name="CR_NO"/>
+                </Key>
+                <Property Name="CR_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="ATTACH_CODE" Type="Edm.Int32"/>
+                <Property Name="FILE_ID" Type="Edm.Int32"/>
+                <Property Name="FILE_NAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="FILE_TYPE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="FILE_MIMETYPE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="FILE_CONTENT" Type="Edm.Stream"/>
+                <Property Name="UPLOAD_DATE" Type="Edm.DateTimeOffset" Precision="7"/>
+            </EntityType>
+            <EntityType Name="ClaimEventLog">
+                <Key>
+                    <PropertyRef Name="CR_NO"/>
+                    <PropertyRef Name="EVENT_NO"/>
+                </Key>
+                <Property Name="CR_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="EVENT_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="EVENT_CODE" Type="Edm.Int32"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="REMARK" Type="Edm.String" MaxLength="200"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="200"/>
+                <Property Name="CREATION_DATE" Type="Edm.DateTimeOffset" Precision="7"/>
+                <NavigationProperty Name="TO_EVENT_STATUS" Type="ideal_claim_creation_srv.MasterClaimEvent">
+                    <ReferentialConstraint Property="EVENT_CODE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MasterClaimStatus">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterClaimEvent">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterClaimType">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <ComplexType Name="User_Details">
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+            </ComplexType>
+            <Action Name="CreateClaimReq" IsBound="false">
+                <Parameter Name="action" Type="Edm.String"/>
+                <Parameter Name="appType" Type="Edm.String"/>
+                <Parameter Name="crHeader" Type="Collection(ideal_claim_creation_srv.ClaimHeader)" Nullable="false"/>
+                <Parameter Name="crItems" Type="Collection(ideal_claim_creation_srv.ClaimItems)" Nullable="false"/>
+                <Parameter Name="crAttachments" Type="Collection(ideal_claim_creation_srv.ClaimAttachments)" Nullable="false"/>
+                <Parameter Name="crEvent" Type="Collection(ideal_claim_creation_srv.ClaimEventLog)" Nullable="false"/>
+                <Parameter Name="userDetails" Type="ideal_claim_creation_srv.User_Details"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="ideal_claim_creation_srv.ClaimAttachments/FILE_MIMETYPE">
+                <Annotation Term="Core.IsMediaType" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_claim_creation_srv.ClaimAttachments/FILE_CONTENT">
+                <Annotation Term="Core.ContentDisposition">
+                    <Record Type="Core.ContentDispositionType">
+                        <PropertyValue Property="Filename" Path="FILE_NAME"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Core.MediaType" Path="FILE_MIMETYPE"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

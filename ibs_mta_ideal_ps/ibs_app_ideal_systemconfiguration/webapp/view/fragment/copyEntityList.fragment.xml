@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog  id="idCopyEntityList" title="Select Entity Code" titleAlignment="Center" 
+	items="{ path: 'availableMandatoryFields>/', sorter: { path: 'text' } }" 
+	liveChange="onValueHelpEntityFormSearch" confirm="handleCloseCopyEntity"
+		cancel="closeCopyEntity">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="({availableMandatoryFields>BUKRS}){availableMandatoryFields>BUTXT}"/>
+	</SelectDialog>
+</core:FragmentDefinition> 

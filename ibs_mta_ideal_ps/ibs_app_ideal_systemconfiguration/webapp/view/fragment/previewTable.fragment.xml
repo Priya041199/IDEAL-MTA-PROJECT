@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="csvPreviewDialogId" title="CSV Preview" titleAlignment="Center" resizable="true">
+		<customHeader>
+			<OverflowToolbar>
+				<ToolbarSpacer></ToolbarSpacer>
+				<Title text="Upload Options" id="csvPreviewTitleId"/>
+				<ToolbarSpacer></ToolbarSpacer>
+				<Button id="idJSONFragClear" text="Clear" press="handleJsonClear"/>
+			</OverflowToolbar>
+		</customHeader>
+		<VBox>
+            <MessageStrip id="idJSONMsgStrip" text="Please validate the JSON to enable 'Save'." type="Information" showIcon="true"></MessageStrip>
+            <Table id="previewTableId" class="sapUiSizeCompact" width="auto" growingThreshold="1000" growing="true"/>
+            <TextArea id="jsonUploadTextArea" width="40rem" height="25rem" class="sapUiSmallMargin" visible="false" placeholder="Add your JSON here.."
+                change="onTextAreaOnChange"/>
+            <Button id="idJSONFragValidate" text="Validate" press="onJsonValidate" icon="sap-icon://search" type="Emphasized"/>
+		</VBox>
+		<beginButton>
+			<Button id="idJSONFragSave" text="Save" press="onPreviewSave" icon="sap-icon://accept" type="Transparent" enabled="false"/>
+		</beginButton>
+		<endButton>
+			<Button id="idJSONFragClose" text="Close" press="onPreviewClose" icon="sap-icon://cancel" type="Transparent"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
