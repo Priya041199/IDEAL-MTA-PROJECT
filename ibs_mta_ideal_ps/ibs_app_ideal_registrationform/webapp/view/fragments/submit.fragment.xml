@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog id="idApproveDialog" title="Do you want to submit ?" draggable="true" resizable="true" contentWidth="30rem" class="sapUiSizeCompact">
+		<f:SimpleForm id="simpleform1" editable="false" minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="3"
+			labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
+			<f:content>
+				<Label id="id_lable" text="Comment" />
+				<TextArea id="id_comment" value="" rows="3" maxLength="1000" showExceededText="false"
+				placeholder="Comment should be less than 1000 characters" required="false" liveChange="handleTextArea"/>
+			</f:content>
+		</f:SimpleForm>
+		<buttons>
+			<Button text="Submit" press="onSubmit" icon="sap-icon://accept"></Button>
+			<Button text="Close" press="closeDialog" icon="sap-icon://cancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

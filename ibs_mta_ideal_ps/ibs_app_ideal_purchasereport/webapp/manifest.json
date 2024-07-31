@@ -1,0 +1,290 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "com.ibs.ibsappidealpurchasereport",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.14.2",
+      "toolsId": "c9c6cc47-e593-4edb-b400-574c7acf3dca"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/ideal-purchase-report-srv/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "purchasereport-display": {
+          "semanticObject": "purchasereport",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.126.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.ibs.ibsappidealpurchasereport.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "PrHeaderList",
+          "target": [
+            "PrHeaderList"
+          ]
+        },
+        {
+          "pattern": "PrHeader({key}):?query:",
+          "name": "PrHeaderObjectPage",
+          "target": [
+            "PrHeaderList",
+            "PrHeaderObjectPage"
+          ]
+        }
+      ],
+      "targets": {
+        "PrHeaderList": {
+          "type": "Component",
+          "id": "PrHeaderList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/PrHeader",
+              "variantManagement": "Page",
+              "navigation": {
+                "PrHeader": {
+                  "detail": {
+                    "route": "PrHeaderObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                  "showClearButton": true
+                },
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "enableExport": false,
+                    "sort": true
+                  },
+                  "columns": {
+                    "DataField::PR_NO": {
+                      "width": "12%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::DISTRIBUTOR_NAME": {
+                      "width": "12%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::LAST_UPDATED_DATE": {
+                      "width": "20%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::PR_CREATION_DATE": {
+                      "width": "20%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::GRAND_TOTAL": {
+                      "width": "250px",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::PR_NUM": {
+                      "width": "250px",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::LV_PR_CREATION_DATE": {
+                      "width": "250px",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::LV_LAST_UPDATED_DATE": {
+                      "width": "250px",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::TO_STATUS::DESC": {
+                      "width": "240px",
+                      "horizontalAlign": "Center"
+                    }
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
+        },
+        "PrHeaderObjectPage": {
+          "type": "Component",
+          "id": "PrHeaderObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/PrHeader",
+              "controlConfiguration": {
+                "TO_EVENT/@com.sap.vocabularies.UI.v1.LineItem#Events": {
+                  "columns": {
+                    "DataField::EVENT_NO": {
+                      "width": "15%"
+                    },
+                    "DataField::USER_NAME": {
+                      "width": "25%"
+                    },
+                    "DataField::USER_ROLE": {
+                      "width": "25%"
+                    },
+                    "DataField::COMMENTS": {
+                      "width": "34%"
+                    }
+                  },
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                },
+                "TO_ITEMS/@com.sap.vocabularies.UI.v1.LineItem#ItemDetails": {
+                  "columns": {
+                    "DataField::MATERIAL_DESC": {
+                      "width": "11%"
+                    },
+                    "DataField::HSN_CODE": {
+                      "width": "11%"
+                    },
+                    "DataField::QUANTITY": {
+                      "width": "11%"
+                    },
+                    "DataField::UNIT_OF_MEASURE": {
+                      "width": "11%"
+                    },
+                    "DataField::NET_AMOUNT": {
+                      "width": "11%"
+                    },
+                    "DataField::CGST_PERC": {
+                      "width": "11%"
+                    },
+                    "DataField::SGST_PERC": {
+                      "width": "11%"
+                    },
+                    "DataField::TAXES_AMOUNT": {
+                      "width": "11%"
+                    },
+                    "DataField::TOTAL_AMT": {
+                      "width": "11%"
+                    }
+                  },
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/PrHeader({key})"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "ibs_bs_ideal_ps"
+  }
+}

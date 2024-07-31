@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Analytics.xml">
+        <edmx:Include Alias="Analytics" Namespace="com.sap.vocabularies.Analytics.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ideal_dashboard_srv" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="RequestInfo" EntityType="ideal_dashboard_srv.RequestInfo"/>
+                <EntitySet Name="ViewRequestActiveStatus" EntityType="ideal_dashboard_srv.ViewRequestActiveStatus"/>
+                <EntitySet Name="ViewRequestRejectedStatus" EntityType="ideal_dashboard_srv.ViewRequestRejectedStatus"/>
+                <EntitySet Name="ViewrequestActionStatus" EntityType="ideal_dashboard_srv.ViewrequestActionStatus"/>
+                <EntitySet Name="ViewEntityCodeCount" EntityType="ideal_dashboard_srv.ViewEntityCodeCount"/>
+                <EntitySet Name="ViewRequestDistributorType" EntityType="ideal_dashboard_srv.ViewRequestDistributorType"/>
+                <EntitySet Name="ViewRequestCounterStatus" EntityType="ideal_dashboard_srv.ViewRequestCounterStatus"/>
+                <EntitySet Name="ViewRequestTypeCount" EntityType="ideal_dashboard_srv.ViewRequestTypeCount"/>
+                <EntitySet Name="ViewRequestAllStatusCount" EntityType="ideal_dashboard_srv.ViewRequestAllStatusCount"/>
+                <EntitySet Name="ViewTurnAroundTime" EntityType="ideal_dashboard_srv.ViewTurnAroundTime"/>
+                <EntitySet Name="ReqTurnaround" EntityType="ideal_dashboard_srv.ReqTurnaround"/>
+                <EntitySet Name="RequestTat" EntityType="ideal_dashboard_srv.RequestTat"/>
+                <EntitySet Name="ApprovalPending" EntityType="ideal_dashboard_srv.ApprovalPending"/>
+            </EntityContainer>
+            <EntityType Name="RequestInfo">
+                <Key>
+                    <PropertyRef Name="REQUEST_NO"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="MOBILE_NO" Type="Edm.String" MaxLength="30"/>
+                <Property Name="SAP_DIST_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IDEAL_DIST_CODE" Type="Edm.Int64"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="REGISTERED_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REQUEST_TYPE" Type="Edm.Int32"/>
+                <Property Name="CREATION_TYPE" Type="Edm.Int32"/>
+                <Property Name="DIST_NAME1" Type="Edm.String" MaxLength="100"/>
+                <Property Name="DIST_NAME2" Type="Edm.String" MaxLength="100"/>
+                <Property Name="DIST_CODE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="APPROVER_ROLE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REQUESTER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="BP_TYPE_CODE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="BP_TYPE_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="REQUEST_RESENT" Type="Edm.String" MaxLength="5"/>
+                <Property Name="MDG_CR_NO" Type="Edm.String" MaxLength="15"/>
+                <Property Name="LAST_ACTIVE_REQ_NO" Type="Edm.Int64"/>
+                <Property Name="SECONDARY_EMAILS_ID" Type="Edm.String" MaxLength="500"/>
+                <Property Name="ORG_ESTAB_YEAR" Type="Edm.String" MaxLength="4"/>
+                <Property Name="WEBSITE" Type="Edm.String" MaxLength="100"/>
+                <Property Name="VAT_REG_NUMBER" Type="Edm.String" MaxLength="25"/>
+                <Property Name="VAT_REG_DATE" Type="Edm.Date"/>
+                <Property Name="VAT_CHECK" Type="Edm.String" MaxLength="1"/>
+                <Property Name="LAST_SAVED_STEP" Type="Edm.Int32"/>
+                <Property Name="COMPLETED_BY" Type="Edm.String" MaxLength="100"/>
+                <Property Name="COMPLETED_BY_POSITION" Type="Edm.String" MaxLength="50"/>
+                <Property Name="ACK_VALIDATION" Type="Edm.String" MaxLength="5"/>
+                <Property Name="SUBMISSION_DATE" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LAST_UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="OT_PARENT_ID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="OT_FOLDER1_ID" Type="Edm.String" MaxLength="25"/>
+                <Property Name="OT_FOLDER2_ID" Type="Edm.String" MaxLength="25"/>
+                <Property Name="OT_FOLDER3_ID" Type="Edm.String" MaxLength="25"/>
+                <Property Name="OT_FOLDER4_ID" Type="Edm.String" MaxLength="25"/>
+                <Property Name="NDA_TYPE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="REMINDER_COUNT" Type="Edm.Int32"/>
+                <Property Name="BUYER_ASSIGN_CHECK" Type="Edm.String" MaxLength="1"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="LEGACY_ID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="BU_CODE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="TOT_PERM_EMP" Type="Edm.Int32"/>
+                <Property Name="TOT_TEMP_EMP" Type="Edm.Int32"/>
+                <Property Name="NOE_ACC" Type="Edm.Int32"/>
+                <Property Name="NOE_ADM" Type="Edm.Int32"/>
+                <Property Name="NOE_HR" Type="Edm.Int32"/>
+                <Property Name="NOE_QA" Type="Edm.Int32"/>
+                <Property Name="NOE_MAN" Type="Edm.Int32"/>
+                <Property Name="NOE_SAL" Type="Edm.Int32"/>
+                <Property Name="NOE_SEC" Type="Edm.Int32"/>
+                <Property Name="NOE_ANY" Type="Edm.Int32"/>
+                <Property Name="SAP_DIST_NO" Type="Edm.String" MaxLength="10"/>
+                <Property Name="PROPOSAL_DATE" Type="Edm.Date"/>
+                <Property Name="ENTITY_NAME" Type="Edm.String" MaxLength="50"/>
+                <Property Name="BUSINESS_NATURE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="TERR_HOSP_ACC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SELLING_POINT" Type="Edm.String" MaxLength="200"/>
+                <Property Name="DIST_RECOMMMEDATION" Type="Edm.String" MaxLength="200"/>
+                <Property Name="DIST_RELATION" Type="Edm.String" MaxLength="200"/>
+                <Property Name="SALES_ASSOCIATE_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SA_APPROVED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="SAVED_AS_DRAFT" Type="Edm.Int32"/>
+                <Property Name="LIC_NO" Type="Edm.String" MaxLength="50"/>
+                <Property Name="LIC_NO_DATE" Type="Edm.Date"/>
+                <Property Name="REGISTERED_ADDR" Type="Edm.String" MaxLength="10"/>
+                <Property Name="OFFICE_ADDR" Type="Edm.String" MaxLength="10"/>
+                <Property Name="SHIP_TO_ADDR" Type="Edm.String" MaxLength="10"/>
+                <Property Name="WAREHOUSE_ADDR" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="ViewRequestActiveStatus">
+                <Key>
+                    <PropertyRef Name="REQUEST_NO"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="SAP_DIST_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IDEAL_DIST_CODE" Type="Edm.Int64"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="REGISTERED_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REQUEST_TYPE" Type="Edm.Int32"/>
+                <Property Name="CREATION_TYPE" Type="Edm.Int32"/>
+                <Property Name="DIST_NAME1" Type="Edm.String" MaxLength="100"/>
+                <Property Name="REQUESTER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="BP_TYPE_CODE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="BP_TYPE_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="BUYER_ASSIGN_CHECK" Type="Edm.String" MaxLength="1"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="LEGACY_ID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DIST_CODE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="NDA_TYPE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="REMINDER_COUNT" Type="Edm.Int32"/>
+                <Property Name="REQUEST_NO_1" Type="Edm.Int64"/>
+                <Property Name="ACTIVE" Type="Edm.String" MaxLength="1"/>
+                <Property Name="MOBILE_NO" Type="Edm.String" MaxLength="30"/>
+            </EntityType>
+            <EntityType Name="ViewRequestRejectedStatus">
+                <Key>
+                    <PropertyRef Name="DESCRIPTION"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="REJ_STATUS_COUNT" Type="Edm.Int64"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="ViewrequestActionStatus">
+                <Key>
+                    <PropertyRef Name="DESCRIPTION"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="ACT_STATUS_COUNT" Type="Edm.Int64"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="ViewEntityCodeCount">
+                <Key>
+                    <PropertyRef Name="BUKRS"/>
+                    <PropertyRef Name="BUTXT"/>
+                    <PropertyRef Name="ENTITY_CODE"/>
+                </Key>
+                <Property Name="BUKRS" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="BUTXT" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="ENTITY_COUNT" Type="Edm.Int64"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="ViewRequestDistributorType">
+                <Key>
+                    <PropertyRef Name="DIST_CODE"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int64"/>
+                <Property Name="DIST_CODE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="ViewRequestCounterStatus">
+                <Key>
+                    <PropertyRef Name="DESCRIPTION"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int64"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="CODE" Type="Edm.Int32"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="50" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="ViewRequestTypeCount">
+                <Key>
+                    <PropertyRef Name="DESCRIPTION"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="REQ_TYPE_COUNT" Type="Edm.Int64"/>
+                <Property Name="REQUEST_TYPE" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="ViewRequestAllStatusCount">
+                <Key>
+                    <PropertyRef Name="DESCRIPTION"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int64"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="CODE" Type="Edm.Int32"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="50" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="ViewTurnAroundTime">
+                <Property Name="FINAL_APPR_EVENT_NO" Type="Edm.Int32"/>
+                <Property Name="FINAL_APPR_EVENT_CODE" Type="Edm.Int32"/>
+                <Property Name="REQUEST_NO" Type="Edm.Int64"/>
+                <Property Name="FINAL_APPR_CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="FORM_SUB_EVENT_NO" Type="Edm.Int32"/>
+                <Property Name="FORM_SUB_EVENT_CODE" Type="Edm.Int32"/>
+                <Property Name="FORM_SUB_TIMESTAMP" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="REQ_INV_EVENT_NO" Type="Edm.Int32"/>
+                <Property Name="REQ_INV_EVENT_CODE" Type="Edm.Int32"/>
+                <Property Name="REQ_INV_CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="REQ_CREATE_EVENT_NO" Type="Edm.Int32"/>
+                <Property Name="REQ_CREATE_EVENT_CODE" Type="Edm.Int32"/>
+                <Property Name="REQ_CREATE_CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="FS_FA_TAT_DAYS" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_DAYS" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_HRS" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_DAYS" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_HRS" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_HRS" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_MIN" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_MIN" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_MIN" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="ReqTurnaround">
+                <Key>
+                    <PropertyRef Name="UNIT"/>
+                </Key>
+                <Property Name="CREATE_INV_TAT" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_MIN" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_MIN" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_MIN" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_HRS" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_HRS" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_DAYS" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_HRS" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_DAYS" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_DAYS" Type="Edm.Int32"/>
+                <Property Name="UNIT" Type="Edm.String" MaxLength="50" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="RequestTat">
+                <Key>
+                    <PropertyRef Name="UNIT"/>
+                    <PropertyRef Name="STAGE"/>
+                    <PropertyRef Name="UNIT_1"/>
+                    <PropertyRef Name="STAGE_1"/>
+                    <PropertyRef Name="UNIT_2"/>
+                    <PropertyRef Name="STAGE_2"/>
+                    <PropertyRef Name="AVG_TAT_SEC"/>
+                    <PropertyRef Name="PROGRESS"/>
+                    <PropertyRef Name="AVG_TAT_MIN"/>
+                    <PropertyRef Name="AVG_TAT_HRS"/>
+                    <PropertyRef Name="AVG_TAT_DAYS"/>
+                </Key>
+                <Property Name="CREATE_INV_TAT" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT" Type="Edm.Int32"/>
+                <Property Name="UNIT" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="CREATE_INV_TAT_MIN" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_MIN" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_MIN" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_HRS" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_HRS" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_HRS" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_DAYS" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_DAYS" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_DAYS" Type="Edm.Int32"/>
+                <Property Name="STAGE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="CREATE_INV_TAT_1" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_1" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_1" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_MIN_1" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_MIN_1" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_MIN_1" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_HRS_1" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_HRS_1" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_DAYS_1" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_HRS_1" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_DAYS_1" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_DAYS_1" Type="Edm.Int32"/>
+                <Property Name="UNIT_1" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="STAGE_1" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="CREATE_INV_TAT_2" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_2" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_2" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_MIN_2" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_MIN_2" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_MIN_2" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_HRS_2" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_HRS_2" Type="Edm.Int32"/>
+                <Property Name="CREATE_INV_TAT_DAYS_2" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_HRS_2" Type="Edm.Int32"/>
+                <Property Name="INV_FS_TAT_DAYS_2" Type="Edm.Int32"/>
+                <Property Name="FS_FA_TAT_DAYS_2" Type="Edm.Int32"/>
+                <Property Name="UNIT_2" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="STAGE_2" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="AVG_TAT_SEC" Type="Edm.Decimal" Precision="16" Nullable="false"/>
+                <Property Name="PROGRESS" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="AVG_TAT_MIN" Type="Edm.Decimal" Precision="16" Nullable="false"/>
+                <Property Name="AVG_TAT_HRS" Type="Edm.Decimal" Precision="16" Nullable="false"/>
+                <Property Name="AVG_TAT_DAYS" Type="Edm.Decimal" Precision="16" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="ApprovalPending">
+                <Key>
+                    <PropertyRef Name="APPR_PENDING"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int64"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="APPR_PENDING" Type="Edm.String" MaxLength="50" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="ideal_dashboard_srv.EntityContainer/RequestInfo">
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/REQUEST_NO">
+                <Annotation Term="Common.Label" String="REQUEST_NO: REQUEST_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/SAP_DIST_CODE">
+                <Annotation Term="Common.Label" String="SAP_DIST_CODE: SAP_DIST_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/IDEAL_DIST_CODE">
+                <Annotation Term="Common.Label" String="IDEAL_DIST_CODE: IDEAL_DIST_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/STATUS">
+                <Annotation Term="Common.Label" String="STATUS: STATUS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/REGISTERED_ID">
+                <Annotation Term="Common.Label" String="REGISTERED_ID: REGISTERED_ID"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/ENTITY_CODE">
+                <Annotation Term="Common.Label" String="ENTITY_CODE: ENTITY_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/REQUEST_TYPE">
+                <Annotation Term="Common.Label" String="REQUEST_TYPE: REQUEST_TYPE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/CREATION_TYPE">
+                <Annotation Term="Common.Label" String="CREATION_TYPE: CREATION_TYPE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/DIST_NAME1">
+                <Annotation Term="Common.Label" String="DIST_NAME1: DIST_NAME1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/REQUESTER_ID">
+                <Annotation Term="Common.Label" String="REQUESTER_ID: REQUESTER_ID"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/CREATED_ON">
+                <Annotation Term="Common.Label" String="CREATED_ON: CREATED_ON"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/BP_TYPE_CODE">
+                <Annotation Term="Common.Label" String="BP_TYPE_CODE: BP_TYPE_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/BP_TYPE_DESC">
+                <Annotation Term="Common.Label" String="BP_TYPE_DESC: BP_TYPE_DESC"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/BUYER_ASSIGN_CHECK">
+                <Annotation Term="Common.Label" String="BUYER_ASSIGN_CHECK: BUYER_ASSIGN_CHECK"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/COMMENT">
+                <Annotation Term="Common.Label" String="COMMENT: COMMENT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/LEGACY_ID">
+                <Annotation Term="Common.Label" String="LEGACY_ID: LEGACY_ID"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/DIST_CODE">
+                <Annotation Term="Common.Label" String="DIST_CODE: DIST_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/NDA_TYPE">
+                <Annotation Term="Common.Label" String="NDA_TYPE: NDA_TYPE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/REMINDER_COUNT">
+                <Annotation Term="Common.Label" String="REMINDER_COUNT: REMINDER_COUNT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/REQUEST_NO_1">
+                <Annotation Term="Common.Label" String="REQUEST_NO_1: REQUEST_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/ACTIVE">
+                <Annotation Term="Common.Label" String="ACTIVE: ACTIVE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestActiveStatus/MOBILE_NO">
+                <Annotation Term="Common.Label" String="MOBILE_NO: MOBILE_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestRejectedStatus/CODE">
+                <Annotation Term="Common.Label" String="CODE: CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestRejectedStatus/DESCRIPTION">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestRejectedStatus/REJ_STATUS_COUNT">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Total Rejected Request"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestRejectedStatus/STATUS">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewrequestActionStatus/CODE">
+                <Annotation Term="Common.Label" String="CODE: CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewrequestActionStatus/DESCRIPTION">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewrequestActionStatus/ACT_STATUS_COUNT">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Total Request"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewrequestActionStatus/STATUS">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Status"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewEntityCodeCount/BUKRS">
+                <Annotation Term="Common.Label" String="BUKRS: BUKRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewEntityCodeCount/BUTXT">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Entity"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewEntityCodeCount/ENTITY_COUNT">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Total Request"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewEntityCodeCount/ENTITY_CODE">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Entity Code"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestDistributorType/REQUEST_NO">
+                <Annotation Term="Common.Label" String="REQUEST_NO: REQUEST_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestDistributorType/DIST_CODE">
+                <Annotation Term="Common.Label" String="DIST_CODE: DIST_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestCounterStatus/REQUEST_NO">
+                <Annotation Term="Common.Label" String="REQUEST_NO: REQUEST_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestCounterStatus/STATUS">
+                <Annotation Term="Common.Label" String="STATUS: STATUS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestCounterStatus/CODE">
+                <Annotation Term="Common.Label" String="CODE: CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestCounterStatus/DESCRIPTION">
+                <Annotation Term="Common.Label" String="DESCRIPTION: DESCRIPTION"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestTypeCount/CODE">
+                <Annotation Term="Common.Label" String="CODE: CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestTypeCount/DESCRIPTION">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Request Type"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestTypeCount/REQ_TYPE_COUNT">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Total Request"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestTypeCount/REQUEST_TYPE">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Request Type"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestAllStatusCount/REQUEST_NO">
+                <Annotation Term="Common.Label" String="REQUEST_NO: REQUEST_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestAllStatusCount/STATUS">
+                <Annotation Term="Common.Label" String="STATUS: STATUS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestAllStatusCount/CODE">
+                <Annotation Term="Common.Label" String="CODE: CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewRequestAllStatusCount/DESCRIPTION">
+                <Annotation Term="Common.Label" String="DESCRIPTION: DESCRIPTION"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FINAL_APPR_EVENT_NO">
+                <Annotation Term="Common.Label" String="FINAL_APPR_EVENT_NO: FINAL_APPR_EVENT_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FINAL_APPR_EVENT_CODE">
+                <Annotation Term="Common.Label" String="FINAL_APPR_EVENT_CODE: FINAL_APPR_EVENT_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/REQUEST_NO">
+                <Annotation Term="Common.Label" String="REQUEST_NO: REQUEST_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FINAL_APPR_CREATED_ON">
+                <Annotation Term="Common.Label" String="FINAL_APPR_CREATED_ON: FINAL_APPR_CREATED_ON"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FORM_SUB_EVENT_NO">
+                <Annotation Term="Common.Label" String="FORM_SUB_EVENT_NO: FORM_SUB_EVENT_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FORM_SUB_EVENT_CODE">
+                <Annotation Term="Common.Label" String="FORM_SUB_EVENT_CODE: FORM_SUB_EVENT_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FORM_SUB_TIMESTAMP">
+                <Annotation Term="Common.Label" String="FORM_SUB_TIMESTAMP: FORM_SUB_TIMESTAMP"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/REQ_INV_EVENT_NO">
+                <Annotation Term="Common.Label" String="REQ_INV_EVENT_NO: REQ_INV_EVENT_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/REQ_INV_EVENT_CODE">
+                <Annotation Term="Common.Label" String="REQ_INV_EVENT_CODE: REQ_INV_EVENT_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/REQ_INV_CREATED_ON">
+                <Annotation Term="Common.Label" String="REQ_INV_CREATED_ON: REQ_INV_CREATED_ON"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/REQ_CREATE_EVENT_NO">
+                <Annotation Term="Common.Label" String="REQ_CREATE_EVENT_NO: REQ_CREATE_EVENT_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/REQ_CREATE_EVENT_CODE">
+                <Annotation Term="Common.Label" String="REQ_CREATE_EVENT_CODE: REQ_CREATE_EVENT_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/REQ_CREATE_CREATED_ON">
+                <Annotation Term="Common.Label" String="REQ_CREATE_CREATED_ON: REQ_CREATE_CREATED_ON"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FS_FA_TAT_DAYS">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_DAYS: FS_FA_TAT_DAYS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/INV_FS_TAT_DAYS">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_DAYS: INV_FS_TAT_DAYS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FS_FA_TAT_HRS">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_HRS: FS_FA_TAT_HRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/CREATE_INV_TAT_DAYS">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_DAYS: CREATE_INV_TAT_DAYS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/INV_FS_TAT_HRS">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_HRS: INV_FS_TAT_HRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/CREATE_INV_TAT_HRS">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_HRS: CREATE_INV_TAT_HRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FS_FA_TAT_MIN">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_MIN: FS_FA_TAT_MIN"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/INV_FS_TAT_MIN">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_MIN: INV_FS_TAT_MIN"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/CREATE_INV_TAT_MIN">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_MIN: CREATE_INV_TAT_MIN"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/FS_FA_TAT">
+                <Annotation Term="Common.Label" String="FS_FA_TAT: FS_FA_TAT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/INV_FS_TAT">
+                <Annotation Term="Common.Label" String="INV_FS_TAT: INV_FS_TAT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ViewTurnAroundTime/CREATE_INV_TAT">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT: CREATE_INV_TAT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/CREATE_INV_TAT">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT: CREATE_INV_TAT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/INV_FS_TAT">
+                <Annotation Term="Common.Label" String="INV_FS_TAT: INV_FS_TAT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/FS_FA_TAT">
+                <Annotation Term="Common.Label" String="FS_FA_TAT: FS_FA_TAT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/CREATE_INV_TAT_MIN">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_MIN: CREATE_INV_TAT_MIN"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/INV_FS_TAT_MIN">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_MIN: INV_FS_TAT_MIN"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/FS_FA_TAT_MIN">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_MIN: FS_FA_TAT_MIN"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/CREATE_INV_TAT_HRS">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_HRS: CREATE_INV_TAT_HRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/INV_FS_TAT_HRS">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_HRS: INV_FS_TAT_HRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/CREATE_INV_TAT_DAYS">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_DAYS: CREATE_INV_TAT_DAYS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/FS_FA_TAT_HRS">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_HRS: FS_FA_TAT_HRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/INV_FS_TAT_DAYS">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_DAYS: INV_FS_TAT_DAYS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/FS_FA_TAT_DAYS">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_DAYS: FS_FA_TAT_DAYS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ReqTurnaround/UNIT">
+                <Annotation Term="Common.Label" String="UNIT: UNIT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT: CREATE_INV_TAT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT">
+                <Annotation Term="Common.Label" String="INV_FS_TAT: INV_FS_TAT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT">
+                <Annotation Term="Common.Label" String="FS_FA_TAT: FS_FA_TAT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/UNIT">
+                <Annotation Term="Common.Label" String="UNIT: UNIT"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_MIN">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_MIN: CREATE_INV_TAT_MIN"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_MIN">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_MIN: INV_FS_TAT_MIN"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_MIN">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_MIN: FS_FA_TAT_MIN"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_HRS">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_HRS: CREATE_INV_TAT_HRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_HRS">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_HRS: INV_FS_TAT_HRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_HRS">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_HRS: FS_FA_TAT_HRS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_DAYS">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_DAYS: CREATE_INV_TAT_DAYS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_DAYS">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_DAYS: INV_FS_TAT_DAYS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_DAYS">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_DAYS: FS_FA_TAT_DAYS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/STAGE">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Stage"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_1">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_1: CREATE_INV_TAT_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_1">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_1: INV_FS_TAT_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_1">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_1: FS_FA_TAT_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_MIN_1">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_MIN_1: CREATE_INV_TAT_MIN_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_MIN_1">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_MIN_1: INV_FS_TAT_MIN_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_MIN_1">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_MIN_1: FS_FA_TAT_MIN_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_HRS_1">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_HRS_1: CREATE_INV_TAT_HRS_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_HRS_1">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_HRS_1: INV_FS_TAT_HRS_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_DAYS_1">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_DAYS_1: CREATE_INV_TAT_DAYS_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_HRS_1">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_HRS_1: FS_FA_TAT_HRS_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_DAYS_1">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_DAYS_1: INV_FS_TAT_DAYS_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_DAYS_1">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_DAYS_1: FS_FA_TAT_DAYS_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/UNIT_1">
+                <Annotation Term="Common.Label" String="UNIT_1: UNIT_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/STAGE_1">
+                <Annotation Term="Common.Label" String="STAGE_1: STAGE_1"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_2">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_2: CREATE_INV_TAT_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_2">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_2: INV_FS_TAT_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_2">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_2: FS_FA_TAT_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_MIN_2">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_MIN_2: CREATE_INV_TAT_MIN_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_MIN_2">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_MIN_2: INV_FS_TAT_MIN_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_MIN_2">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_MIN_2: FS_FA_TAT_MIN_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_HRS_2">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_HRS_2: CREATE_INV_TAT_HRS_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_HRS_2">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_HRS_2: INV_FS_TAT_HRS_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/CREATE_INV_TAT_DAYS_2">
+                <Annotation Term="Common.Label" String="CREATE_INV_TAT_DAYS_2: CREATE_INV_TAT_DAYS_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_HRS_2">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_HRS_2: FS_FA_TAT_HRS_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/INV_FS_TAT_DAYS_2">
+                <Annotation Term="Common.Label" String="INV_FS_TAT_DAYS_2: INV_FS_TAT_DAYS_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/FS_FA_TAT_DAYS_2">
+                <Annotation Term="Common.Label" String="FS_FA_TAT_DAYS_2: FS_FA_TAT_DAYS_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/UNIT_2">
+                <Annotation Term="Common.Label" String="UNIT_2: UNIT_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/STAGE_2">
+                <Annotation Term="Common.Label" String="STAGE_2: STAGE_2"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/AVG_TAT_SEC">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+                <Annotation Term="Common.Label" String="Average Turn Around Time (Seconds)"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/PROGRESS">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Progress"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/AVG_TAT_MIN">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+                <Annotation Term="Common.Label" String="Average Turn Around Time (Minutes)"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/AVG_TAT_HRS">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+                <Annotation Term="Common.Label" String="Average Turn Around Time (Hours)"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.RequestTat/AVG_TAT_DAYS">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+                <Annotation Term="Common.Label" String="Average Turn Around Time (Days)"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ApprovalPending/REQUEST_NO">
+                <Annotation Term="Analytics.Measure" Bool="true"/>
+                <Annotation Term="Common.Label" String="No. of Pending Requests"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ApprovalPending/STATUS">
+                <Annotation Term="Common.Label" String="STATUS: STATUS"/>
+            </Annotations>
+            <Annotations Target="ideal_dashboard_srv.ApprovalPending/APPR_PENDING">
+                <Annotation Term="Analytics.Dimension" Bool="true"/>
+                <Annotation Term="Common.Label" String="Approval Pending"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

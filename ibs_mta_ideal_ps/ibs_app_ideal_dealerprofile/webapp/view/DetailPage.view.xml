@@ -1,0 +1,2439 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns="sap.uxap" xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" height="100%" xmlns:ui="sap.ui.table" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" displayBlock="true"
+	xmlns:t="sap.suite.ui.commons" 
+	controllerName="com.ibs.ibsappidealdealerprofile.controller.DetailPage"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<m:App>
+		<m:Page id="detailPageId" class="sapUiSizeCompact" showHeader="false">
+			<m:content>
+				<layout:DynamicSideContent id="DynamicSideContent" class="sapUiSizeCompact" sideContentFallDown="BelowL"
+					breakpointChanged="handleBreakpointChangeEvent" showSideContent="false">
+					<!--General Section-->
+					<ObjectPageLayout id="ObjectPageLayout" selectedSection="firstSection" enableLazyLoading="false" showEditHeaderButton="false"
+						editHeaderButtonPress="handleEditBtnPress">
+						<headerTitle>
+							<ObjectPageDynamicHeaderTitle>
+								<expandedHeading>
+									<m:Title text="{vendorDetails>/DIST_NAME1}" wrapping="true"/>
+								</expandedHeading>
+								<snappedHeading>
+									<m:FlexBox fitContainer="true" alignItems="Center">
+										<m:Title text="{vendorDetails>/DIST_NAME1}" wrapping="true"/>
+									</m:FlexBox>
+								</snappedHeading>
+								<expandedContent>
+								<m:HBox>
+									<m:Label text="SAP Distributor Code : " design="Bold"/>
+									<m:Text text="{vendorDetails>/SAP_DIST_CODE}"/>
+								</m:HBox>
+								</expandedContent>
+								<snappedContent>
+								<m:HBox>
+									<m:Label text="SAP Distributor Code : " design="Bold"/>
+									<m:Text text="{vendorDetails>/SAP_DIST_CODE}"/>
+								</m:HBox>
+								</snappedContent>
+								<snappedTitleOnMobile>
+									<m:Title text="SAP Distributor Code : {vendorDetails>/SAP_DIST_CODE}"/>
+								</snappedTitleOnMobile>
+								<actions>
+									<!-- <m:ObjectStatus class="sapUiTinyMarginTop sapUiMediumMarginEnd" title="Status"
+										text="{vendorDetails>/TO_STATUS/DESCRIPTION}" inverted="true"
+										state="{path:'vendorDetails>/STATUS', formatter:'.formatter.getStatus'}"/> -->
+									<m:Button id="displayEditButton" text="Edit" press="handleEditForm" type="Emphasized" visible="false"></m:Button>
+									<m:Button id="displayEditBtn" text="Edit" press="handleEditForm1" type="Emphasized" visible="false"></m:Button>
+									<m:Button text="My Buddy" press="handleMyBuddyDetails" type="Emphasized"></m:Button>
+									<m:Button text="Log" press="handleLogDetails" type="Emphasized"></m:Button>
+									<!-- <m:Button text="Messenger" press="handleEvents" type="Emphasized"></m:Button> -->
+									<m:Button id="back" icon="sap-icon://nav-back" press="onBack" type="Emphasized"></m:Button>
+								</actions>
+							</ObjectPageDynamicHeaderTitle>
+						</headerTitle>
+
+						<headerContent>
+						<m:FlexBox wrap="Wrap">
+					<!--<m:Avatar class="sapUiSmallMarginEnd" src="./test-resources/sap/uxap/images/imageID_275314.png" displaySize="L"/>-->
+					<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<!--<m:HBox>-->
+						<m:Label text="Entity : " design="Bold"/>
+						<m:Text text="{parts:[{path:'vendorDetails>/TO_ENTITY_CODE/BUKRS'},{path:'vendorDetails>/TO_ENTITY_CODE/BUTXT'},{path:'vendorDetails>/ENTITY_CODE'}],formatter:'.formatter.entityCode'}"/>
+						
+					</layout:VerticalLayout>
+					
+					<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<!--<m:HBox>-->
+						<m:Label text="Registered Email ID : " design="Bold"/>
+						<m:Link text="{vendorDetails>/REGISTERED_ID}"/>
+						
+					</layout:VerticalLayout>
+					<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<!--<m:HBox>-->
+						<m:Label text="Status : " design="Bold"/>
+						<!--<m:Text text="{vendorDetails>/results/0/statusDesc/results/0/DESCRIPTION}"/>-->
+						<m:ObjectStatus
+							text="{path:'vendorDetails>/STATUS',formatter:'.formatter.getStatusDesc'}"
+							inverted="true"
+							state="{path:'vendorDetails>/STATUS', formatter:'.formatter.getStatus'}"/>
+						<!--<m:Text text="{path:'vendorDetails>/results/0/STATUS',formatter:'.formatter.getStatusDesc'}"/>-->
+						<!--</m:HBox>-->
+					</layout:VerticalLayout>
+					<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<!--<m:HBox>-->
+						<m:Label text="Created By : " design="Bold"/>
+						<m:Text text="{vendorDetails>/REQUESTER_ID}"/>
+						<!--</m:HBox>-->
+					</layout:VerticalLayout>
+					<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<!--<m:HBox>-->
+						<m:Label text="Registered On : " design="Bold"/>
+						<m:Text
+							text="{path:'vendorDetails>/LAST_UPDATED_ON',formatter:'.formatter.formatDate'}"/>
+						<!--</m:HBox>-->
+					</layout:VerticalLayout>
+					<layout:VerticalLayout class="sapUiSmallMarginBeginEnd" visible="{localmodel>/isInProgress}">
+						<!--<m:HBox>-->
+						<m:Label text="Change Status : " design="Bold"/>
+						<m:ObjectStatus text="{localmodel>/progressStatusDesc}" inverted="true"
+							state="{path:'localmodel>/progressStatus', formatter:'.formatter.getStatus'}" id="changeStatus"/>
+						<!--<m:Text-->
+						<!--	text="{localmodel>/progressStatus}"/>-->
+						<!--</m:HBox>-->
+					</layout:VerticalLayout>
+				</m:FlexBox>
+							<!-- <m:FlexBox wrap="Wrap">
+								<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+									<m:ObjectStatus id="entityId" class="sapUiTinyMarginTop sapUiMediumMarginEnd" title="Entity"
+										text="{vendorDetails>/TO_ENTITY_CODE/BUKRS} - {vendorDetails>/TO_ENTITY_CODE/BUTXT}"/>
+								</layout:VerticalLayout>
+								<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+									<m:ObjectStatus id="createdbyId" class="sapUiTinyMarginTop sapUiMediumMarginEnd" title="Created By"
+										text="{vendorDetails>/REQUESTER_ID}"/>
+								</layout:VerticalLayout>
+								<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+									<m:ObjectStatus id="createdonId" class="sapUiTinyMarginTop sapUiMediumMarginEnd" title="Created On"
+										text="{path:'vendorDetails>/CREATED_ON',formatter:'.formatter.formatDate'}"/>
+								</layout:VerticalLayout>
+								<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+									<m:ObjectStatus id="vendCodeId" class="sapUiTinyMarginTop sapUiMediumMarginEnd" title="Sap Vendor Number"
+										text="{vendorDetails>/SAP_VENDOR_CODE}"/>
+								</layout:VerticalLayout>
+								<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+									<m:ObjectStatus id="vcodeId" class="sapUiTinyMarginTop sapUiMediumMarginEnd" title="Type"
+										text="{path:'vendorDetails>/VENDOR_CODE', formatter:'.formatter.getVcode'}"/>
+								</layout:VerticalLayout>
+							</m:FlexBox> -->
+						</headerContent>
+
+						<sections>
+							<ObjectPageSection title="{i18n>Section1}" id="firstSection">
+								<subSections>
+									<ObjectPageSubSection title="Distributor Information">
+										<m:VBox>
+											
+											<m:MessageStrip text="Distributor detail update is in progress. You cannot edit." type="Information" showIcon="true"
+											visible="{localmodel>/MsgStrip1}" class="sapUiMediumMarginBottom"></m:MessageStrip>
+											<f:SimpleForm id="simpleForm1" labelSpanL="2" labelSpanM="2" labelSpanXL="2" editable="false" layout="ResponsiveGridLayout" columnsM="2"
+												columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+												
+												<!-- DIST NAME 1 -->
+												<m:Label text="{labelJson>/S1G1T1F1}" design="Bold"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G1T1F1} === 'X' ? true : false}"/>
+												<m:Text
+													text="{parts: [{path:'vendorDetails>/DIST_NAME1'}],formatter:'.formatter.getDataNullValue'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G1T1F1} === 'X' ? true : false}"></m:Text>
+
+												<!-- COMPANY NAME -->
+												<m:Label text="{labelJson>/S1G1T1F2}" design="Bold"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G1T1F2} === 'X' ? true : false}"/>
+												<m:Text
+													text="{parts: [{path:'vendorDetails>/DIST_NAME2'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G1T1F2'}],formatter:'.formatter.getDataNullValue'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G1T1F2} === 'X' ? true : false}"></m:Text>
+
+												<!-- WEBISTE -->
+												<m:Label text="{labelJson>/S1G1T1F3}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G1T1F3} === 'X' ? true : false}"/>
+												<m:Text
+													text="{parts: [{path:'vendorDetails>/WEBSITE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G1T1F3'}],formatter:'.formatter.getDataNullValue'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G1T1F3} === 'X' ? true : false}"></m:Text>
+												
+												<!-- REGISTERED EMAIL ID -->
+												<m:Label text="Registered Email ID" design="Bold"/>
+												<m:Text
+													text="{path:'vendorDetails>/REGISTERED_ID', formatter:'.formatter.getDataNullValue'}"></m:Text>
+											</f:SimpleForm>
+										</m:VBox>
+									</ObjectPageSubSection>
+									<ObjectPageSubSection title="Distributor Address">
+										<blocks>
+											<m:VBox>
+												
+												<f:SimpleForm id="simpleForm18" labelSpanL="5" labelSpanM="5" labelSpanXL="5" editable="false" layout="ResponsiveGridLayout" columnsM="2"
+													columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+													<core:Title text=""/>
+
+													<!-- STREET 1 -->
+													<m:Label text="{labelJson>/S1G2T1F1}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F1} === 'X' ? true : false}"/>
+													<m:Text id="str1Id"
+														text="{parts: [{path:'HQAdd>/results/0/STREET1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G2T1F1'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F1} === 'X' ? true : false}"/>
+													
+													<!-- STREET 4 -->
+													<m:Label id="str4Id_lbl" text="{labelJson>/S1G2T1F4}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F4} === 'X' ? true : false}"/>
+													<m:Text id="str4Id"
+														text="{parts: [{path:'HQAdd>/results/0/S1G2T1F4'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G2T1F4'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F4} === 'X' ? true : false}"/>
+
+													<!-- COUNTRY -->
+													<m:Label text="{labelJson>/S1G2T1F6}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F6} === 'X' ? true : false}"/>
+													<m:Text id="countryId"
+														text="{parts:[{path:'HQAdd>/results/0/COUNTRY'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G2T1F6'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F6} === 'X' ? true : false}"/>
+
+													<!-- CONTACT NO -->
+													<m:Label text="{labelJson>/S1G2T1F9}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F9} === 'X' ? true : false}"/>
+													<m:Text id="contactNoId"
+														text="{parts:[{path:'HQAdd>/results/0/CONTACT_TELECODE'},{path:'HQAdd>/results/0/CONTACT_NO'}],formatter:'.formatter.getContactsDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F9} === 'X' ? true : false}"/>
+													<!-- <m:Label text="{labelJson>/S1G1T1F3}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G1T1F3} === 'X' ? true : false}"/>
+													<m:Text id="str1Id"
+														text="{parts:[{path:'HQAdd>/results/0/STREET1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G1T1F3'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G1T1F3} === 'X' ? true : false}"/>
+
+													 -->
+
+													<core:Title text=""/>
+													<!-- STREET 2 -->
+													<m:Label text="{labelJson>/S1G2T1F2}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F2} === 'X' ? true : false}"/>
+													<m:Text id="str2Id"
+														text="{parts:[{path:'HQAdd>/results/0/STREET2'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G2T1F2'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F2} === 'X' ? true : false}"/>
+													
+													<!-- EMAIL -->
+													<m:Label text="{labelJson>/S1G2T1F5}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F5} === 'X' ? true : false}"/>
+													<m:Text id="emailId"
+														text="{parts:[{path:'HQAdd>/results/0/EMAIL'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G2T1F5'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F5} === 'X' ? true : false}"/>
+
+													<!-- POSTAL CODE -->
+													<m:Label text="{labelJson>/S1G2T1F10}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F10} === 'X' ? true : false}"/>
+													<m:Text id="pincodeId"
+														text="{parts:[{path:'HQAdd>/results/0/POSTAL_CODE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G2T1F10'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F10} === 'X' ? true : false}"/>
+
+													<core:Title text=""/>
+
+													<!-- STREET 3 -->
+													<m:Label id="str3Id_lbl" text="{labelJson>/S1G2T1F3}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F3} === 'X' ? true : false}"/>
+													<m:Text id="str3Id"
+														text="{parts: [{path:'HQAdd>/results/0/STREET3'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G2T1F3'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F3} === 'X' ? true : false}"/>
+
+													<!-- CITY -->
+													<m:Label text="{labelJson>/S1G2T1F8}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F8} === 'X' ? true : false}"/>
+													<m:Text id="cityId"
+														text="{parts: [{path:'HQAdd>/results/0/CITY'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G2T1F8'}] ,formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F8} === 'X' ? true : false}"/>
+
+													<!-- REGION -->
+													<m:Label text="{labelJson>/S1G2T1F7}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T1F7} === 'X' ? true : false}"/>
+													<m:Text id="stateId"
+														text="{parts:[{path:'HQAdd>/results/0/STATE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G2T1F7'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T1F7} === 'X' ? true : false}"/>
+
+
+													
+													<!-- <m:Label text="{labelJson>/S1G1T1F9}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G1T1F9} === 'X' ? true : false}"/>
+													<m:Text id="faxNoId"
+														text="{parts:[{path:'HQAdd>/results/0/FAX_NO'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G1T1F9'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G1T1F9} === 'X' ? true : false}"/>  -->
+
+												</f:SimpleForm>
+
+												<!-- <m:HBox width="30rem" id="emailId2" class="sapUiMediumMarginBottom">
+													<m:Label text="Secondary Email: " design="Bold" class="sapUiMediumMarginBegin sapUiSmallMarginEnd sapUiMediumMarginTop"/>
+													<m:MultiInput id="multiInput1" width="80%" showValueHelp="false" change="handleTokenUpdate" class="sapUiMediumMarginTop" editable="false"/>
+												</m:HBox> -->
+
+												<!-- OTHER OFFICE ADDRESS -->
+												<ui:Table id="trAddId" rows="{path:'AddressData>/results', filters: {path: 'ADDRESS_TYPE', operator: 'EQ', value1: 'OTH'}}" 
+												selectionMode="None" ariaLabelledBy="title"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F1} === 'X' ? true : false}">
+													<ui:extension>
+														<m:OverflowToolbar style="Clear">
+															<m:Title text="Other Office Address"/>
+															<m:ToolbarSpacer/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+
+														<!-- <ui:Column  width="10rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G1T2F15} === 'X' ? true : false}">
+														<m:Label text="{labelJson>/S1G1T2F15}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G1T2F15} === 'X' ? true : false}"/>
+														<ui:template>
+																<m:Text text="{path:'AddressData>STREET_NO', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+
+														</ui:Column> -->
+													
+														<!-- STREET 1 -->
+														<ui:Column width="8rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F1} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F1} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F1}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>STREET1', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- STREET 2 -->
+														<ui:Column width="8rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F2} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F2} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F2}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>STREET2', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- STREET 3 -->
+														<ui:Column width="8rem" id="street3Col" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F3} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F3} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F3}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>STREET3', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- STREET 4 -->
+														<ui:Column width="8rem" id="street4Col" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F4} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F4} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F4}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>STREET4', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- EMAIL -->
+														<ui:Column hAlign="Center" width="14rem"
+															visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F5} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F5} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F5}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>EMAIL', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- COUNTRY -->
+														<ui:Column width="8rem" hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F6} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F6} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F6}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>COUNTRY', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- REGION -->
+														<ui:Column width="8rem" hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F7} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F7} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F7}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>STATE', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- CITY -->
+														<ui:Column width="8rem" hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F8} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F8} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F8}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>CITY', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- CONTACT NO -->
+														<ui:Column width="10rem" hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F9} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F9} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F9}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text
+																	text="{parts:[{path:'AddressData>CONTACT_TELECODE'},{path:'AddressData>CONTACT_NO'}], formatter:'.formatter.getContactsDataNullValue'}"></m:Text>
+															</ui:template>
+														</ui:Column>
+
+														<!-- POSTAL CODE -->
+														<ui:Column width="11rem" hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F10} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F10} === 'X' ? true : false}"
+																text="{labelJson>/S1G3T1F10}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>POSTAL_CODE', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+
+														<!-- <ui:Column width="8rem" hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G1T2F9} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G1T2F9} === 'X' ? true : false}"
+																text="{labelJson>/S1G1T2F9}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>FAX_NO', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column> -->
+														<!-- <ui:Column hAlign="Center" width="14rem"
+															visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G1T2F10} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G1T2F10} === 'X' ? true : false}"
+																text="{labelJson>/S1G1T2F10}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text text="{path:'AddressData>EMAIL', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column> -->
+													</ui:columns>
+												</ui:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+
+									<!-- PRIMARY CONTACT SECTION -->
+									<ObjectPageSubSection id="contactSubSectionTitle_Id"
+										visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F10} === 'X' ? true : false}">
+										<blocks>
+											<m:VBox>
+												<f:SimpleForm id="simpleForm22" labelSpanL="5" labelSpanM="5" labelSpanXL="5" editable="false" layout="ResponsiveGridLayout" columnsM="2"
+													columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+
+													<core:Title text=""/>
+
+													<!-- FIRST NAME -->
+													<m:Label text="{labelJson>/S1G4T1F1}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F1} === 'X' ? true : false}"/>
+													<m:Text id="nameId"
+														text="{parts: [{path:'hodDetails>/results/0/NAME1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T1F1'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F1} === 'X' ? true : false}"/>
+
+													<!-- DESIGNATION -->
+													<m:Label text="{labelJson>/S1G4T1F2}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F2} === 'X' ? true : false}"/>
+													<m:Text id="DesId"
+														text="{parts:[{path:'hodDetails>/results/0/DESIGNATION'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T1F2'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F2} === 'X' ? true : false}"/>
+													
+													<!-- CITY -->
+													<m:Label text="{labelJson>/S1G4T1F7}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F7} === 'X' ? true : false}"/>
+													<m:Text id="cityNumId"
+														text="{parts:[{path:'hodDetails>/results/0/CITY'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T1F7'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F7} === 'X' ? true : false}"/>
+													
+													<!-- COUNTRY -->
+													<m:Label text="{labelJson>/S1G4T1F3}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F3} === 'X' ? true : false}"/>
+													<m:Text id="nationalityId"
+														text="{parts:[{path:'hodDetails>/results/0/NATIONALITY'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T1F3'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F3} === 'X' ? true : false}"/>
+
+													<core:Title text=""/>
+													
+													<!-- LAST NAME -->
+													<m:Label text="{labelJson>/S1G4T1F11}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F11} === 'X' ? true : false}"/>
+													<m:Text id="name2Id"
+														text="{parts: [{path:'hodDetails>/results/0/NAME2'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T1F11'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F11} === 'X' ? true : false}"/>
+
+													<!-- CONTACT NO -->
+													<m:Label text="{labelJson>/S1G4T1F5}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F5} === 'X' ? true : false}"/>
+													<m:Text id="contNumId"
+														text="{parts:[{path:'hodDetails>/results/0/CONTACT_TELECODE'},{path:'hodDetails>/results/0/CONTACT_NO'}],formatter:'.formatter.getContactsDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F5} === 'X' ? true : false}"/>
+													
+													<!-- REGION -->
+													<m:Label text="{labelJson>/S1G4T1F8}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F8} === 'X' ? true : false}"/>
+													<m:Text id="S1G4T1F8"
+														text="{parts:[{path:'hodDetails>/results/0/STATE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T1F8'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F8} === 'X' ? true : false}"/>
+
+													<core:Title text=""/>
+													
+													<!-- EMAIL -->
+													<m:Label text="{labelJson>/S1G4T1F4}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F4} === 'X' ? true : false}"/>
+													<m:Text id="emailAddId"
+														text="{parts:[{path:'hodDetails>/results/0/EMAIL'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T1F4'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F4} === 'X' ? true : false}"/>
+
+													<!-- MOBILE NO -->
+													<m:Label text="{labelJson>/S1G4T1F6}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F6} === 'X' ? true : false}"/>
+													<m:Text id="mobId"
+														text="{parts:[{path:'hodDetails>/results/0/MOBILE_TELECODE'},{path:'hodDetails>/results/0/MOBILE_NO'}],formatter:'.formatter.getContactsDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F6} === 'X' ? true : false}"/>
+
+													<!-- POSTAL CODE -->
+													<m:Label text="{labelJson>/S1G4T1F9}" design="Bold"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F9} === 'X' ? true : false}"/>
+													<m:Text id="S1G4T1F9"
+														text="{parts:[{path:'hodDetails>/results/0/POSTAL_CODE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T1F9'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F9} === 'X' ? true : false}"/>
+												</f:SimpleForm>
+
+												<!-- OTHER CONTACT INFO -->
+												<ui:Table id="table_contactId" rows="{authDetails>/results}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F11} === 'X' ? true : false}" selectionMode="None"
+													ariaLabelledBy="title" visibleRowCount="{vendorDetails>/rowLength}">
+													<ui:extension>
+														<m:OverflowToolbar style="Clear">
+															<m:Title id="contactTable_Id" title="{labelJson>/S1G4T1F10}"/>
+															<m:ToolbarSpacer/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+
+														<!-- FIRST NAME -->
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F1} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F1} === 'X' ? true : false}"
+																text="{labelJson>/S1G4T1F1}" wrapping="true"
+																design="Bold"/>
+															<ui:template>
+																<m:Label wrapping="true" text="{path:'authDetails>NAME1',formatter:'.formatter.getDataNullValue'}"
+																	design="Bold"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- LAST NAME -->
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F13} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F13} === 'X' ? true : false}"
+																text="{labelJson>/S1G5T2F13}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true" text="{path:'authDetails>NAME2',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- DESIGNATION -->
+														<ui:Column width="7rem" hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F2} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F2} === 'X' ? true : false}"
+																text="{labelJson>/S1G5T2F2}" wrapping="true"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true" text="{path:'authDetails>DESIGNATION', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- COUNTRY -->
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F3} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F3} === 'X' ? true : false}"
+																text="{labelJson>/S1G5T2F3}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true" text="{path:'authDetails>NATIONALITY', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- REGION -->
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F8} === 'X' ? true : false}">
+															<m:Label wrapping="true" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F8} === 'X' ? true : false}"
+																text="{labelJson>/S1G5T2F8}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true" text="{path:'authDetails>STATE', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- CITY -->
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F7} === 'X' ? true : false}">
+															<m:Label wrapping="true" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F7} === 'X' ? true : false}"
+																text="{labelJson>/S1G5T2F7}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true" text="{path:'authDetails>CITY', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+														
+<!-- 														
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G2T2F7} === 'X' ? true : false}">
+															<m:Label wrapping="true" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G2T2F7} === 'X' ? true : false}"
+																text="{labelJson>/S1G2T2F7}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true" text="{path:'authDetails>PASSPORT_NO', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column> -->
+
+														<!-- EMAIL -->
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F4} === 'X' ? true : false}">
+															<m:Label wrapping="true" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F4} === 'X' ? true : false}"
+																text="{labelJson>/S1G5T2F4}"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true" text="{path:'authDetails>EMAIL', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- CONTACT NO -->
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F5} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F5} === 'X' ? true : false}"
+																text="{labelJson>/S1G5T2F5}" wrapping="true"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true"
+																	text="{parts:[{path:'authDetails>CONTACT_TELECODE'},{path:'authDetails>CONTACT_NO'}], formatter:'.formatter.getContactsDataNullValue'}"></m:Text>
+															</ui:template>
+														</ui:Column>
+
+														<!-- MOBILE NO -->
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F6} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F6} === 'X' ? true : false}"
+																text="{labelJson>/S1G5T2F6}" wrapping="true"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true"
+																	text="{parts:[{path:'authDetails>MOBILE_TELECODE'},{path:'authDetails>MOBILE_NO'}], formatter:'.formatter.getContactsDataNullValue'}"></m:Text>
+															</ui:template>
+														</ui:Column>
+
+														<!-- POSTAL CODE -->
+														<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F9} === 'X' ? true : false}">
+															<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F9} === 'X' ? true : false}"
+																text="{labelJson>/S1G5T2F9}" wrapping="true"
+																design="Bold"/>
+															<ui:template>
+																<m:Text wrapping="true" text="{path:'authDetails>POSTAL_CODE', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+													</ui:columns>
+												</ui:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+
+									<!-- BUSINESS INFO -->
+									<ObjectPageSubSection id="bussinessInfoTable_Id" title="Business Information"
+										visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F1} === 'X' ? true : false}">
+
+										<m:Table id="table_employeeId" class="sapUiSmallMarginBottom" contextualWidth="auto" autoPopinMode="true">
+											<m:columns>
+												<m:Column width="34rem">
+													<m:Label text="Category" design="Bold"/>
+												</m:Column>
+												<m:Column hAlign="Center">
+													<m:Label text="Number Of Employees" design="Bold" wrapping="true"/>
+												</m:Column>
+											</m:columns>
+											<m:items>
+
+											<!-- NO OF PERM EMP -->
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F1} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G7T1F1} === 'X' ? true : false}"
+															text="{labelJson>/S1G7T1F1}"
+															wrapping="true" design="Bold"/>
+														<m:Text
+															text="{path:'vendorDetails>/TOT_PERM_EMP',formatter:'.formatter.getDataNullValue'}" wrapping="true"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- NO EMP IN A/C -->
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F3} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G7T1F3} === 'X' ? true : false}"
+															text="{labelJson>/S1G7T1F3}"
+															wrapping="true" design="Bold"/>
+														<m:Text
+															text="{path:'vendorDetails>/NOE_ACC',formatter:'.formatter.getDataNullValue'}" wrapping="true"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- NO EMP IN HR -->
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F5} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G7T1F5} === 'X' ? true : false}"
+															text="{labelJson>/S1G7T1F5}"
+															wrapping="true" design="Bold"/>
+														<m:Text
+															text="{path:'vendorDetails>/NOE_HR', formatter:'.formatter.getDataNullValue'}" wrapping="true"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- no of QA -->
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F6} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G7T1F6} === 'X' ? true : false}"
+															text="{labelJson>/S1G7T1F6}"
+															wrapping="true" design="Bold"/>
+														<m:Text
+															text="{path:'vendorDetails>/NOE_QA', formatter:'.formatter.getDataNullValue'}" wrapping="true"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- no of MANUFACTURE & prod -->
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F7} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G7T1F7} === 'X' ? true : false}"
+															text="{labelJson>/S1G7T1F7}"
+															wrapping="true" design="Bold"/>
+														<m:Text
+															text="{path:'vendorDetails>/NO_OF_PROD' , formatter:'.formatter.getDataNullValue'}"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- no of ADMINISTRATION -->
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F4} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G7T1F4} === 'X' ? true : false}"
+															text="{labelJson>/S1G7T1F4}"
+															wrapping="true" design="Bold"/>
+														<m:Text
+															text="{path:'vendorDetails>/NOE_ADM',formatter:'.formatter.getDataNullValue'}"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- no of EMP IN SALES -->
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F8} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label id="S1G7T1F8" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G7T1F8} === 'X' ? true : false}"
+															text="{parts:[{path:'labelJson>/S1G7T1F8'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G7T1F8'},{value:'S1G7T1F8'}],formatter:'.formatter.gethighLightText'}"
+															wrapping="true" design="Bold"/>
+														<m:Text
+															text="{path:'vendorDetails>/NOE_SALES' , formatter:'.formatter.getDataNullValue'}"/>
+													</m:cells>
+												</m:ColumnListItem>
+												
+												<!-- NO OF EMP IN SECURITY -->
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F9} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label id="S1G7T1F9" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G7T1F9} === 'X' ? true : false}"
+															text="{parts:[{path:'labelJson>/S1G7T1F9'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G7T1F9'},{value:'S1G7T1F9'}],formatter:'.formatter.gethighLightText'}"
+															wrapping="true" design="Bold"/>
+														<m:Text
+															text="{path:'vendorDetails>/NOE_SEC' , formatter:'.formatter.getDataNullValue'}"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- NO OF ANY OTHER -->
+												<m:ColumnListItem visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G7T1F10} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label id="S1G7T1F10" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G7T1F10} === 'X ' ? true : false}"
+															text="{parts:[{path:'labelJson>/S1G7T1F10'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G7T1F10'},{value:'S1G7T1F10'}],formatter:'.formatter.gethighLightText'}"
+															wrapping="true" design="Bold"/>
+														<m:Text
+															text="{path:'vendorDetails>/NOE_ANY',formatter:'.formatter.getDataNullValue'}"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+											</m:items>
+										</m:Table>
+									</ObjectPageSubSection>
+
+
+									<!-- <ObjectPageSubSection id="otherDetailsS1_Id" title="Vendor Details"
+										visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T9F1} === 'X' ? true : false}">
+										<f:SimpleForm id="simpleForm5" labelSpanL="3" labelSpanM="3" labelSpanXL="3" editable="true" layout="ResponsiveGridLayout" columnsM="2"
+											columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+											<f:content>
+												<m:Label id="S1G4T9F1_lbl" text="{labelJson>/S1G4T9F1}" design="Bold"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T9F1} === 'X' ? true : false}"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T9F1} === 'X' ? true : false}"/>
+												<m:Text id="S1G4T9F1"
+													text="{parts:[{path:'vendorDetails>/TRADE_LIC_NO'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T9F1'}],formatter:'.formatter.getDataNullValue'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T9F1} === 'X' ? true : false}"/>
+												<m:Label id="S1G4T9F1_lblExp" text="Trade License Expiry Date" design="Bold"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T9F1} === 'X' ? true : false}"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T9F1} === 'X' ? true : false}"/>
+												<m:Text id="S1G4T9F1Exp"
+													text="{parts:[{path:'vendorDetails>/TRADE_LIC_NO_DATE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T9F1'}], formatter:'.formatter.formatDate'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T9F1} === 'X' ? true : false}"/>
+												<m:Label id="S1G3T1F1_lbl" text="{labelJson>/S1G3T1F1}" design="Bold"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G3T1F1} === 'X' ? true : false}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F1} === 'X' ? true : false}"/>
+												<m:Text id="S1G3T1F1"
+													text="{parts:[{path:'vendorDetails>/LEGAL_STRUCTURE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G3T1F1'}],formatter:'.formatter.getDataNullValue'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G3T1F1} === 'X' ? true : false}"/>
+												<m:Label id="S1G4T1F1_lbl" text="{labelJson>/S1G4T1F1}" design="Bold"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F1} === 'X' ? true : false}"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T1F1} === 'X' ? true : false}"/>
+												<m:Text id="S1G4T1F1"
+													text="{parts:[{path:'vendorDetails>/ESTAB_YEAR'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T1F1'}],formatter:'.formatter.getDataNullValue'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T1F1} === 'X' ? true : false}"/>
+												<m:Label id="S1G4T8F1_lbl" text="{labelJson>/S1G4T8F1}" design="Bold"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T8F1} === 'X' ? true : false}"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G4T8F1} === 'X' ? true : false}"/>
+												<m:Text id="S1G4T8F1"
+													text="{parts:[{path:'vendorDetails>/BUSINESS_TYPE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G4T8F1'}],formatter:'.formatter.getDataNullValue'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G4T8F1} === 'X' ? true : false}"/>
+											</f:content>
+										</f:SimpleForm>
+									</ObjectPageSubSection> -->
+
+									<!-- <ObjectPageSubSection id="supplier_Id" title="Vendor">
+										<f:SimpleForm id="simpleForm20" labelSpanL="5" labelSpanM="6" labelSpanXL="6" editable="false" layout="ResponsiveGridLayout" columnsM="2"
+											columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+											<core:Title text=""/>
+											<m:Label id="S3G1T1F1_lbl"
+												text="{parts:[{path:'labelJson>/S1G5T1F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G5T1F1'}],formatter:'.formatter.getDataNullValue'}"
+												design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T1F1} === 'X' ? true : false}"
+												required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T1F1} === 'X' ? true : false}"/>
+
+											<m:MultiInput id="suppMultiInputId" editable="false"></m:MultiInput>
+											<core:Title/>
+											<m:Label id="S3G1T1F2_lbl" text="{labelJson>/S1G5T2F1}" design="Bold"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F1} === 'X' ? true : false}"
+												required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S1G5T2F1} === 'X' ? true : false}"/>
+											<m:Text id="S3G1T1F2"
+												text="{parts:[{path:'vendorDetails>/SUPPL_TYPE_DESC'},{path:'vendorDetails>/SUPPL_TYPE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S1G5T2F1'}],formatter:'.formatter.getDataNullValue'}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S1G5T2F1} === 'X' ? true : false}"></m:Text>
+											<core:Title/>
+											<m:Label id="subtypeId" text="{labelJson>/S1G5T4F1}" design="Bold"/>
+											<m:Text id="subtypeId_lbl" text="{parts:[{path:'vendorDetails>/BP_TYPE_DESC'},{path:'vendorDetails>/BP_TYPE_CODE'}],formatter:'.formatter.vendorSubType'}"></m:Text>
+										</f:SimpleForm>
+									</ObjectPageSubSection> -->
+
+								</subSections>
+							</ObjectPageSection>
+
+							<!--Financial Information-->
+							<ObjectPageSection title="{i18n>Section2}">
+								<subSections>
+									<ObjectPageSubSection id="paymentInfo_Id" title="Banking Information">
+										<blocks>
+											<m:VBox>
+												<!--<m:MessageStrip id="msgSCID" text="Supplier has entered New Swift Code that doesn't exist in the bank master. kindly share the bank details with the Treasury team."-->
+												<!--		showIcon="true" type="Warning" />-->
+												<f:SimpleForm id="simpleForm6" labelSpanL="7" labelSpanM="7" labelSpanXL="7" editable="true" layout="ResponsiveGridLayout" columnsM="2"
+													columnsL="3" columnsXL="4" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+
+													<core:Title text=""/>
+													<!-- BANK COUNTRY -->
+													<m:Label id="S2G1T1F1_lbl" text="{labelJson>/S2G1T1F1}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F1} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F1} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F1"
+														text="{parts:[{path:'priBankDetails>/results/0/BANK_COUNTRY'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F1'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F1} === 'X' ? true : false}"></m:Text>
+
+													<!-- BRANCH NAME -->
+													<m:Label id="S2G1T1F4_lbl" text="{labelJson>/S2G1T1F4}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F4} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F4} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F4"
+														text="{parts:[{path:'priBankDetails>/results/0/BRANCH_NAME'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F4'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F4} === 'X' ? true : false}"></m:Text>
+
+													<!-- IBAN NO -->
+													<m:Label id="S2G1T1F7_lbl" text="{labelJson>/S2G1T1F7}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F7} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F7} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F7"
+														text="{parts:[{path:'priBankDetails>/results/0/IBAN_NUMBER'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F7'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F7} === 'X' ? true : false}"></m:Text>
+
+													<!-- ROUTING CODE -->
+													<m:Label id="S2G1T1F8_lbl" text="{labelJson>/S2G1T1F8}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F8} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F8} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F8"
+														text="{parts:[{path:'priBankDetails>/results/0/ROUTING_CODE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F8'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F8} === 'X' ? true : false}"></m:Text>
+
+													
+													<core:Title text=""/>
+
+													<!-- SWIFT CODE -->
+													<m:Label id="S2G1T1F2_lbl" text="{labelJson>/S2G1T1F2}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F2} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F2} === 'X' ? true : false}"/>
+													<!-- <m:Link id="S2G1T1F6" press="onSwiftCode"
+														text="{parts:[{path:'priBankDetails>/results/0/SWIFT_CODE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F6'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F6} === 'X' ? true : false}"></m:Link> -->
+													<m:Text id="S2G1T1F2" 
+														text="{parts:[{path:'priBankDetails>/results/0/SWIFT_CODE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F2'},{value:'S2G1T1F2'}],formatter:'.formatter.gethighLightText'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F2} === 'X' ? true : false}"></m:Text>
+													
+													<!-- BENEFICIARY NAME -->
+													<m:Label id="S2G1T1F5_lbl" text="{labelJson>/S2G1T1F5}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F5} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F5} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F5"
+														text="{parts:[{path:'priBankDetails>/results/0/BENEFICIARY'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F2'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F5} === 'X' ? true : false}"></m:Text>
+
+													<!-- OTHER CODE NAME -->
+													<m:Label id="S2G1T1F9_lbl" text="{labelJson>/S2G1T1F9}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F9} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F9} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F9"
+														text="{parts:[{path:'priBankDetails>/results/0/OTHER_CODE_NAME'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F9'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F9} === 'X' ? true : false}"></m:Text>
+
+													<!-- BANK CURRENCY -->
+													<m:Label id="S2G1T1F10_lbl" text="{labelJson>/S2G1T1F10}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F10} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F10} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F10"
+														text="{parts:[{path:'priBankDetails>/results/0/BANK_CURRENCY'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F10'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F10} === 'X' ? true : false}"></m:Text>
+													
+
+													<core:Title text=""/>
+													<!--<m:Label id="NEWSWCLID" text="New Swift Code" design="Bold" />-->
+													<!--<m:Text id="NEWSWCLTID" text="{priBankDetails>/results/0/BIC_CODE}" visible="{= ${priBankDetails>/results/0/SWIFT_CODE} === 'OTHER' ? true : false}" />-->
+
+													<!-- BANK NAME -->
+													<m:Label id="S2G1T1F3_lbl" text="{labelJson>/S2G1T1F3}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F3} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F3} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F3"
+														text="{parts:[{path:'priBankDetails>/results/0/NAME'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F3'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F3} === 'X' ? true : false}"></m:Text>
+
+													<!-- ACCOUNT NO -->
+													<m:Label id="S2G1T1F6_lbl" text="{labelJson>/S2G1T1F6}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F6} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F6} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F6"
+														text="{parts:[{path:'priBankDetails>/results/0/ACCOUNT_NO'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F6'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F6} === 'X' ? true : false}"></m:Text>
+
+													<!-- OTHER CODE VALUE -->
+													<m:Label id="S2G1T1F11_1lbl" text="{labelJson>/S2G1T1F11}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F11} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T1F11} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T1F11_1"
+														text="{parts:[{path:'priBankDetails>/results/0/OTHER_CODE_VAL'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T1F11'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T1F11} === 'X' ? true : false}"></m:Text>
+
+													<!-- <m:Label id="S2G1T4F15_lbl" text="{labelJson>/S2G1T4F15}" design="Bold"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T4F15} === 'X' ? true : false}"
+														required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G1T4F15} === 'X' ? true : false}"/>
+													<m:Text id="S2G1T4F15"
+														text="{parts:[{path:'priBankDetails>/results/0/DUNS_NUMBER'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T4F15'}],formatter:'.formatter.getDataNullValue'}"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T4F15} === 'X' ? true : false}"></m:Text> -->
+
+												</f:SimpleForm>
+
+												<!-- OTHER BANK DETAILS PRIYA -->
+												<ui:Table id="bankTableId" rows="{othBankDetails>/results}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F14} === 'X' ? true : false}" selectionMode="None"
+													ariaLabelledBy="title">
+													<ui:extension>
+														<m:OverflowToolbar style="Clear">
+															<m:Title text="{labelJson>/S2G2T1F14}"/>
+															<m:ToolbarSpacer/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+
+													<!-- BANK COUNTRY -->
+														<ui:Column width="12rem" hAlign="Center"
+															visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F1} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F1}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F1} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text="{path:'othBankDetails>BANK_COUNTRY', formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- SWIFT CODE -->
+														<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F2} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F2}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F2} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Link press="onOtherBankSwiftCode" text="{path:'othBankDetails>SWIFT_CODE',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+														<!--<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T5F7} === 'X' ? true : false}">-->
+														<!--	<m:Label-->
+														<!--		text="{parts:[{path:'i18n>newswiftCode'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T5F7'}],formatter:'.formatter.getDataNullValue'}"-->
+														<!--		design="Bold" />-->
+														<!--	<ui:template>-->
+														<!--		<m:Text text="{path:'othBankDetails>BIC_CODE',formatter:'.formatter.getDataNullValue'}"/>-->
+														<!--	</ui:template>-->
+														<!--</ui:Column>-->
+
+														<!-- BANK NAME -->
+														<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F3} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F3}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F3} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'othBankDetails>NAME',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- BRANCH NAME -->
+														<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F4} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F4}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F4} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'othBankDetails>BRANCH_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- BENEFICIARY NAME -->
+														<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F5} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F5}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F5} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'othBankDetails>BENEFICIARY',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- ACCOUNT NO -->
+														<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F6} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F6}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F6} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'othBankDetails>ACCOUNT_NO',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- IBAN NO -->
+														<ui:Column width="13rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F7} === 'X' ? true : false}">
+															<m:Label id="tableIbanId"
+																text="{labelJson>/S2G2T1F7}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F7} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'othBankDetails>IBAN_NUMBER',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- ROUTING CODE -->
+														<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F8} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F8}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F8} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'othBankDetails>ROUTING_CODE',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- OTHER CODE NAME -->
+														<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F9} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F9}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F9} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text="{path:'othBankDetails>OTHER_CODE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- OTHER CODE VALUE -->
+														<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F12} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F12}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F12} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text="{path:'othBankDetails>OTHER_CODE_VAL',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- BANK CURRENCY -->
+														<ui:Column width="12rem" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F10} === 'X' ? true : false}">
+															<m:Label
+																text="{labelJson>/S2G2T1F10}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F10} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text="{path:'othBankDetails>BANK_CURRENCY',formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+													</ui:columns>
+												</ui:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+
+									<!-- OTHER BANK TABLE NEW  -->
+									<ObjectPageSubSection id="bankingDetail_Id" title="Other bank details">
+									<blocks>
+									<m:VBox>
+										<ui:Table id="otherBankingDetailId" rows="{path:'otherBankingDetails>/results'}" selectionMode="None"
+													ariaLabelledBy="title2">
+													<ui:extension>
+														<m:OverflowToolbar style="Clear">
+															<m:Title text="{labelJson>/S2G3T1F6}"/>
+															<m:ToolbarSpacer/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+														<!-- BRANCH NAME -->
+														<ui:Column visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F2} === 'X' ? true : false}" hAlign="Center">
+															<m:Label id="S2G3T1F2"
+																text="{parts:[{path:'labelJson>/S2G3T1F2'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G3T1F2'},{value:'S2G3T1F2'}],formatter:'.formatter.gethighLightText'}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G3T1F2} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'otherBankingDetails>BRANCH_NAME' , formatter:'.formatter.getDataNullValue'}"/>
+																<!-- <m:Text text="{otherBankingDetails>BRANCH_NAME}"/> -->
+															</ui:template>
+														</ui:Column>
+														
+														<!-- FACILITY -->
+														<ui:Column visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F3} === 'X' ? true : false}" hAlign="Center">
+															<m:Label id="S2G3T1F3"
+																text="{parts:[{path:'labelJson>/S2G3T1F3'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G3T1F3'},{value:'S2G3T1F3'}],formatter:'.formatter.gethighLightText'}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G3T1F3} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'otherBankingDetails>FACILTY' , formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- LIMIT -->
+														<ui:Column visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F4} === 'X' ? true : false}" hAlign="Center">
+															<m:Label id="S2G3T1F4"
+																text="{parts:[{path:'labelJson>/S2G3T1F4'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G3T1F4'},{value:'S2G3T1F4'}],formatter:'.formatter.gethighLightText'}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G3T1F4} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'otherBankingDetails>AMOUNT_LIMIT' , formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+														
+														<!-- ASSOCIATED SINCE -->
+														<ui:Column visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F5} === 'X' ? true : false}" hAlign="Center">
+															<m:Label id="S2G3T1F5"
+																text="{parts:[{path:'labelJson>/S2G3T1F5'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G3T1F5'},{value:'S2G3T1F5'}],formatter:'.formatter.gethighLightText'}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G3T1F5} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text text="{path:'otherBankingDetails>ASSO_SINCE' , formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- OTHER CODE NAME -->
+														<!-- <ui:Column visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F9} === 'X' ? true : false}" hAlign="Center">
+															<m:Label id="S2G2T1F9"
+																text="{parts:[{path:'labelJson>/S2G2T1F9'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G2T1F9'},{value:'S2G2T1F9'}],formatter:'.formatter.gethighLightText'}"
+																design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F9} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Text
+																	text="{path:'otherBankingDetails>NAME' , formatter:'.formatter.getDataNullValue'}"/>
+															</ui:template>
+													</ui:Column> -->
+													</ui:columns>
+												</ui:Table>
+
+											</m:VBox>
+											</blocks>
+									</ObjectPageSubSection>
+
+									<ObjectPageSubSection id="vatDetails_Id" title="VAT Details">
+										<m:VBox>
+											<m:HBox id="vatquestion">
+												<m:Label wrapping="true" text="{labelJson>/S2G2T2F1}" id="idVAT_lbl" design="Bold"
+													class="sapUiTinyMarginBegin sapUiTinyMarginEnd setFontVatSize"/>
+													<m:Text text="{path:'vendorDetails>/VAT_CHECK', formatter:'.formatter.vatCheck'}" class="setFontVatSize"/>
+												<!-- <m:Text text="{= ${vendorDetails>/VAT_CHECK} === 'N' ? 'No' : 'Yes'}" class="sapUiMediumMarginTop setFontVatSize"/> -->
+											</m:HBox>
+											<f:SimpleForm id="simpleForm24" editable="true" layout="ResponsiveGridLayout" labelSpanL="5" labelSpanM="5" labelSpanXL="5" columnsM="2"
+												columnsL="2" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+												<core:Title text=""/>
+												<!-- VAT REG DATE -->
+												<m:Label id="S2G2T2F3_lbl" text="{labelJson>/S2G2T2F3}" design="Bold"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T2F3} === 'X' ? true : false}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T2F3} === 'X' ? true : false}"/>
+												<m:Text id="S2G2T2F3"
+													text="{path:'vendorDetails>/VAT_REG_DATE', formatter:'.formatter.formatDate'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T2F3} === 'X' ? true : false}"></m:Text>
+
+												<core:Title text=""/>
+												<!-- VAT REG NUM -->
+												<m:Label id="S2G2T2F2_lbl" text="{labelJson>/S2G2T2F2}" design="Bold"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T2F2} === 'X' ? true : false}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T2F2} === 'X' ? true : false}"/>
+												<m:Text id="S2G2T2F2"
+													text="{path:'vendorDetails>/VAT_REG_NUMBER',formatter:'.formatter.getDataNullValue'}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T2F2} === 'X' ? true : false}"></m:Text>
+											</f:SimpleForm>
+
+
+											<!-- <m:Table class="sapUiSmallMarginBottom" noDataText="No attachments available" id="id_vatevidence" items="{G22Json>/}" ariaHasPopup="Dialog">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="VAT_EVI" text="VAT Evidence" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column>
+														<m:Label id="VAT_RId" text="Reason for VAT exemption" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label id="VAT_FId" text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{path:'G22Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G22Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G22Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table> -->
+										</m:VBox>
+									</ObjectPageSubSection>
+
+
+									<!-- <ObjectPageSubSection id="icvDetails_Id" title="ICV Details"> -->
+										<!-- <m:VBox> -->
+
+
+											<!-- <m:HBox id="icvquestion">
+												<m:Label text="Are you accredited into the ICV program of UAE? : " id="idICV_lbl" design="Bold"
+													class="sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiMediumMarginTop setFontVatSize"/>
+												<m:Text text="{= ${vendorDetails>/ICV_CHECK} === 'Y' ? 'Yes' : 'No'}" class="sapUiMediumMarginTop setFontAnsVatSize"/>
+											</m:HBox> -->
+											<!-- <f:SimpleForm id="simpleForm25" editable="true" layout="ResponsiveGridLayout" labelSpanL="5" labelSpanM="5" labelSpanXL="5" columnsM="2"
+												columnsL="2" class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+												<core:Title text=""/>
+												<m:Label id="icv_lpId" text="ICV Percentage" design="Bold"/>
+												<m:Text text="{vendorDetails>/ICV_SCORE}"/>
+												<core:Title text=""/>
+												<m:Label id="icv_lvId" text="ICV Validity" design="Bold"/> -->
+												<!--<m:Text id="icv_DId"-->
+												<!--	text="{parts:[{path:'vendorDetails>/ICV_DATE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S2G1T3F13'}],formatter:'.formatter.getDataNullValue'}"-->
+												<!--	visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G1T3F13} === 'X' ? true : false}"></m:Text>-->
+												<!-- <m:Text text="{path: 'vendorDetails>/ICV_DATE', formatter:'.formatter.formatDate'}"/>
+											</f:SimpleForm> -->
+
+
+											<!-- <m:Table class="sapUiSmallMarginBottom" noDataText="No attachments available" id="id_icvevidence" items="{G23Json>/}" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label text="ICV Certificate" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column>
+														<m:Label id="icvId" text="Attachment Type" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label id="icv_certiId" text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Label text="{path:'G23Json>/0/ATTACH_DESC',formatter:'.formatter.getDataNullValue'}"
+																design="Bold"/>
+															<m:Text text="{path:'G23Json>/0/ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Text text="{path:'G23Json>/0/FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G23Json>/0/FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table> -->
+
+											
+										<!-- </m:VBox> -->
+									<!-- </ObjectPageSubSection> -->
+									
+									<!-- <ObjectPageSubSection title="Financial Information"
+										visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F1} === 'X' ? true : false}">
+										<ui:Table id="table_finId" rows="{vendorDetails>/TO_FINANCE}" selectionMode="None" visibleRowCount="3"
+											ariaLabelledBy="title">
+											<ui:columns>
+												<ui:Column hAlign="Center">
+													<m:Label text="Financial Year" design="Bold"/>
+													<ui:template>
+														<m:Label text="{path:'vendorDetails>FIN_YEAR', formatter:'.formatter.getDataNullValue'}"
+															design="Bold"/>
+													</ui:template>
+												</ui:Column>
+												<ui:Column hAlign="Right" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T1F1} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T1F1} === 'X' ? true : false}"
+														text="{labelJson>/S2G2T1F1}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text text="{path:'vendorDetails>TOTAL_REVENUE',formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+												<ui:Column hAlign="Right" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T2F1} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T2F1} === 'X' ? true : false}"
+														text="{labelJson>/S2G2T2F1}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text text="{path:'vendorDetails>NET_PROFIT_LOSS',formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+												<ui:Column hAlign="Right" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T3F1} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T3F1} === 'X' ? true : false}"
+														text="{labelJson>/S2G2T3F1}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text text="{path:'vendorDetails>TOTAL_ASSETS', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+												<ui:Column hAlign="Right" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G2T4F1} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T4F1} === 'X' ? true : false}"
+														text="{labelJson>/S2G2T4F1}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text text="{path:'vendorDetails>TOTAL_EQUITY', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+												<ui:Column hAlign="Center">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G2T5F1} === 'X' ? true : false}"
+														text="{labelJson>/S2G2T5F1}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{path:'vendorDetails>CURRENCY', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+											</ui:columns>
+										</ui:Table>
+									</ObjectPageSubSection> -->
+
+
+									<!-- <ObjectPageSubSection title="Owner's Information"
+										visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F1} === 'X' ? true : false}">
+										<ui:Table id="table_ownerId" rows="{vendorDetails>/TO_OWNERS}" selectionMode="None" ariaLabelledBy="title">
+											<ui:columns>
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F1} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G3T1F1} === 'X' ? true : false}"
+														text="{labelJson>/S2G3T1F1}"
+														design="Bold"/>
+													<ui:template>
+														<m:Label text="{path:'vendorDetails>NAME', formatter:'.formatter.getDataNullValue'}"
+															design="Bold"/>
+													</ui:template>
+												</ui:Column>
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F3} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G3T1F3} === 'X' ? true : false}"
+														text="{labelJson>/S2G3T1F3}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text text="{path:'vendorDetails>NATIONALITY', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F4} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G3T1F4} === 'X' ? true : false}"
+														text="{labelJson>/S2G3T1F4}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{parts:[{path:'vendorDetails>CONTACT_TELECODE'},{path:'vendorDetails>CONTACT_NO'}], formatter:'.formatter.getContactsDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F5} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G3T1F5} === 'X' ? true : false}"
+														text="{labelJson>/S2G3T1F5}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text text="{path:'vendorDetails>PASSPORT_NO', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S2G3T1F6} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S2G3T1F6} === 'X' ? true : false}"
+														text="{labelJson>/S2G3T1F6}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{path:'vendorDetails>OWNERSHIP_PERCENT', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+											</ui:columns>
+										</ui:Table>
+									</ObjectPageSubSection> -->
+
+
+								</subSections>
+							</ObjectPageSection>
+
+
+							<!--Operational Information-->
+							<ObjectPageSection title="{i18n>Section3}" id="thirdSection"
+							visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G1T1F1} === 'X' ? true : false}">
+								<subSections>
+
+								<!-- BUSINESS HISTORY -->
+									<ObjectPageSubSection title="{labelJson>/S3G1T1F7}" class="sapUiTinyMarginTop"
+										visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G1T1F7} === 'X' ? true : false}">
+										<m:VBox>
+											<m:HBox visible="{thirdSectionHBoxModel>/thirdSectionHBoxVisible}" class="sapUiSmallMarginBottom">
+												<m:Title text="{thirdSectionHBoxModel>/thirdSectionHBoxLabel}" />
+											</m:HBox>
+
+
+										<ui:Table id="table_businessHistory" rows="{businessHistory>/results}" selectionMode="None" ariaLabelledBy="title">
+											<ui:columns>
+											<!-- DEALERSHIP -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G1T1F1} === 'X' ? true : false}">
+													<m:Label id="S3G1T1F1" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G1T1F1} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G1T1F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G1T1F1'},{value:'S3G1T1F1'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text text="{path:'businessHistory>DEALERSHIP', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+												<!-- Manufacture/Supplier Name -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G1T1F2} === 'X' ? true : false}">
+													<m:Label id="S3G1T1F2" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G1T1F2} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G1T1F2'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G1T1F2'},{value:'S3G1T1F2'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text text="{path:'businessHistory>SUPPLIER_NAME', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+												<!-- Since (Year) -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G1T1F3} === 'X' ? true : false}">
+													<!-- <m:Label id="S3G1T1F3" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G1T1F3} === 'X' ? true : false}" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G1T1F3} === 'X' ? true : false}" wrapping="true"
+														text="{parts:[{path:'labelJson>/S3G1T1F3'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G1T1F3'}], formatter:'.formatter.gethighLightText'}"
+														design="Bold"/> -->
+
+													<m:Label id="S3G1T1F3" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G1T1F3} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G1T1F3'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G1T1F3'},{value:'S3G1T1F3'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{path:'businessHistory>SINCE', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+												<!-- Product Group -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G1T1F4} === 'X' ? true : false}">
+													<m:Label id="S3G1T1F4" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G1T1F4} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G1T1F4'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G1T1F4'},{value:'S3G1T1F4'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{path:'businessHistory>PROD_GROUP', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+												<!-- Purchases In Last Financial year -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G1T1F5} === 'X' ? true : false}">
+													<!-- <m:Label id="S3G1T1F5" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G1T1F5} === 'X' ? true : false}" wrapping="true"
+														text="{parts:[{path:'labelJson>/S3G1T1F5'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G1T1F5'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G1T1F5} === 'X' ? true : false}"/> -->
+
+													<m:Label id="S3G1T1F5" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G1T1F5} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G1T1F5'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G1T1F5'},{value:'S3G1T1F5'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{path:'businessHistory>PURCHASES', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+											</ui:columns>
+										</ui:Table>
+										</m:VBox>
+									</ObjectPageSubSection>
+
+									<!-- CUSTOMER DETAILS -->
+									<ObjectPageSubSection title="{labelJson>/S3G2T1F5}"
+										visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G2T1F5} === 'X' ? true : false}">
+										<m:VBox>
+											<!-- <m:HBox class="sapUiSmallMarginBottom">
+												<m:Title/>
+											</m:HBox> -->
+										<ui:Table id="table_custDetailsId" rows="{customerDetails>/results}" selectionMode="None" ariaLabelledBy="title">
+											<ui:columns>
+											<!-- Number Of Customer -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G2T1F4} === 'X' ? true : false}">
+													<m:Label id="S3G2T1F4" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G2T1F4} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G2T1F4'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G2T1F4'},{value:'S3G2T1F4'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G2T1F4} === 'X' ? true : false}"/>
+													<ui:template>
+														<m:Text text="{path:'customerDetails>CUST_NO', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+											<!-- Name Of Customer -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G2T1F1} === 'X' ? true : false}">
+													<m:Label id="S3G2T1F1" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G2T1F1} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G2T1F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G2T1F1'},{value:'S3G2T1F1'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G2T1F1} === 'X' ? true : false}"/>
+													<ui:template>
+														<m:Text text="{path:'customerDetails>CUSTOMER_NAME', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+												<!-- Last Year Sales YEAR 2-->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G2T1F2} === 'X' ? true : false}">
+													<m:Label id="S3G2T1F2" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G2T1F2} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G2T1F2'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G2T1F2'},{value:'S3G2T1F2'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G2T1F2} === 'X' ? true : false}"/>
+													<ui:template>
+														<m:Text text="{path:'customerDetails>YEAR2', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+												<!-- Before Last Year Sales YEAR 1-->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G2T1F3} === 'X' ? true : false}">
+													<m:Label id="S3G2T1F3" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G2T1F3} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G2T1F3'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G2T1F3'},{value:'S3G2T1F3'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G2T1F3} === 'X' ? true : false}"/>
+													<ui:template>
+														<m:Text text="{path:'customerDetails>YEAR1', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+											</ui:columns>
+										</ui:Table>
+										</m:VBox>
+									</ObjectPageSubSection>
+
+									<!-- PROMOTER / MANAGEMENT DETAILS -->
+																		<ObjectPageSubSection id="orderDetails_Id" title="{labelJson>/S3G3T1F8}">
+										<m:VBox>
+												<m:HBox visible="{thirdSectionHBoxModel>/thirdSectionHBoxVisible}" class="sapUiSmallMarginBottom">
+												<m:Title text="{thirdSectionHBoxModel>/thirdSectionHBoxLabel}" />
+											</m:HBox>
+										<ui:Table id="table_opPromoId" rows="{promoDetails>/results}" selectionMode="None" ariaLabelledBy="title">
+											<ui:columns>
+											<!-- NAME -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F1} === 'X' ? true : false}">
+													<m:Label id="S3G3T1F1" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F1} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G3T1F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F1'},{value:'S3G3T1F1'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Label text="{path:'promoDetails>NAME', formatter:'.formatter.getDataNullValue'}"
+															design="Bold"/>
+													</ui:template>
+												</ui:Column>
+												
+												<!-- QUALITFICATION-->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F2} === 'X' ? true : false}">
+													<m:Label id="S3G3T1F2" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F2} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G3T1F2'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F2'},{value:'S3G3T1F2'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text text="{path:'promoDetails>QUALIFICATION', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+												<!-- WORK EXPERIENCE -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F3} === 'X' ? true : false}">
+													<!-- <m:Label id="S3G3T1F3" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F3} === 'X' ? true : false}" wrapping="true"
+														text="{parts:[{path:'labelJson>/S3G3T1F3'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F3'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F3} === 'X' ? true : false}"/> -->
+
+													<m:Label id="S3G3T1F3" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F3} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G3T1F3'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F3'},{value:'S3G3T1F3'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{path:'promoDetails>WORK_EXP', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+												<!-- YEARS IN COMPANY -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F4} === 'X' ? true : false}">
+													<!-- <m:Label id="S3G3T1F4" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F4} === 'X' ? true : false}" wrapping="true"
+														text="{parts:[{path:'labelJson>/S3G3T1F4'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F4'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F4} === 'X' ? true : false}"/> -->
+
+													<m:Label id="S3G3T1F4" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F4} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G3T1F4'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F4'},{value:'S3G3T1F4'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{path:'promoDetails>YRS_IN_COMP', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+												<!-- DESIGNATION -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F5} === 'X' ? true : false}">
+													<!-- <m:Label id="S3G3T1F5" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F5} === 'X' ? true : false}" wrapping="true"
+														text="{parts:[{path:'labelJson>/S3G3T1F5'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F5'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F5} === 'X' ? true : false}"/> -->
+													
+													<m:Label id="S3G3T1F5" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F5} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G3T1F5'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F5'},{value:'S3G3T1F5'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{path:'promoDetails>DESIGNATION', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+												<!-- ROLE -->
+												<ui:Column hAlign="Center" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F6} === 'X' ? true : false}">
+													<!-- <m:Label id="S3G3T1F6" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F6} === 'X' ? true : false}" wrapping="true"
+														visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S3G3T1F6} === 'X' ? true : false}" text="{parts:[{path:'labelJson>/S3G3T1F6'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F6'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/> -->
+													
+													<m:Label id="S3G3T1F6" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S3G3T1F6} === 'X' ? true : false}"
+														text="{parts:[{path:'labelJson>/S3G3T1F6'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S3G3T1F6'},{value:'S3G3T1F6'}],formatter:'.formatter.gethighLightText'}"
+														design="Bold"/>
+													<ui:template>
+														<m:Text
+															text="{path:'promoDetails>ROLE', formatter:'.formatter.getDataNullValue'}"/>
+													</ui:template>
+												</ui:Column>
+
+											</ui:columns>
+										</ui:Table>
+										</m:VBox>
+									</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+
+							<!--Attachment Section-->
+							<ObjectPageSection title="{i18n>Section4}" id="fourthSection">
+								<subSections>
+									<ObjectPageSubSection showTitle="false" title="{labelJson>/S4A8F1}" class="sapUiTinyMarginBottom"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A8F1} === 'X' ? true : false}">
+										<!-- <m:VBox> -->
+											
+											<!-- COMPANY PROFILE G6Json-->
+											<m:Table class="sapUiSmallMarginBottom" noDataText="No attachments available" id="id_attachCPTable" items="{G6Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A1F1} === 'X' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id ="S4A1F1"
+															text="{parts:[{path:'labelJson>/S4A1F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S4A1F1'},{value:'S4A1F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A1F1} === 'X' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem" hAlign="Center">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{path:'G6Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G6Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G6Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											<!-- <m:FlexBox>
+												<m:HBox id="id_uaecompany" class="sapUiTinyMargin"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A7F1} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A7F1} === 'X' ? true : false}"
+														class="sapUiSmallMarginBegin sapUiTinyMarginTop setFontSize" wrapping="true" text="Vendor Documents" design="Bold"/>
+												</m:HBox>
+											</m:FlexBox> -->
+											</ObjectPageSubSection>
+
+											<!-- DISTRIBUTOR DOCUMENT G7Json-->
+											<ObjectPageSubSection showTitle="false" title="{labelJson>/S4A2F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A2F1} === 'X' ? true : false}">
+											<m:Table id="id_attachUAETable" noDataText="No attachments available"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A2F1} === 'X' ? true : false}" autoPopinMode="true" contextualWidth="auto" items="{G7Json>/}">
+
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label
+															visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A2F1} === 'X' ? true : false}"
+															class="sapUiTinyMarginTop setFontSize" wrapping="true"
+															text="{labelJson>/S4A2F1}"
+															design="Bold"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A2F1} === 'X' ? true : false}" />
+														<!-- <m:ToolbarSpacer/> -->
+													</m:Toolbar>
+												</m:headerToolbar>
+												
+												<m:columns>
+													<m:Column width="15rem" hAlign="Center">
+														<m:Label text="File Description" design="Bold"/>
+													</m:Column>
+													<m:Column width="13rem" hAlign="Center">
+														<m:Label text="Date of Expiry" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem" hAlign="Center">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												
+												<m:items>
+													<m:ColumnListItem visible="true" id="id_UAE1">
+														<m:cells>
+															<m:Text text="{path:'G7Json>ATTACH_DESC',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G7Json>EXPIRY_DATE',formatter:'.formatter.formatDate'}"/>
+															<m:Text text="{path:'G7Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G7Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G7Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											</ObjectPageSubSection>
+
+											<!-- Bank Account letter issued by the Bank (In Bank's letterhead) G8Json -->
+											<ObjectPageSubSection showTitle="false"
+											title="{parts:[{path:'labelJson>/S4A3F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S4A3F1'},{value:'S4A3F1'}],formatter:'.formatter.gethighLightText'}" class="sapUiSmallMarginTop"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A3F1} === 'X' ? true : false}">
+											<m:Table class="sapUiSmallMarginBottom" noDataText="No attachments available" id="id_attachPRQATable" items="{G8Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A3F1} === 'X' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S4A3F1"
+															text="{parts:[{path:'labelJson>/S4A3F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S4A3F1'},{value:'S4A3F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A3F1} === 'X' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem" hAlign="Center">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{path:'G8Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G8Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G8Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											</ObjectPageSubSection>
+
+										<!-- <ObjectPageSubSection showTitle="false" title="{labelJson>/S5A6F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A6F1} === 'x' ? true : false}">
+											<m:Table class="sapUiSmallMarginBottom" noDataText="No attachments available" id="id_attachBankTable" items="{G13Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A6F1} === 'x' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S5A6F1"
+															text="{parts:[{path:'labelJson>/S5A6F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5A6F1'},{value:'S5A6F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A6F1} === 'x' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column>
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column>
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{path:'G13Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G13Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G13Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											</ObjectPageSubSection> -->
+
+											<!-- TRN CERTIFICATE G9Json-->
+											<ObjectPageSubSection showTitle="false" title="{labelJson>/S4A4F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A4F1} === 'X' ? true : false}">
+											<m:Table class="sapUiSmallMarginBottom" noDataText="No attachments available" id="id_attachTRNTable" items="{G9Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A4F1} === 'X' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S4A4F1"
+															text="{parts:[{path:'labelJson>/S4A4F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S4A4F1'},{value:'S4A4F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A4F1} === 'X' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem" hAlign="Center">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{path:'G9Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G9Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G9Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											</ObjectPageSubSection>
+
+											<!-- <ObjectPageSubSection showTitle="false" title="{labelJson>/S5A17F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A17F1} === 'x' ? true : false}">
+											<m:Table class="sapUiSmallMarginBottom" noDataText="No attachments available" id="id_attachCUSTTable" items="{G15Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A17F1} === 'x' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S5A17F1"
+															text="{parts:[{path:'labelJson>/S5A17F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5A17F1'},{value:'S5A17F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A17F1} === 'x' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column>
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column>
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{path:'G15Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G15Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G15Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+
+											</ObjectPageSubSection> -->
+
+											<!-- <ObjectPageSubSection showTitle="false" title="{labelJson>/S5A18F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A18F1} === 'x' ? true : false}">
+											<m:Table class="sapUiSmallMarginBottom" noDataText="No attachments available" id="id_attachSUPPLTable" items="{G16Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A18F1} === 'x' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S5A18F1"
+															text="{parts:[{path:'labelJson>/S5A18F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5A18F1'},{value:'S5A18F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A18F1} === 'x' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column>
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column>
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{path:'G16Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G16Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G16Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											</ObjectPageSubSection> -->
+
+											<!-- <ObjectPageSubSection showTitle="false" title="{labelJson>/S5A20F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A20F1} === 'x' ? true : false}">
+											<m:Table class="sapUiSmallMarginBottom" noDataText="No attachments available" id="id_attachPOTACTable" items="{G18Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A20F1} === 'x' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S5A20F1"
+															text="{parts:[{path:'labelJson>/S5A20F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5A20F1'},{value:'S5A20F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A20F1} === 'x' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column>
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{path:'G18Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G18Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G18Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+
+											</ObjectPageSubSection> -->
+
+
+											<!-- <ObjectPageSubSection showTitle="false" title="{labelJson>/S5A5F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A5F1} === 'x' ? true : false}"> -->
+											<!-- <m:FlexBox>
+												<m:HBox id="id_passAuthoSig" class="sapUiTinyMargin"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A5F1} === 'X' ? true : false}">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A5F1} === 'X' ? true : false}"
+														class="sapUiSmallMarginBegin sapUiTinyMarginTop setFontSize" wrapping="true" text="Passport of Authorized Signatory (Owner/s and Partner/s)"
+														design="Bold"/>
+												</m:HBox>
+											</m:FlexBox> -->
+											
+											<!-- <m:Table id="id_attachPassTable" items="{G8Json>/}" noDataText="No attachments available"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A5F1} === 'x' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S5A5F1"
+															text="{parts:[{path:'labelJson>/S5A5F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5A5F1'},{value:'S5A21F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A5F1} === 'x' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column>
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem id="id_passport1">
+														<m:cells>
+															<m:Text text="{path:'G8Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G8Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G8Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+
+											</ObjectPageSubSection> -->
+
+										<!-- <ObjectPageSubSection showTitle="false" title="{labelJson>/S5A5F3}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A5F3} === 'x' ? true : false}">
+
+											<m:Table id="id_attachUIDTable" items="{G20Json>/}" noDataText="No attachments available"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A5F3} === 'x' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S5A5F3"
+															text="{parts:[{path:'labelJson>/S5A5F3'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5A5F3'},{value:'S5A5F3'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A5F3} === 'x' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column>
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem id="id_passport2">
+														<m:cells>
+															<m:Text text="{path:'G20Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G20Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G20Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table> -->
+											<!--Passport Representative / Authorized person-->
+											<!-- <m:FlexBox>
+												<m:HBox id="id_passRepAutho" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A5F2} === 'X' ? true : false}"
+													class="sapUiTinyMargin">
+													<m:Label required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A5F2} === 'X' ? true : false}"
+														class="sapUiSmallMarginBegin sapUiTinyMarginTop setFontSize" wrapping="true" text="Passport Representative / Authorized person ?"
+														design="Bold"/>
+												</m:HBox>
+											</m:FlexBox> -->
+											<!-- </ObjectPageSubSection> -->
+
+											<!-- <ObjectPageSubSection showTitle="false" title="{labelJson>/S5A5F2}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A5F2} === 'x' ? true : false}">
+											<m:Table id="id_attachPass1Table" items="{G9Json>/}" noDataText="No attachments available"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A5F2} === 'x' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S5A5F2"
+															text="{parts:[{path:'labelJson>/S5A5F2'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5A5F2'},{value:'S5A5F2'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A5F2} === 'x' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column>
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem id="id_passport3">
+														<m:cells>
+															<m:Text text="{path:'G9Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G9Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G9Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											</ObjectPageSubSection> -->
+
+										<!-- <ObjectPageSubSection showTitle="false" title="{labelJson>/S5A14F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A14F1} === 'x' ? true : false}">
+											<m:Table noDataText="No attachments available" id="id_attachFSTable" items="{G5Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5A14F1} === 'x' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S5A14F1"
+															text="{parts:[{path:'labelJson>/S5A14F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5A14F1'},{value:'S5A14F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5A14F1} === 'x' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column width="34rem">
+														<m:Label text="File Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Label text="{G5Json>ATTACH_DESC}" design="Bold"/>
+															<m:Text text="{path:'G5Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G5Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G5Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											</ObjectPageSubSection> -->
+
+										<!-- ISO CERTIFICATE G10Json-->
+										<ObjectPageSubSection showTitle="false" title="{labelJson>/S4A5F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A5F1} === 'X' ? true : false}">
+											<m:Table id="id_attachISOTable" noDataText="No attachments available" items="{G10Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A5F1} === 'X' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S4A5F1"
+															text="{parts:[{path:'labelJson>/S4A5F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S4A5F1'},{value:'S4A5F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A5F1} === 'X' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column hAlign="Center">
+														<m:Label text="Certificate Name" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Date of Expiry" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem" hAlign="Center">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Label text="{G10Json>ATTACH_DESC}" design="Bold"></m:Label>
+															<m:Text text="{path:'G10Json>EXPIRY_DATE',formatter:'.formatter.formatDate'}"/>
+															<m:Text text="{path:'G10Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G10Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G10Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											</ObjectPageSubSection>
+
+										<!-- PAN Certificate G25 -->
+									 <ObjectPageSubSection showTitle="false" title="{labelJson>/S4A6F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A6F1} === 'X' ? true : false}">
+											<m:VBox>
+											<m:Table noDataText="No attachments available" items="{G25Json>/}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S4A6F1" text="{parts:[{path:'labelJson>/S4A6F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5A22F1'},{value:'S4A6F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A6F1} === 'X' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+
+												<m:columns>
+													<m:Column hAlign="Center">
+														<m:Label text="Certificate Name" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Date of Expiry" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem" hAlign="Center">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{G25Json>ATTACH_DESC}"></m:Text>
+															<m:Text text="{path:'G25Json>EXPIRY_DATE',formatter:'.formatter.formatDate'}"/>
+															<m:Text text="{path:'G25Json>ATTACH_VALUE', formatter:'.formatter.getDataNullValue'}"/>
+															<m:Text text="{path:'G25Json>FILE_NAME', formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G25Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table> 
+										</m:VBox>
+									</ObjectPageSubSection>
+
+
+									<!--GST Certificate  G27 -->
+									 <ObjectPageSubSection showTitle="false" title="{labelJson>/S4A8F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A8F1} === 'X' ? true : false}">
+											<m:VBox>
+											<m:Table noDataText="No attachments available" items="{G27Json>/}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S4A8F1" text="{parts:[{path:'labelJson>/S4A8F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S4A8F1'},{value:'S4A8F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A8F1} === 'X' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column hAlign="Center">
+														<m:Label text="Certificate Name" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Date of Expiry" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem" hAlign="Center">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{G27Json>ATTACH_DESC}"></m:Text>
+															<m:Text text="{path:'G27Json>EXPIRY_DATE',formatter:'.formatter.formatDate'}"/>
+															<m:Text text="{path:'G27Json>ATTACH_VALUE', formatter:'.formatter.getDataNullValue'}"/>
+															<m:Text text="{path:'G27Json>FILE_NAME', formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G27Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table> 
+										</m:VBox>
+									</ObjectPageSubSection>
+
+
+									<!--LICENSE Certificate G28 -->
+									 <ObjectPageSubSection showTitle="false" title="{labelJson>/S4A9F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A9F1} === 'X' ? true : false}">
+											<m:VBox>
+											<m:Table noDataText="No attachments available" items="{G28Json>/}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S4A9F1" text="{parts:[{path:'labelJson>/S4A9F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S4A9F1'},{value:'S4A9F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A9F1} === 'X' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column hAlign="Center">
+														<m:Label text="Certificate Name" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Date of Expiry" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem" hAlign="Center">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Text text="{G28Json>ATTACH_DESC}"></m:Text>
+															<m:Text text="{path:'G28Json>EXPIRY_DATE',formatter:'.formatter.formatDate'}"/>
+															<m:Text text="{path:'G28Json>ATTACH_VALUE', formatter:'.formatter.getDataNullValue'}"/>
+															<m:Text text="{path:'G28Json>FILE_NAME', formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G28Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table> 
+										</m:VBox>
+									</ObjectPageSubSection>
+
+									<!--NDA DISCLOSURE FORM G26-->
+									<ObjectPageSubSection showTitle="false" id="id_attachNDATable"
+										visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A7F1} === 'X' ? true : false}" title="{labelJson>/S4A7F1}">
+										<!-- <blocks> -->
+											<m:VBox>
+												<m:Table noDataText="No attachments available" class="sapUiSmallMarginBottom" autoPopinMode="true" contextualWidth="auto" items="{G26Json>/}">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S4A7F1" text="{parts:[{path:'labelJson>/S4A7F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S4A7F1'},{value:'S4A7F1'}],formatter:'.formatter.gethighLightText'}"
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A7F1} === 'X' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+													<m:columns>
+														<m:Column hAlign="Center">
+															<m:Label text="Attachment Type" design="Bold"/>
+														</m:Column>
+														<m:Column hAlign="Center">
+															<m:Label text="Description" design="Bold"/>
+														</m:Column>
+														<m:Column hAlign="Center">
+															<m:Label text="File Name" design="Bold"/>
+														</m:Column>
+														<m:Column width="5rem" hAlign="Center">
+															<m:Label text="Download" design="Bold"/>
+														</m:Column>
+													</m:columns>
+													<m:items>
+														<m:ColumnListItem visible="true">
+															<m:cells>
+																<m:Label text="{path:'G26Json>ATTACH_DESC',formatter:'.formatter.getDataNullValue'}" design="Bold"/>
+																<m:Text text="{path:'G26Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"/>
+																<m:Text text="{path:'G26Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+																<m:Button id="ndaDownloadId" press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																	enabled="{= ${G26Json>FILE_NAME} === '' ? false : true}"></m:Button>
+															</m:cells>
+														</m:ColumnListItem>
+													</m:items>
+												</m:Table>
+											</m:VBox>
+										<!-- </blocks> -->
+									</ObjectPageSubSection>
+
+
+									<!-- OTHER QUALITY CERTIFICATE G24 -->
+									<ObjectPageSubSection showTitle="false" title="{labelJson>/S4A10F1}"
+											visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A10F1} === 'X' ? true : false}">
+											<m:Table id="id_attachQATable" noDataText="No attachments available" items="{G24Json>/}"
+												visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S4A10F1} === 'X' ? true : false}" autoPopinMode="true" contextualWidth="auto">
+												<m:headerToolbar>
+													<m:Toolbar>
+														<m:Label id="S4A10F1" text="{parts:[{path:'labelJson>/S4A10F1'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S4A10F1'},{value:'S4A10F1'}],formatter:'.formatter.gethighLightText'}"
+														
+															required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S4A10F1} === 'X' ? true : false}" class="setFontSize"></m:Label>
+														<m:ToolbarSpacer/>
+													</m:Toolbar>
+												</m:headerToolbar>
+												<m:columns>
+													<m:Column hAlign="Center">
+														<m:Label text="Certificate Name" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Date of Expiry" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="Description" design="Bold"/>
+													</m:Column>
+													<m:Column hAlign="Center">
+														<m:Label text="File Name" design="Bold"/>
+													</m:Column>
+													<m:Column width="5rem" hAlign="Center">
+														<m:Label text="Download" design="Bold"/>
+													</m:Column>
+												</m:columns>
+												<m:items>
+													<m:ColumnListItem visible="true">
+														<m:cells>
+															<m:Label text="{G24Json>ATTACH_DESC}" design="Bold"></m:Label>
+															<m:Text text="{path:'G24Json>EXPIRY_DATE',formatter:'.formatter.formatDate'}"/>
+															<m:Text text="{path:'G24Json>ATTACH_VALUE',formatter:'.formatter.getDataNullValue'}"></m:Text>
+															<m:Text text="{path:'G24Json>FILE_NAME',formatter:'.formatter.getDataNullValue'}"/>
+															<m:Button press="onDownload" type="Transparent" tooltip="Download" icon="sap-icon://download"
+																enabled="{= ${G24Json>FILE_NAME} === '' ? false : true}"></m:Button>
+														</m:cells>
+													</m:ColumnListItem>
+												</m:items>
+											</m:Table>
+											</ObjectPageSubSection>
+								</subSections>
+							</ObjectPageSection>
+							
+							<ObjectPageSection title="{i18n>Section6}">
+								<ObjectPageSubSection visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5G1F1} === 'X' ? true : false}">
+									<m:VBox>
+										<m:FlexBox>
+											<m:HBox class="sapUiTinyMargin">
+												<m:CheckBox id="checkboxId" editable="false"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5G1F1} === 'X' ? true : false}"></m:CheckBox>
+												<m:Label wrapping="true" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5G1F1} === 'X' ? true : false}"
+													visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5G1F1} === 'X' ? true : false}"
+													text="{labelJson>/S5G1F1}"
+													design="Bold"></m:Label>
+											</m:HBox>
+										</m:FlexBox>
+										<f:SimpleForm id="simpleForm23" editable="true" layout="ResponsiveGridLayout" title="" columnsM="2" columnsL="3" columnsXL="4"
+											class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle"
+											visible="true">
+											<f:content>
+												<core:Title text=""/>
+												<!-- COMPLETED_BY -->
+												<m:Label text="{labelJson>/S5G1F3}" design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5G1F3} === 'X' ? true : false}"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5G1F3} === 'X' ? true : false}"/>
+												<m:Text visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5G1F3} === 'X' ? true : false}" wrapping="true"
+													text="{path:'vendorDetails>/COMPLETED_BY',formatter:'.formatter.getDataNullValue'}"/>
+												<core:Title text=""/>
+
+												<!-- COMPLETED BY POSITION -->
+												<m:Label text="{labelJson>/S5G1F4}" design="Bold" visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5G1F4} === 'X' ? true : false}"
+													required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5G1F4} === 'X' ? true : false}"/>
+												<m:Text visible="{= ${vendorDetails>/TO_VISIBLE_FIELDS/S5G1F4} === 'X' ? true : false}"
+													text="{path:'vendorDetails>/COMPLETED_BY_POSITION',formatter:'.formatter.getDataNullValue'}"/>
+												<core:Title text=""/>
+
+												<m:Label text="{labelJson>/S5G1F2}" design="Bold" required="{= ${vendorDetails>/TO_MANDATORY_FIELDS/S5G1F2} === 'X' ? true : false}"/>
+												<!--<m:Text id="cID"-->
+												<!--	text="{parts:[{path:'vendorDetails>/LAST_UPDATED_ON'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S7G1D3'}], formatter:'.formatter.formatDate'}"/>-->
+												<m:Text id="cID"
+													text="{parts:[{path:'vendorDetails>/SUBMISSION_DATE'},{path:'vendorDetails>/TO_UPDATED_FIELDS/S5G1F2'}], formatter:'.formatter.formatDate'}"/>
+											</f:content>
+										</f:SimpleForm>
+									</m:VBox>
+								</ObjectPageSubSection>
+							</ObjectPageSection>
+						</sections>
+					</ObjectPageLayout>
+					<!-- <layout:sideContent>
+						<m:Toolbar>
+							<m:Title text="Events"/>
+							<m:ToolbarSpacer/>
+							<m:Button icon="sap-icon://refresh" type="Transparent" press="handleRefreshEvents"/>
+							<m:Button text="Close" type="Transparent" press="handleSideContentHide"/>
+						</m:Toolbar>
+						<m:FeedInput id="emailTextId" post="onPostMessage" showIcon="false" placeholder="Enter query here"/>
+						<layout:VerticalLayout width="100%">
+							<t:Timeline id="idTimeline" showHeaderBar="false" showSearch="false" showSort="false" sortOldestFirst="false" sort="false"
+								enableScroll="false" lazyLoading="false" growingThreshold="0"
+								content="{path : 'comm>/',sorter : { path : 'EVENT_NO',descending : 'true'}}" showIcons="false"
+								noDataText="No Ticket Events are currently available" width="100%">
+								<t:content>
+									<t:TimelineItem id="idTemplateItem" userNameClickable="true"
+										text="Event : {comm>REMARK} {i18n>newLine} Comment : {comm>COMMENT}"
+										dateTime="{path:'comm>CREATED_ON', type: 'sap.ui.model.type.DateTime', formatOptions: { style : 'medium', GMT: false }}"
+										
+										userName="{comm>USER_NAME}"/>
+								</t:content>
+							</t:Timeline>
+						</layout:VerticalLayout>
+					</layout:sideContent> -->
+				</layout:DynamicSideContent>
+			</m:content>
+			
+		</m:Page>
+		<!--</pages>-->
+	</m:App>
+</mvc:View>

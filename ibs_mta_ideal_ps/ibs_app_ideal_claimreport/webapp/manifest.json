@@ -1,0 +1,302 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "com.ibs.ibsappidealclaimreport",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.14.2",
+      "toolsId": "77790711-df8f-4949-a706-831596637e5d"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/ideal-claim-report-srv/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "claimreport-display": {
+          "semanticObject": "claimreport",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.126.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.ibs.ibsappidealclaimreport.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ClaimHeaderList",
+          "target": [
+            "ClaimHeaderList"
+          ]
+        },
+        {
+          "pattern": "ClaimHeader({key}):?query:",
+          "name": "ClaimHeaderObjectPage",
+          "target": [
+            "ClaimHeaderList",
+            "ClaimHeaderObjectPage"
+          ]
+        }
+      ],
+      "targets": {
+        "ClaimHeaderList": {
+          "type": "Component",
+          "id": "ClaimHeaderList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/ClaimHeader",
+              "variantManagement": "Page",
+              "navigation": {
+                "ClaimHeader": {
+                  "detail": {
+                    "route": "ClaimHeaderObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                  "showClearButton": true
+                },
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "personalization": {
+                      "sort": false
+                    },
+                    "enableExport": false
+                  },
+                  "columns": {
+                    "DataField::DISTRIBUTOR_NAME": {
+                      "width": "17rem",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::CLAIM_FROM": {
+                      "width": "12rem",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::CLAIM_TO": {
+                      "width": "12rem",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::CLAIM_TYPE": {
+                      "width": "9rem",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::CREATED_ON": {
+                      "width": "13rem",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::CR_NUM": {
+                      "width": "12rem",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::CLAIM_DESC": {
+                      "width": "12rem",
+                      "horizontalAlign": "Center"
+                    }
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
+        },
+        "ClaimHeaderObjectPage": {
+          "type": "Component",
+          "id": "ClaimHeaderObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ClaimHeader",
+              "controlConfiguration": {
+                "TO_ATTACHMENT/@com.sap.vocabularies.UI.v1.LineItem#UploadedFiles": {
+                  "columns": {
+                    "DataField::FILE_CONTENT": {
+                      "width": "25%"
+                    },
+                    "DataField::FILE_TYPE": {
+                      "width": "25%"
+                    },
+                    "DataField::FILE_NAME": {
+                      "width": "25%"
+                    },
+                    "DownloadFunction": {
+                      "header": "Download",
+                      "position": {
+                        "anchor": "DataField::FILE_NAME",
+                        "placement": "After"
+                      },
+                      "template": "com.ibs.ibsappidealclaimreport.ext.fragment.DownloadFunction"
+                    }
+                  },
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "enableExport": false,
+                    "enableFullScreen": false
+                  }
+                },
+                "TO_ITEMS/@com.sap.vocabularies.UI.v1.LineItem#AddedItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "quickVariantSelection": {
+                      "showCounts": true
+                    },
+                    "selectionMode": "None",
+                    "selectionLimit": 1,
+                    "enableExport": false,
+                    "creationMode": {
+                      "createAtEnd": false,
+                      "inlineCreationRowsHiddenInEditMode": false
+                    }
+                  },
+                  "columns": {
+                    "DataField::ITEM_CODE": {
+                      "width": "5%"
+                    },
+                    "DataField::INVOICE_NO": {
+                      "width": "10%"
+                    },
+                    "DataField::INVOICE_DATE": {
+                      "width": "10%"
+                    }
+                  }
+                },
+                "TO_EVENT/@com.sap.vocabularies.UI.v1.LineItem#Events": {
+                  "columns": {
+                    "DataField::EVENT_NO": {
+                      "width": "15%"
+                    },
+                    "DataField::USER_NAME": {
+                      "width": "25%"
+                    },
+                    "DataField::USER_ROLE": {
+                      "width": "25%"
+                    },
+                    "DataField::COMMENT": {
+                      "width": "34%"
+                    }
+                  },
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/ClaimHeader({key})"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "ibs_bs_ideal_ps"
+  }
+}

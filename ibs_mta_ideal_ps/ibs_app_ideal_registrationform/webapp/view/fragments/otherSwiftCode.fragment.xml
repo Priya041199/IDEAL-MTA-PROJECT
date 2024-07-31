@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Select Swift Code" contentHeight="80%"
+		class="sapUiSizeCompact">
+		<subHeader>
+			<Toolbar>
+				<SearchField id="swiftSrchId" liveChange="otherSwiftCodeSearch" />
+			</Toolbar>
+		</subHeader>
+
+		<List id="oSwift_Id" items="{swiftCodeJson>/}"
+			mode="SingleSelectMaster" selectionChange="handleOtherSwiftCode">
+			<StandardListItem title="{swiftCodeJson>swift}" description="{swiftCodeJson>swift}"/>
+
+		</List>
+		<buttons>
+			<Button text="Cancel" press="closeOtherSwiftCodeDialog" type="Emphasized" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

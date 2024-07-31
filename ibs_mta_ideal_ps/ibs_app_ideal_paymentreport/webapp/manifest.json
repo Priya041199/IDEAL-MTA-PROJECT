@@ -1,0 +1,260 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "com.ibs.ibsappidealpaymentreport",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.14.2",
+      "toolsId": "81cce226-3371-4067-a843-deda56cd4e61"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/ideal-payments-report-srv/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "paymentreport-display": {
+          "semanticObject": "paymentreport",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.126.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.ibs.ibsappidealpaymentreport.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "PaymentsHeaderList",
+          "target": "PaymentsHeaderList"
+        },
+        {
+          "pattern": "PaymentsHeader({key}):?query:",
+          "name": "PaymentsHeaderObjectPage",
+          "target": "PaymentsHeaderObjectPage"
+        }
+      ],
+      "targets": {
+        "PaymentsHeaderList": {
+          "type": "Component",
+          "id": "PaymentsHeaderList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/PaymentsHeader",
+              "variantManagement": "Page",
+              "navigation": {
+                "PaymentsHeader": {
+                  "detail": {
+                    "route": "PaymentsHeaderObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                  "showClearButton": true
+                },
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "None",
+                    "enableExport": false
+                  },
+                  "columns": {
+                    "DataField::POP_NUM": {
+                      "width": "25%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::PR_SAP_NO": {
+                      "width": "17%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::CREATION_DATE": {
+                      "width": "25%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::TO_STATUS::DESC": {
+                      "width": "25%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::DISTRIBUTOR_NAME": {
+                      "width": "15%",
+                      "availability": "Default"
+                    },
+                    "DataField::LV_PR_CREATION_DATE": {
+                      "width": "18%",
+                      "horizontalAlign": "Center"
+                    }
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
+        },
+        "PaymentsHeaderObjectPage": {
+          "type": "Component",
+          "id": "PaymentsHeaderObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/PaymentsHeader",
+              "controlConfiguration": {
+                "TO_ATTACHMENT/@com.sap.vocabularies.UI.v1.LineItem#Attachment": {
+                  "columns": {
+                    "DataField::FILE_NAME": {
+                      "width": "50%"
+                    },
+                    "DataField::FILE_CONTENT": {
+                      "width": "30%"
+                    },
+                    "Download": {
+                      "header": "Download",
+                      "position": {
+                        "anchor": "DataField::FILE_NAME",
+                        "placement": "After"
+                      },
+                      "template": "com.ibspl.ideal.idealpaymentreport.ext.fragment.Download",
+                      "width": "50%"
+                    }
+                  },
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                },
+                "TO_EVENT/@com.sap.vocabularies.UI.v1.LineItem#Event": {
+                  "columns": {
+                    "DataField::EVENT_NO": {
+                      "width": "15%"
+                    },
+                    "DataField::USER_NAME": {
+                      "width": "25%"
+                    },
+                    "DataField::USER_ROLE": {
+                      "width": "25%"
+                    },
+                    "DataField::COMMENTS": {
+                      "width": "34%"
+                    }
+                  },
+                  "tableSettings": {
+                    "enableExport": false
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/PaymentsHeader({key})"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "ibs_bs_ideal_ps"
+  }
+}

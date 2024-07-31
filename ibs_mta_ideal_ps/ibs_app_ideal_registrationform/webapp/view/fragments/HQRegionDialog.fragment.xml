@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Select Region" contentHeight="80%"
+		class="sapUiSizeCompact">
+		<subHeader>
+			<Toolbar>
+				<SearchField id="regionSrchHQId" liveChange="handleRegionSearchHQ" />
+			</Toolbar>
+		</subHeader>
+
+		<List id="region_listHQId" items="{path:'RegionJson>/results'}"
+			mode="SingleSelectMaster" selectionChange="handleRegionHQ">
+			<StandardListItem title="{RegionJson>Bezei}" description="{RegionJson>Bland}"/>
+
+		</List>
+		<buttons>
+			<Button text="Cancel" press="closeRegionDialogHQ" type="Emphasized" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

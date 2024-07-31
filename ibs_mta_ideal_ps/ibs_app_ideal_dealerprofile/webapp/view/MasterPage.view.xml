@@ -1,0 +1,69 @@
+<mvc:View controllerName="com.ibs.ibsappidealdealerprofile.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+    <App>
+		<pages>
+			<Page class="sapUiSizeCompact" showHeader="false">
+				<content>
+					<Table id="idProductsTable" sticky="ColumnHeaders,HeaderToolbar" inset="false"
+						items="{path : 'onBoarding>/',sorter : { path : 'SAP_VENDOR_CODE',descending : true}}" class="sapUiContentPadding" growing="true"
+						growingThreshold="10" autoPopinMode="true" fixedLayout="true">
+						<headerToolbar>
+							<OverflowToolbar>
+								<SearchField id="onSearchMasterData" width="41%" showRefreshButton="false" placeholder="Search by Distributor Name or SAP Distributor Code" liveChange="onSearch" class="sapUiSmallMargin"/>
+								<content>
+									<ToolbarSpacer/>
+									<Button id="idSortBtn" icon="sap-icon://sort" press="handleSort" type="Transparent"/>
+									<Button id="idFilterBtn" icon="sap-icon://filter" press="onFilter" type="Transparent"/>
+									<Button icon="sap-icon://refresh" press="handleRefresh" type="Transparent"/>
+								</content>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Left">
+								<Label text="SAP Distributor Code" design="Bold" wrapping="true"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="Entity" design="Bold"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="Distributor Name" design="Bold" wrapping="true"/>
+							</Column>
+							
+							<Column hAlign="Center">
+								<Label text="Country" design="Bold"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="City" design="Bold"/>
+							</Column>
+							
+							<Column hAlign="Center">
+								<Label text="Status" design="Bold"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Navigation" press="onPress">
+								<cells>
+									<!--<Label wrapping="true" text="{onBoarding>OBR_NO}" design="Bold"/>-->
+									<Text text="{onBoarding>SAP_DIST_CODE}" />
+
+									<ObjectIdentifier title="{onBoarding>TO_ENTITY_CODE/BUTXT}" 
+										text="{onBoarding>TO_ENTITY_CODE/BUKRS}"/>
+									
+									<Text wrapping="true" text="{onBoarding>DIST_NAME1}"/>
+
+									<Text
+										text="{path:'onBoarding>TO_ADDRESS/0/TO_COUNTRY/LANDX'}"/>
+									<Text
+										text="{path:'onBoarding>TO_ADDRESS/0/CITY', formatter:'.formatter.getDataNullValue'}"></Text>
+									<ObjectStatus text="{onBoarding>TO_STATUS/DESCRIPTION}" inverted="true"
+										state="{path:'onBoarding>STATUS', formatter:'.formatter.getStatus'}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

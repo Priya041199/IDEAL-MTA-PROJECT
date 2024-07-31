@@ -1,0 +1,39 @@
+<mvc:View controllerName="com.ibs.ibsappidealregistrationform.controller.LoginPage"
+   xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <App id="app">
+        <pages>
+			<Page id="page" title="{i18n>title}" showHeader="false" class="sapUiSizeCompact">
+				<content>
+					<VBox fitContainer="true" justifyContent="Center" alignContent="Center" alignItems="Center">
+						<f:SimpleForm id="SimpleFormChange354" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="3" labelSpanL="3"
+							labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1"
+							columnsL="1" columnsM="1" singleContainerFullSize="false">
+							<f:content>
+								<Label text="Registered Email" design="Bold" required="true" />
+								<Input id="email_ID" value="" placeholder="Enter Registered Email" change="validateEmail" />
+								
+								<Label text="Security PIN" design="Bold" required="true" />
+								<Link text="Generate Security PIN" press="generateSecurityPIN" />
+								<!-- <Input id="otpId" value="" placeholder="Enter Security PIN" maxLength="6" editable="true" change="onOTPChange"/> -->
+								<Input id="otpId" type="Password" placeholder="Enter Security PIN" maxLength="6" editable="true" showValueHelp="true"
+                                                valueHelpIconSrc="sap-icon://hide" valueHelpRequest="onEyeChange" change="onOTPChange"/>
+								
+								<FlexBox><Label></Label></FlexBox>
+								<Button text="Login" type="Emphasized" press="handleLogin" />
+								
+							</f:content>
+						</f:SimpleForm>
+					</VBox>
+				</content>
+				<!-- <footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button id="bBtnId" text="Back" icon="sap-icon://nav-back" type="Emphasized" press="handleBackNavigation" />
+					</OverflowToolbar>
+				</footer> -->
+			</Page>
+		</pages>
+    </App>
+</mvc:View>

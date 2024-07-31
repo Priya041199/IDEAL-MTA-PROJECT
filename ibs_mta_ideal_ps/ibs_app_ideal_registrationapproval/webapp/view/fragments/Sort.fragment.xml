@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+xmlns:core="sap.ui.core"
+xmlns="sap.m">
+    <ViewSettingsDialog
+        title="Sort"
+        sortDescending="true"
+        groupDescending="true"
+        confirm="handleSortDialogConfirm"
+        selectedSortItem="sortItem3">
+        <sortItems>
+            <ViewSettingsItem text="Request Number" key="REQUEST_NO"  />
+            <ViewSettingsItem text="Dist Name" key="DIST_NAME1" selected="true" />
+        </sortItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition>

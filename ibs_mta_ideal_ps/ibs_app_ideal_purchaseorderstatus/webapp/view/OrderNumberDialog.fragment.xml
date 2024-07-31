@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog title="Order Number" class="sapUiPopupWithPadding" items="{order>/results}" growing="true" growingThreshold="100" confirm="handleValueHelpClose"
+		cancel="handleValueHelpClose" liveChange="handleValueHelpSearchOrd">
+		<StandardListItem iconDensityAware="false" iconInset="false" title="{order>Order}"/>
+		<!--<List growing="true" items="{order>Order}"/>-->
+	</SelectDialog>
+</core:FragmentDefinition>

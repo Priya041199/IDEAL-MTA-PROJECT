@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Select Region" contentHeight="80%"
+		class="sapUiSizeCompact">
+		<subHeader>
+			<Toolbar>
+				<SearchField id="primary_con_regionSrchId" liveChange="handlePrimaryContactRegionSearch" />
+			</Toolbar>
+		</subHeader>
+
+		<List id="primary_contactreg_listId" items="{primaryContactRegion>/results}"
+			mode="SingleSelectMaster" selectionChange="handlePrimaryContactRegionChange">
+			<StandardListItem title="{primaryContactRegion>Bezei}" description="{primaryContactRegion>Bland}"/>
+		</List>
+        
+		<buttons>
+			<Button text="Cancel" press="closePrimaryContactRegionDialog" type="Emphasized" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

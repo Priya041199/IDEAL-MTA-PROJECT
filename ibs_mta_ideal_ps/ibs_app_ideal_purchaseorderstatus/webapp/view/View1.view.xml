@@ -1,0 +1,19 @@
+<mvc:View controllerName="com.ibs.ibsappidealpurchaseorderstatus.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <App id="app">
+		<pages>
+			<Page id="page" class="sapUiSizeCompact" showHeader="false">
+				<customHeader>
+					<Toolbar>
+						<Button id="NavButton" icon="sap-icon://navigation-left-arrow" press="onNavBack"/>
+						<ToolbarSpacer/>
+						
+						<ToolbarSpacer/>
+						<!-- <Button id = "exportTable" icon="sap-icon://excel-attachment" type="Emphasized" press="onPress" ariaLabelledBy="editButtonLabel"/> -->
+					</Toolbar>
+				</customHeader>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

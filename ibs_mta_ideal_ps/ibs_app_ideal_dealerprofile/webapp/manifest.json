@@ -1,0 +1,234 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "com.ibs.ibsappidealdealerprofile",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.14.2",
+      "toolsId": "2fe4dd50-6898-453c-aae2-02c3e715e1a6"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/ideal-additional-process-srv/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "ZIDL_CUSTOMER_REG_SRV": {
+        "uri": "/sap/opu/odata/sap/ZIDL_CUSTOMER_REG_SRV/",
+        "type": "OData",
+        "settings": {
+          "localUri": "localService/ZIDL_CUSTOMER_REG_SRV/metadata.xml"
+        }
+    }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "dealerprofile-display": {
+          "semanticObject": "dealerprofile",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.126.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.ibs.ibsappidealdealerprofile.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "onPremiseModel": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "OneWay",
+          "defaultCountMode": "Request"
+        },
+        "dataSource": "ZIDL_CUSTOMER_REG_SRV",
+        "preload": true
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.ibs.ibsappidealdealerprofile.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteApp",
+          "pattern": "",
+          "target": ["TargetApp"]
+        },
+        {
+          "name": "RouteMasterPage",
+          "pattern": "Masterpage",
+          "target": [
+            "TargetMasterPage"
+          ]
+        },
+        {
+          "name": "ServiceMsg",
+          "pattern": "ServiceMsg",
+          "target": ["ServiceMsg"]
+        },
+        {
+        "name": "RouteDetailPage",
+        "pattern": "RouteDetailPage/{SAPVENDORNO}",
+        "target": ["TargetDetailPage"]
+        },
+        {
+        "name": "NotFound",
+        "pattern": "NotFound/{SAPVENDORNO}",
+        "target": ["NotFound"]
+        },
+        { 
+        "name": "EditDetails",
+        "pattern": "EditDetails/{RequestNO}",
+        "target": ["TargetEditDetails"]
+        },
+        {
+        "name": "emptySectionRoute",
+        "pattern": "emptySection",
+        "target": "emptySectionTarget"
+        },
+        {
+          "name": "MyBuddy",
+          "pattern": "MyBuddy/{SAPVENDORNO}",
+          "target": ["TargetMyBuddy"]
+        }
+      ],
+      "targets": {
+        "TargetApp": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewName": "App"
+          },
+        "TargetMasterPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "MasterPage",
+          "viewName": "MasterPage"
+        },
+        "ServiceMsg": {
+          "viewType": "XML",
+          "viewName": "ServiceMsg"
+        },
+        "TargetDetailPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DetailPage",
+          "viewName": "DetailPage"
+        },
+        "NotFound": {
+          "viewType": "XML",
+          "viewName": "NotFound"
+        },
+        "TargetEditDetails": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "EditDetails",
+          "viewName": "EditDetails"
+        },
+        "emptySectionTarget": {
+          "viewName": "your.view.name",
+          "viewLevel": 1,
+          "viewId": "emptySectionView"
+        },
+        "TargetMyBuddy": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "MyBuddy",
+          "viewName": "MyBuddy"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "com.ibs.ibsappidealdealerprofile.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "ibs_bs_ideal_ps"
+  }
+}

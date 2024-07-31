@@ -1,0 +1,286 @@
+<mvc:View controllerName="com.ibs.ibsappidealcustomeroutstanding.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:m="sap.ui.table" xmlns:form="sap.ui.layout.form" xmlns:t="sap.m"
+	xmlns:f="sap.f" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:comp="sap.ui.comp.filterbar" xmlns:layout="sap.ui.layout"
+	xmlns:html="http://www.w3.org/1999/xhtml" class="sapUiSizeCompact" xmlns:tnt="sap.tnt"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:sv="sap.ui.comp.smartvariants" xmlns:smartTable="sap.ui.comp.smarttable">
+    <t:App id="app">
+		<tnt:ToolPage id="toolPage">
+			<tnt:mainContents>
+				<t:NavContainer>
+					<t:pages>
+						<t:Page id="page" showHeader="false" class="sapUiSizeCompact">
+							<t:content>
+								<t:VBox fitContainer="true">
+									<!--<App>-->
+									<!--	<pages>-->
+									<!--		<Page id="page" title="Customer Outstanding" showHeader="false">-->
+									<!--<f:DynamicPage id="synamicPage" toggleHeaderOnTitleClick="false">-->
+									<!--	<f:title>-->
+									<!--		<f:DynamicPageTitle>-->
+									<!--			<f:heading>-->
+									<!--				<sv:SmartVariantManagement id="__SVM01" persistencyKey="fiori.test.application2.view.S4" showShare="true" showExecuteOnSelection="true"-->
+									<!--					entitySet="CustOutstandingSet"/>-->
+									<!--			</f:heading>-->
+									<!--			<f:snappedContent>-->
+									<!--				<Text id="statusText"/>-->
+									<!--			</f:snappedContent>-->
+									<!--		</f:DynamicPageTitle>-->
+									<!--	</f:title>-->
+									<!--	<f:header>-->
+									<!--		<f:DynamicPageHeader>-->
+									<!--			<f:content>-->
+									<smartFilterBar:SmartFilterBar useToolbar="false" smartVariant="__SVM01" id="smartFilterBar" persistencyKey="UniqueAndStablePersistencyKey"
+										considerSelectionVariants="false" entitySet="CustOutstandingSet" search="onSubmit" clear="onClear" showClearOnFB="true">
+										<smartFilterBar:controlConfiguration>
+											<!--<smartFilterBar:ControlConfiguration label="Date Range" preventInitialDataFetchInValueHelpDialog="false" key="ProcessDate"-->
+											<!--	visibleInAdvancedArea="true">
+				</smartFilterBar:ControlConfiguration>-->
+											<!--<smartFilterBar:ControlConfiguration id="cc" filterType="single" label="Customer Code" preventInitialDataFetchInValueHelpDialog="false"-->
+											<!--	key="Kunnr" visibleInAdvancedArea="true">-->
+											<!--	<smartFilterBar:customControl>-->
+											<!--		<Input value="0001100115" editable="false"/>-->
+											<!--	</smartFilterBar:customControl>-->
+											<!--</smartFilterBar:ControlConfiguration>-->
+											<smartFilterBar:ControlConfiguration groupId="_BASIC" index="0" key="ProcessInd" label="Status" visibleInAdvancedArea="true">
+												<smartFilterBar:customControl>
+													<t:Select forceSelection="true" change="onChangeOfStatus" id="status" width="70%">
+														<!--<core:Item key="Select Status" text="Select Status"/>-->
+														<core:Item key="O" text="Open Items"/>
+														<core:Item key="C" text="Cleared Items"/>
+														<core:Item key="A" text="All Items"/>
+													</t:Select>
+												</smartFilterBar:customControl>
+											</smartFilterBar:ControlConfiguration>
+											
+											<smartFilterBar:ControlConfiguration id="Openlabel" groupId="_BASIC" key="OpenDate" index="1" label="Open On Key Date"
+												preventInitialDataFetchInValueHelpDialog="false" visibleInAdvancedArea="true">
+												<smartFilterBar:customControl>
+													<t:DatePicker id="OpenDate" valueFormat="yyyy-MM-ddTHH:mm:ss" displayFormat="dd.MM.yyyy" width="70%" required="true"/>
+												</smartFilterBar:customControl>
+											</smartFilterBar:ControlConfiguration>
+											<smartFilterBar:ControlConfiguration id="flabel" groupId="_BASIC" key="Augdt" index="2" visible="false" label="Clearing Date"
+												preventInitialDataFetchInValueHelpDialog="false" visibleInAdvancedArea="true">
+												<smartFilterBar:customControl>
+													<t:DatePicker id="fdate" visible="false" valueFormat="yyyy-MM-ddTHH:mm:ss" displayFormat="dd.MM.yyyy" width="70%"/>
+												</smartFilterBar:customControl>
+											</smartFilterBar:ControlConfiguration>
+											<smartFilterBar:ControlConfiguration id="type1" index="3" groupId="_BASIC" key="Type" label="Item Type" visibleInAdvancedArea="true">
+												<smartFilterBar:customControl>
+													<t:MultiComboBox change="onQuarter" selectedKeys="R" id="type" width="70%" required="true">
+														<!--<core:Item key="Select Status" text="Select Status"/>-->
+														<core:Item key="R" text="Normal Items"/>
+														<core:Item key="S" text="Special G/L Transaction"/>
+														<core:Item key="N" text="Noted Items"/>
+														<core:Item key="P" text="Parked Items"/>
+														<core:Item key="V" text="Supplier Items"/>
+													</t:MultiComboBox>
+												</smartFilterBar:customControl>
+											</smartFilterBar:ControlConfiguration>
+
+											<smartFilterBar:ControlConfiguration id="range" groupId="_BASIC" conditionType="sap.ui.comp.config.condition.DateRangeType" index="4"
+												visible="false" key="ProcessDate" label="Date Range" visibleInAdvancedArea="true">
+												<smartFilterBar:customControl>
+												<!--	<Input valueHelpOnly="true" id="dateRangeId" showValueHelp="true" valueHelpRequest="OpenFragment"/>-->
+													<!-- <DateRangePicker id="DRP1" placeholder="Enter Date"
+							change="handleChange"
+							class="sapUiSmallMarginBottom"/> -->
+							</smartFilterBar:customControl>
+											</smartFilterBar:ControlConfiguration>
+										</smartFilterBar:controlConfiguration>
+										<!-- layout data used to make the table growing but the filter bar fixed -->
+										<!--<smartFilterBar:layoutData>-->
+										<!--	<FlexItemData shrinkFactor="0"/>-->
+										<!--</smartFilterBar:layoutData>-->
+									</smartFilterBar:SmartFilterBar>
+									<!--		</f:content>-->
+									<!--	</f:DynamicPageHeader>-->
+									<!--</f:header>-->
+									<!--<f:content>-->
+									<smartTable:SmartTable id="LineItemSmartTable" entitySet="CustOutstandingSet" tableBindingPath="mock>/results"
+										smartFilterId="smartFilterBar" tableType="Table" showVariantManagement="false" useExportToExcel="false" beforeExport="onBeforeExport"
+										enableAutoBinding="true" exportType="UI5Client" beforeRebindTable="onBeforeRebindTable" class="sapUiResponsiveContentPadding"
+										showFullScreenButton="false" useTablePersonalisation="true" showTablePersonalisation="false" persistencyKey="SmartTableAnalytical_Explored">
+										<smartTable:customToolbar>
+											<t:OverflowToolbar design="Transparent">
+												<t:ToolbarSpacer/>
+												<t:OverflowToolbarButton icon="sap-icon://excel-attachment" tooltip="Export to Excel" press="onExportData"/>
+											</t:OverflowToolbar>
+										</smartTable:customToolbar>
+										<!--<smartTable:layoutData>-->
+										<!--	<FlexItemData growFactor="1" baseSize="0%"/>-->
+										<!--</smartTable:layoutData>-->
+										<!--<smartTable:customToolbar>-->
+										<!--	<OverflowToolbar design="Transparent">-->
+										<!--		<ToolbarSpacer/>-->
+										<!--	</OverflowToolbar>-->
+										<!--</smartTable:customToolbar>-->
+										<m:Table id="tableid" visibleRowCount="10" showNoData="true" busyStateChanged="onContextChange" customFilter="onTableFilter"
+											enableCellFilter="false" selectionMode="Single">
+											<m:columns>
+												<m:Column hAlign="Center" width="8rem" autoResizable="true">
+													<m:customData>
+														<core:CustomData key="p13nData" value='\{"type":"string", "columnKey": "Bldat","columnIndex":"1", "leadingProperty": "Bldat"}'/>
+													</m:customData>
+													<t:Label text="Document Date"/>
+													<m:template>
+														<t:Text text="{path: 'Bldat', formatter : '.formatter.formatDate'}"/>
+													</m:template>
+												</m:Column>
+												<m:Column hAlign="Center" width="10rem" autoResizable="true">
+													<m:customData>
+														<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Belnr","columnIndex":"2", "leadingProperty": "Belnr"}'/>
+													</m:customData>
+													<t:Label text="Document Number"/>
+													<m:template>
+														<t:Text text="{Belnr}"/>
+													</m:template>
+												</m:Column>
+												<m:Column hAlign="Center" width="8rem" autoResizable="true" columnMenuOpen="onMenuOpen">
+													<m:customData>
+														<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Blart","columnIndex":"3", "leadingProperty": "Blart"}'/>
+													</m:customData>
+													<t:Label text="Document Type"/>
+													<m:template>
+														<t:Text text="{Blart}"/>
+													</m:template>
+												</m:Column>
+												<m:Column hAlign="Center" width="8rem" autoResizable="true">
+													<m:customData>
+														<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Zuonr","columnIndex":"4", "leadingProperty": "Zuonr"}'/>
+													</m:customData>
+													<t:Label text="Assignment"/>
+													<m:template>
+														<t:Text text="{Zuonr}"/>
+													</m:template>
+												</m:Column>
+												<m:Column hAlign="Center" width="8rem" autoResizable="true">
+													<m:customData>
+														<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Umskz","columnIndex":"5", "leadingProperty": "Umskz"}'/>
+													</m:customData>
+													<t:Label text="Special G/L "/>
+													<m:template>
+														<t:Text text="{Umskz}"/>
+													</m:template>
+												</m:Column>
+												<m:Column hAlign="Center" width="8rem" autoResizable="true">
+													<m:customData>
+														<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Xaugp","columnIndex":"6", "leadingProperty": "Xaugp"}'/>
+													</m:customData>
+													<t:Label text="Clearing Status "/>
+													<m:template>
+														<!--<Text text="{Xaugp}"/>-->
+														<core:Icon src="{path:'Xaugp',formatter:'.formatter.getClearStatus'}" color="{path:'Xaugp',formatter:'.formatter.getClrColor'}"
+															tooltip="{path:'Xaugp', formatter:'.formatter.getClearStatusTool'}"/>
+													</m:template>
+												</m:Column>
+												<m:Column hAlign="Center" width="10rem" autoResizable="true">
+													<m:customData>
+														<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Xduen","columnIndex":"7", "leadingProperty": "Xduen"}'/>
+													</m:customData>
+													<t:Label text="Due Net (Symbol)"/>
+													<m:template>
+														<!--<Text text="{Xduen}"/>-->
+														<core:Icon src="{path:'Xduen',formatter:'.formatter.getDueNet'}" color="{path:'Xduen',formatter:'.formatter.getColor'}"
+															tooltip="{path:'Xduen',formatter:'.formatter.getDueNetTool'}"/>
+													</m:template>
+												</m:Column>
+												<m:Column hAlign="Center" width="10rem" autoResizable="true">
+													<m:customData>
+														<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Dmshb","columnIndex":"8", "leadingProperty": "Dmshb"}'/>
+													</m:customData>
+													<t:Label text="Amount (CoCd Cur.) "/>
+													<m:template>
+														<t:Text text="{Dmshb}"/>
+													</m:template>
+												</m:Column>
+												<m:Column hAlign="Center" width="8rem" autoResizable="true">
+													<m:customData>
+														<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Augbl","columnIndex":"9", "leadingProperty": "Augbl"}'/>
+													</m:customData>
+													<t:Label text="Clearing Entry "/>
+													<m:template>
+														<t:Text text="{Augbl}"/>
+													</m:template>
+												</m:Column>
+												<!--<m:Column visible="false">-->
+												<!--	<m:customData>-->
+												<!--		<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Bukrs","columnIndex":"10", "leadingProperty": "Bukrs"}'/>-->
+												<!--	</m:customData>-->
+												<!--	<Label text="Company Code"/>-->
+												<!--	<m:template>-->
+												<!--		<Text text="{Bukrs}"/>-->
+												<!--	</m:template>-->
+												<!--</m:Column>-->
+												<!--<m:Column visible="false">-->
+												<!--	<m:customData>-->
+												<!--		<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Gsber","columnIndex":"11", "leadingProperty": "Gsber"}'/>-->
+												<!--	</m:customData>-->
+												<!--	<Label text="Business Area"/>-->
+												<!--	<m:template>-->
+												<!--		<Text text="{Gsber}"/>-->
+												<!--	</m:template>-->
+												<!--</m:Column>-->
+												<!--<m:Column visible="false">-->
+												<!--	<m:customData>-->
+												<!--		<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Konto","columnIndex":"12", "leadingProperty": "Konto"}'/>-->
+												<!--	</m:customData>-->
+												<!--	<Label text="Account"/>-->
+												<!--	<m:template>-->
+												<!--		<Text text="{Konto}"/>-->
+												<!--	</m:template>-->
+												<!--</m:Column>-->
+												<!--<m:Column visible="false">-->
+												<!--	<m:customData>-->
+												<!--		<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Koart","columnIndex":"15", "leadingProperty": "Koart"}'/>-->
+												<!--	</m:customData>-->
+												<!--	<Label text="Account Type"/>-->
+												<!--	<m:template>-->
+												<!--		<Text text="{Koart}"/>-->
+												<!--	</m:template>-->
+												<!--</m:Column>-->
+												<!--<m:Column visible="false">-->
+												<!--	<m:customData>-->
+												<!--		<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Wrshb","columnIndex":"16", "leadingProperty": "Wrshb"}'/>-->
+												<!--	</m:customData>-->
+												<!--	<Label text="Amount In DC"/>-->
+												<!--	<m:template>-->
+												<!--		<Text text="{Wrshb}"/>-->
+												<!--	</m:template>-->
+												<!--</m:Column>-->
+												<!--<m:Column visible="false">-->
+												<!--	<m:customData>-->
+												<!--		<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Zfbdt","columnIndex":"16", "leadingProperty": "Zfbdt"}'/>-->
+												<!--	</m:customData>-->
+												<!--	<Label text="BaseLine Date"/>-->
+												<!--	<m:template>-->
+												<!--		<Text text="{path: 'Zfbdt', formatter : '.formatter.formatDate'}"/>-->
+												<!--		<Text text="{Zfbdt}"/>-->
+												<!--	</m:template>-->
+												<!--</m:Column>-->
+												<!--<m:Column visible="false">-->
+												<!--	<m:customData>-->
+												<!--		<core:CustomData key="p13nData" value='\{"type":"string","columnKey": "Vbeln","columnIndex":"16", "leadingProperty": "Vbeln"}'/>-->
+												<!--	</m:customData>-->
+												<!--	<Label text="Billing Doc."/>-->
+												<!--	<m:template>-->
+												<!--		<Text text="{Vbeln}"/>-->
+												<!--	</m:template>-->
+												<!--</m:Column>-->
+											</m:columns>
+										</m:Table>
+									</smartTable:SmartTable>
+									<!--	</f:content>-->
+									<!--</f:DynamicPage>-->
+									<!--		</Page>-->
+									<!--	</pages>-->
+									<!--</App>-->
+								</t:VBox>
+							</t:content>
+						</t:Page>
+					</t:pages>
+				</t:NavContainer>
+			</tnt:mainContents>
+		</tnt:ToolPage>
+	</t:App>
+</mvc:View>

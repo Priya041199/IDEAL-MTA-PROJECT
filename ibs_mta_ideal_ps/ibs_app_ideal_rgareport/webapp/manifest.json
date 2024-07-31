@@ -1,0 +1,271 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "com.ibs.ibsappidealrgareport",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.14.2",
+      "toolsId": "5c277bc6-5441-4b78-af60-8607a599b269"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/ideal-rga-report-srv/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "rgareport-display": {
+          "semanticObject": "rgareport",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.126.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.ibs.ibsappidealrgareport.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "Rga_HeaderList",
+          "target": "Rga_HeaderList"
+        },
+        {
+          "pattern": "Rga_Header({key}):?query:",
+          "name": "Rga_HeaderObjectPage",
+          "target": [
+            "Rga_HeaderList",
+            "Rga_HeaderObjectPage"
+          ]
+        }
+      ],
+      "targets": {
+        "Rga_HeaderList": {
+          "type": "Component",
+          "id": "Rga_HeaderList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Rga_Header",
+              "variantManagement": "Page",
+              "navigation": {
+                "Rga_Header": {
+                  "detail": {
+                    "route": "Rga_HeaderObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                  "showClearButton": true
+              },
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "enableExport": false
+                  },
+                  "columns": {
+                    "DataField::DISTRIBUTOR_NAME": {
+                      "width": "17%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::RGA_NO": {
+                      "width": "20%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::BU_CODE": {
+                      "width": "20%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::CREATED_ON": {
+                      "width": "20%",
+                      "horizontalAlign": "Center"
+                    },
+                    "DataField::TO_STATUS::DESC": {
+                      "width": "30%",
+                      "horizontalAlign": "Center"
+                    }
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
+        },
+        "Rga_HeaderObjectPage": {
+          "type": "Component",
+          "id": "Rga_HeaderObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Rga_Header",
+              "sectionLayout": "Page",
+              "controlConfiguration": {
+                "RGA_ITEMS_REF/@com.sap.vocabularies.UI.v1.LineItem#ItemDetails": {
+                  "tableSettings": {
+                    "selectionMode": "None",
+                    "type": "ResponsiveTable",
+                    "enableExport": false
+                  },
+                  "columns": {
+                    "DataField::ITEM_DESCRIPTION": {
+                      "width": "15%"
+                    },
+                    "DataField::BATCH": {
+                      "width": "10%"
+                    },
+                    "DataField::EXPIRY_DATE": {
+                      "width": "10%"
+                    },
+                    "DataField::INVOICE_DATE": {
+                      "width": "12%"
+                    },
+                    "DataField::INVOICE_QUANTITY": {
+                      "width": "12%"
+                    },
+                    "DataField::INVOICE_NO": {
+                      "width": "10%"
+                    },
+                    "DataField::PRICE": {
+                      "width": "10%"
+                    },
+                    "DataField::RETURN_QUANTITY": {
+                      "width": "10%"
+                    },
+                    "DataField::EXTENDED": {
+                      "width": "10%"
+                    }
+                  }
+                },
+                "TO_EVENT/@com.sap.vocabularies.UI.v1.LineItem#Events": {
+                  "columns": {
+                    "DataField::EVENT_NO": {
+                      "width": "15%"
+                    },
+                    "DataField::USER_NAME": {
+                      "width": "25%"
+                    },
+                    "DataField::USER_ROLE": {
+                      "width": "25%"
+                    },
+                    "DataField::COMMENT": {
+                      "width": "34%"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/Rga_Header({key})"
+        }
+      },
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "ibs_bs_ideal_ps"
+  }
+}

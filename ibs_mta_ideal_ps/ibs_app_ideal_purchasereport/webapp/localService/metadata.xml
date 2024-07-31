@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ideal_purchase_report_srv" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="PrHeader" EntityType="ideal_purchase_report_srv.PrHeader">
+                    <NavigationPropertyBinding Path="TO_STATUS" Target="MasterPrStatus"/>
+                    <NavigationPropertyBinding Path="TO_ITEMS" Target="PrItems"/>
+                    <NavigationPropertyBinding Path="TO_EVENT" Target="PrEventLog"/>
+                </EntitySet>
+                <EntitySet Name="PrItems" EntityType="ideal_purchase_report_srv.PrItems"/>
+                <EntitySet Name="SoHeader" EntityType="ideal_purchase_report_srv.SoHeader">
+                    <NavigationPropertyBinding Path="TO_STATUS" Target="MasterSoStatus"/>
+                </EntitySet>
+                <EntitySet Name="SoItem" EntityType="ideal_purchase_report_srv.SoItem"/>
+                <EntitySet Name="PrEventLog" EntityType="ideal_purchase_report_srv.PrEventLog">
+                    <NavigationPropertyBinding Path="TO_EVENT_STATUS" Target="MasterPrEvent"/>
+                </EntitySet>
+                <EntitySet Name="MasterSoStatus" EntityType="ideal_purchase_report_srv.MasterSoStatus"/>
+                <EntitySet Name="MasterPrEvent" EntityType="ideal_purchase_report_srv.MasterPrEvent"/>
+                <EntitySet Name="MasterPrStatus" EntityType="ideal_purchase_report_srv.MasterPrStatus"/>
+                <EntitySet Name="MasterIdealUsers" EntityType="ideal_purchase_report_srv.MasterIdealUsers">
+                    <NavigationPropertyBinding Path="TO_USER_ROLE" Target="MasterUserRole"/>
+                    <NavigationPropertyBinding Path="TO_ENTITY_CODE" Target="MasterEntityCode"/>
+                    <NavigationPropertyBinding Path="TO_USER_ENTITIES" Target="MasterUserEntityUsers"/>
+                </EntitySet>
+                <EntitySet Name="UserMasterEntities" EntityType="ideal_purchase_report_srv.UserMasterEntities"/>
+                <EntitySet Name="MasterUserRole" EntityType="ideal_purchase_report_srv.MasterUserRole"/>
+                <EntitySet Name="MasterUserEntityUsers" EntityType="ideal_purchase_report_srv.MasterUserEntityUsers"/>
+                <EntitySet Name="MasterEntityCode" EntityType="ideal_purchase_report_srv.MasterEntityCode"/>
+                <EntitySet Name="PrCart" EntityType="ideal_purchase_report_srv.PrCart"/>
+                <EntitySet Name="RequestActiveStatus" EntityType="ideal_purchase_report_srv.RequestActiveStatus"/>
+                <EntitySet Name="ViewRequestActiveStatus" EntityType="ideal_purchase_report_srv.ViewRequestActiveStatus"/>
+                <EntitySet Name="Dist" EntityType="ideal_purchase_report_srv.Dist"/>
+            </EntityContainer>
+            <EntityType Name="PrHeader">
+                <Key>
+                    <PropertyRef Name="PR_NO"/>
+                </Key>
+                <Property Name="PR_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="SAP_SO_NO" Type="Edm.String" MaxLength="10"/>
+                <Property Name="PR_CREATION_DATE" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="DISTRIBUTOR_ID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DISTRIBUTOR_NAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SHIP_TO" Type="Edm.String" MaxLength="30"/>
+                <Property Name="SHIP_NAME" Type="Edm.String" MaxLength="200"/>
+                <Property Name="SHIP_FROM" Type="Edm.String" MaxLength="200"/>
+                <Property Name="BILL_TO" Type="Edm.String" MaxLength="30"/>
+                <Property Name="ORDER_TYPE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="PAYMENT_METHOD" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REGION_CODE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="PR_STATUS" Type="Edm.String" MaxLength="10"/>
+                <Property Name="LAST_UPDATED_DATE" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="APPROVER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="GRAND_TOTAL" Type="Edm.String" MaxLength="20"/>
+                <NavigationProperty Name="TO_STATUS" Type="ideal_purchase_report_srv.MasterPrStatus">
+                    <ReferentialConstraint Property="PR_STATUS" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_ITEMS" Type="Collection(ideal_purchase_report_srv.PrItems)"/>
+                <NavigationProperty Name="TO_EVENT" Type="Collection(ideal_purchase_report_srv.PrEventLog)"/>
+                <Property Name="PR_NUM" Type="Edm.String"/>
+                <Property Name="LV_PR_CREATION_DATE" Type="Edm.Date"/>
+                <Property Name="LV_LAST_UPDATED_DATE" Type="Edm.Date"/>
+            </EntityType>
+            <EntityType Name="PrItems">
+                <Key>
+                    <PropertyRef Name="PR_NO"/>
+                    <PropertyRef Name="PR_ITEM_NO"/>
+                </Key>
+                <Property Name="PR_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="PR_ITEM_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="MATERIAL_CODE" Type="Edm.String" MaxLength="40"/>
+                <Property Name="MATERIAL_DESC" Type="Edm.String" MaxLength="50"/>
+                <Property Name="IMAGE_URL" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="HSN_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="UNIT_OF_MEASURE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="QUANTITY" Type="Edm.Int32"/>
+                <Property Name="FREE_QUANTITY" Type="Edm.String" MaxLength="10"/>
+                <Property Name="STD_PRICE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="BASE_PRICE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DISC_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DISC_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="NET_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TOTAL_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="CGST_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="CGST_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="SGST_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="SGST_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IGST_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IGST_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TAXES_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TOTAL_AMT" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="SoHeader">
+                <Key>
+                    <PropertyRef Name="DISTRIBUTOR_ID"/>
+                    <PropertyRef Name="SAP_SO_NO"/>
+                </Key>
+                <Property Name="DISTRIBUTOR_ID" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="SAP_SO_NO" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="CREATION_DATE" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="DIVISION" Type="Edm.String" MaxLength="5"/>
+                <Property Name="DIVISION_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SHIP_TO_PARTY" Type="Edm.String" MaxLength="200"/>
+                <Property Name="STATUS_ID" Type="Edm.Int32"/>
+                <NavigationProperty Name="TO_STATUS" Type="ideal_purchase_report_srv.MasterSoStatus">
+                    <ReferentialConstraint Property="STATUS_ID" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="SoItem">
+                <Key>
+                    <PropertyRef Name="SAP_SO_NO"/>
+                    <PropertyRef Name="SO_ITEM_NO"/>
+                </Key>
+                <Property Name="SAP_SO_NO" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="SO_ITEM_NO" Type="Edm.String" MaxLength="6" Nullable="false"/>
+                <Property Name="MATERIAL_CODE" Type="Edm.String" MaxLength="40"/>
+                <Property Name="MATERIAL_DESC" Type="Edm.String" MaxLength="50"/>
+                <Property Name="IMAGE_URL" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="HSN_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="UNIT_OF_MEASURE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="QUANTITY" Type="Edm.Int32"/>
+                <Property Name="FREE_QUANTITY" Type="Edm.String" MaxLength="10"/>
+                <Property Name="STD_PRICE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="BASE_PRICE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DISC_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DISC_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="NET_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TOTAL_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="CGST_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="CGST_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="SGST_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="SGST_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IGST_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IGST_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TAXES_AMOUNT" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="PrEventLog">
+                <Key>
+                    <PropertyRef Name="PR_NO"/>
+                    <PropertyRef Name="EVENT_NO"/>
+                </Key>
+                <Property Name="PR_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="EVENT_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="EVENT_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="COMMENTS" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATION_DATE" Type="Edm.DateTimeOffset" Precision="7"/>
+                <NavigationProperty Name="TO_EVENT_STATUS" Type="ideal_purchase_report_srv.MasterPrEvent">
+                    <ReferentialConstraint Property="EVENT_CODE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="MasterSoStatus">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterPrEvent">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterPrStatus">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterIdealUsers">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                    <PropertyRef Name="USER_ROLE"/>
+                    <PropertyRef Name="EMAIL"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="500"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150" Nullable="false"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="500"/>
+                <Property Name="EMP_NO" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="ACTIVE" Type="Edm.String" MaxLength="1"/>
+                <NavigationProperty Name="TO_USER_ROLE" Type="ideal_purchase_report_srv.MasterUserRole">
+                    <ReferentialConstraint Property="USER_ROLE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_ENTITY_CODE" Type="ideal_purchase_report_srv.MasterEntityCode">
+                    <ReferentialConstraint Property="COMPANY_CODE" ReferencedProperty="BUKRS"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_USER_ENTITIES" Type="Collection(ideal_purchase_report_srv.MasterUserEntityUsers)"/>
+            </EntityType>
+            <EntityType Name="UserMasterEntities">
+                <Key>
+                    <PropertyRef Name="USER_NAME"/>
+                </Key>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="500" Nullable="false"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="500"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="ACTIVE" Type="Edm.String" MaxLength="1"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="ENTITY_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="MasterUserRole">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.String" MaxLength="25" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterUserEntityUsers">
+                <Key>
+                    <PropertyRef Name="USER_ID"/>
+                    <PropertyRef Name="USER_ROLE"/>
+                    <PropertyRef Name="ENTITY_CODE"/>
+                </Key>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150"/>
+                <Property Name="ENTITY_DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterEntityCode">
+                <Key>
+                    <PropertyRef Name="BUKRS"/>
+                </Key>
+                <Property Name="BUKRS" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="BUTXT" Type="Edm.String" MaxLength="50"/>
+                <Property Name="ORT01" Type="Edm.String" MaxLength="25"/>
+                <Property Name="WAERS" Type="Edm.String" MaxLength="5"/>
+            </EntityType>
+            <EntityType Name="PrCart">
+                <Key>
+                    <PropertyRef Name="DISTRIBUTOR_ID"/>
+                    <PropertyRef Name="CART_ID"/>
+                </Key>
+                <Property Name="DISTRIBUTOR_ID" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="CART_ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="MATERIAL_CODE" Type="Edm.String" MaxLength="40"/>
+                <Property Name="MATERIAL_DESC" Type="Edm.String" MaxLength="50"/>
+                <Property Name="IMAGE_URL" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="HSN_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="UNIT_OF_MEASURE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="QUANTITY" Type="Edm.Int32"/>
+                <Property Name="FREE_QUANTITY" Type="Edm.String" MaxLength="10"/>
+                <Property Name="STD_PRICE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="BASE_PRICE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DISC_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DISC_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="NET_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TOTAL_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="CGST_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="CGST_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="SGST_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="SGST_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IGST_PERC" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IGST_AMOUNT" Type="Edm.String" MaxLength="10"/>
+                <Property Name="TAXES_AMOUNT" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="RequestActiveStatus">
+                <Key>
+                    <PropertyRef Name="REQUEST_NO"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="ACTIVE" Type="Edm.String" MaxLength="1"/>
+                <Property Name="TYPE" Type="Edm.Int32"/>
+                <Property Name="UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="IDEAL_DIST_CODE" Type="Edm.Int64"/>
+            </EntityType>
+            <EntityType Name="ViewRequestActiveStatus">
+                <Key>
+                    <PropertyRef Name="REQUEST_NO"/>
+                </Key>
+                <Property Name="REQUEST_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="SAP_DIST_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="IDEAL_DIST_CODE" Type="Edm.Int64"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="REGISTERED_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="REQUEST_TYPE" Type="Edm.Int32"/>
+                <Property Name="CREATION_TYPE" Type="Edm.Int32"/>
+                <Property Name="DIST_NAME1" Type="Edm.String" MaxLength="100"/>
+                <Property Name="REQUESTER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="BP_TYPE_CODE" Type="Edm.String" MaxLength="4"/>
+                <Property Name="BP_TYPE_DESC" Type="Edm.String" MaxLength="100"/>
+                <Property Name="BUYER_ASSIGN_CHECK" Type="Edm.String" MaxLength="1"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="LEGACY_ID" Type="Edm.String" MaxLength="10"/>
+                <Property Name="DIST_CODE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="NDA_TYPE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="REMINDER_COUNT" Type="Edm.Int32"/>
+                <Property Name="REQUEST_NO_1" Type="Edm.Int64"/>
+                <Property Name="ACTIVE" Type="Edm.String" MaxLength="1"/>
+                <Property Name="MOBILE_NO" Type="Edm.String" MaxLength="30"/>
+            </EntityType>
+            <EntityType Name="Dist">
+                <Key>
+                    <PropertyRef Name="DISTRIBUTOR_NAME"/>
+                </Key>
+                <Property Name="DISTRIBUTOR_NAME" Type="Edm.String" MaxLength="100" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="ideal_purchase_report_srv.PrHeader/LV_PR_CREATION_DATE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.PrHeader/LV_LAST_UPDATED_DATE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.PrItems/TOTAL_AMT">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.UserMasterEntities/USER_NAME">
+                <Annotation Term="Common.Label" String="USER_NAME: USER_NAME"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.UserMasterEntities/EMAIL">
+                <Annotation Term="Common.Label" String="EMAIL: EMAIL"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.UserMasterEntities/COMPANY_CODE">
+                <Annotation Term="Common.Label" String="COMPANY_CODE: COMPANY_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.UserMasterEntities/CREATED_ON">
+                <Annotation Term="Common.Label" String="CREATED_ON: CREATED_ON"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.UserMasterEntities/ACTIVE">
+                <Annotation Term="Common.Label" String="ACTIVE: ACTIVE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.UserMasterEntities/ENTITY_CODE">
+                <Annotation Term="Common.Label" String="ENTITY_CODE: ENTITY_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.UserMasterEntities/ENTITY_DESC">
+                <Annotation Term="Common.Label" String="ENTITY_DESC: ENTITY_DESC"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.UserMasterEntities/USER_ID">
+                <Annotation Term="Common.Label" String="USER_ID: USER_ID"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.UserMasterEntities/USER_ROLE">
+                <Annotation Term="Common.Label" String="USER_ROLE: USER_ROLE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/REQUEST_NO">
+                <Annotation Term="Common.Label" String="REQUEST_NO: REQUEST_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/SAP_DIST_CODE">
+                <Annotation Term="Common.Label" String="SAP_DIST_CODE: SAP_DIST_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/IDEAL_DIST_CODE">
+                <Annotation Term="Common.Label" String="IDEAL_DIST_CODE: IDEAL_DIST_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/STATUS">
+                <Annotation Term="Common.Label" String="STATUS: STATUS"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/REGISTERED_ID">
+                <Annotation Term="Common.Label" String="REGISTERED_ID: REGISTERED_ID"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/ENTITY_CODE">
+                <Annotation Term="Common.Label" String="ENTITY_CODE: ENTITY_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/REQUEST_TYPE">
+                <Annotation Term="Common.Label" String="REQUEST_TYPE: REQUEST_TYPE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/CREATION_TYPE">
+                <Annotation Term="Common.Label" String="CREATION_TYPE: CREATION_TYPE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/DIST_NAME1">
+                <Annotation Term="Common.Label" String="DIST_NAME1: DIST_NAME1"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/REQUESTER_ID">
+                <Annotation Term="Common.Label" String="REQUESTER_ID: REQUESTER_ID"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/CREATED_ON">
+                <Annotation Term="Common.Label" String="CREATED_ON: CREATED_ON"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/BP_TYPE_CODE">
+                <Annotation Term="Common.Label" String="BP_TYPE_CODE: BP_TYPE_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/BP_TYPE_DESC">
+                <Annotation Term="Common.Label" String="BP_TYPE_DESC: BP_TYPE_DESC"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/BUYER_ASSIGN_CHECK">
+                <Annotation Term="Common.Label" String="BUYER_ASSIGN_CHECK: BUYER_ASSIGN_CHECK"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/COMMENT">
+                <Annotation Term="Common.Label" String="COMMENT: COMMENT"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/LEGACY_ID">
+                <Annotation Term="Common.Label" String="LEGACY_ID: LEGACY_ID"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/DIST_CODE">
+                <Annotation Term="Common.Label" String="DIST_CODE: DIST_CODE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/NDA_TYPE">
+                <Annotation Term="Common.Label" String="NDA_TYPE: NDA_TYPE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/REMINDER_COUNT">
+                <Annotation Term="Common.Label" String="REMINDER_COUNT: REMINDER_COUNT"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/REQUEST_NO_1">
+                <Annotation Term="Common.Label" String="REQUEST_NO_1: REQUEST_NO"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/ACTIVE">
+                <Annotation Term="Common.Label" String="ACTIVE: ACTIVE"/>
+            </Annotations>
+            <Annotations Target="ideal_purchase_report_srv.ViewRequestActiveStatus/MOBILE_NO">
+                <Annotation Term="Common.Label" String="MOBILE_NO: MOBILE_NO"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -1,0 +1,248 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:l="sap.ui.layout" xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form" controllerName="com.ibs.ibsappidealdealerprofile.controller.MyBuddy" xmlns:html="http://www.w3.org/1999/xhtml">
+    <m:Page id="myBuddyPageId" class="sapUiSizeCompact" showHeader="false">
+        <m:content>
+            <!-- <m:ObjectHeader id="objPageHeaderId" title="My Buddy" condensed="true" class ="title"> -->
+                 <!-- <m:Button icon="sap-icon://nav-back" press="onBack" type="Emphasized"></m:Button> -->
+                <!-- <m:attributes> -->
+                    <!-- <m:ObjectAttribute id="objAttrId"> -->
+                    <!-- <m:Button icon="sap-icon://nav-back" press="onBack" type="Emphasized"></m:Button> -->
+                    <!-- </m:ObjectAttribute> -->
+                <!-- </m:attributes> -->
+            <!-- </m:ObjectHeader> -->
+
+            <ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="false" showHeaderContent="false" selectedSection="firstSection"
+            showEditHeaderButton="false" editHeaderButtonPress="handleEditBtnPress">
+            <headerTitle>
+							<ObjectPageDynamicHeaderTitle>
+								<expandedHeading>
+                                    <!-- <m:FlexBox fitContainer="true"> -->
+									<m:Title text="My Buddy" wrapping="true"/>
+                                    <!-- </m:FlexBox> -->
+								</expandedHeading>
+
+                                <snappedHeading>
+									<m:FlexBox fitContainer="true">
+										<m:Title text="My Buddy" wrapping="true"/>
+									</m:FlexBox>
+								</snappedHeading>
+
+								<actions>
+									<m:Button icon="sap-icon://nav-back" press="onBack" type="Emphasized"></m:Button>
+								</actions>
+							</ObjectPageDynamicHeaderTitle>
+				</headerTitle>
+                <sections>
+                    <ObjectPageSection title="Sales">
+                        <subSections>
+                            <ObjectPageSubSection title="Sales">
+                                <blocks>
+                                    <m:VBox>
+                                        <m:ObjectIdentifier class="sapUiSmallMarginBottom" title="Branch Manager: Darshan Lad"/>
+                                        <m:Text class="sapUiSmallMarginBottom" text="Phone No. : 4567890123" visible="{device>/system/desktop}"/>
+                                        <m:Link text="Phone No. :{Phone}" press="handleTelPress" visible="{device>/system/phone}"></m:Link>
+                                        <m:Text class="sapUiSmallMarginBottom" text="Email : ibiz123@mail.com"/>
+                                        
+                                        <!-- SALES TABLE -->
+                                        <m:Table items="{salesModel>/value}" mode="None" growing="true" growingScrollToLoad="true" fixedLayout="true">
+                                            <m:columns >
+                                                <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                    <m:Label design="Bold" text="Division"/>
+                                                </m:Column>
+                                                <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                    <m:Label design="Bold" text="Designation"/>
+                                                </m:Column>
+                                                <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                    <m:Label design="Bold" text="Name"/>
+                                                </m:Column>
+                                                <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                    <m:Label design="Bold" text="Phone No."/>
+                                                </m:Column>
+                                                <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                    <m:Label design="Bold" text="Email"/>
+                                                </m:Column>
+                                            </m:columns>
+                                            <m:items>
+                                                <m:ColumnListItem>
+                                                    <m:cells>
+                                                        <m:Text text="{salesModel>DIVISION}"></m:Text>
+                                                        <m:Text text="{salesModel>DESIGNATION}"></m:Text>
+                                                        <m:Text text="{salesModel>NAME}"></m:Text>
+                                                        <m:FlexBox>
+                                                            <m:Text text="{salesModel>PHONE}"></m:Text>
+                                                            <!-- <m:Link text="{Phone}" press="handleTelPressI" visible="{device>/system/phone}"></m:Link> -->
+                                                        </m:FlexBox>
+                                                        <m:Text text="{salesModel>EMAIL}"></m:Text>
+                                                    </m:cells>
+                                                </m:ColumnListItem>
+                                            </m:items>
+                                        </m:Table>
+                                    </m:VBox>
+                                    <!--<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12"-->
+                                    <!--    adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"-->
+                                    <!--    singleContainerFullSize="false">-->
+                                    <!--    <f:content>-->
+                                    <!--        <core:Title text="Territory Sales Manager"/>-->
+                                    <!--        <m:Label text=""/>-->
+                                    <!--        <m:Text text="{TSMSalesName}"/>-->
+                                    <!--        <m:Label text=""/>-->
+                                    <!--        <m:Text text="{TSMSalesPhone}"/>-->
+                                    <!--        <m:Label text=""/>-->
+                                    <!--        <m:Text text="{TSMSalesEmail}"/>-->
+                                    <!--    </f:content>-->
+                                    <!--</f:SimpleForm>-->
+                                    <!--<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12"-->
+                                    <!--    adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"-->
+                                    <!--    singleContainerFullSize="false">-->
+                                    <!--    <f:content>-->
+                                    <!--        <core:Title text="Area Sales Manager"/>-->
+                                    <!--        <m:Label text=""/>-->
+                                    <!--        <m:Label text=""/>-->
+                                    <!--        <m:Label text=""/>-->
+                                    <!--    </f:content>-->
+                                    <!--</f:SimpleForm>-->
+                                    <!--<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12"-->
+                                    <!--    adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"-->
+                                    <!--    singleContainerFullSize="false">-->
+                                    <!--    <f:content>-->
+                                    <!--        <core:Title text="Branch Manager"/>-->
+                                    <!--        <m:Label text=""/>-->
+                                    <!--        <m:Label text=""/>-->
+                                    <!--        <m:Label text=""/>-->
+                                    <!--    </f:content>-->
+                                    <!--</f:SimpleForm>-->
+                                </blocks>
+                            </ObjectPageSubSection>
+                        </subSections>
+                    </ObjectPageSection>
+                    <ObjectPageSection title="Finance">
+                        <subSections>
+                            <ObjectPageSubSection title="Finance">
+                                <blocks>
+
+                                <!-- FINANCE TABLE -->
+                                    <m:Table items="{financeModel>/value}" mode="None" growing="true" growingScrollToLoad="true" fixedLayout="true">
+                                        <m:columns >
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Designation"/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Name"/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Phone No."/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Email"/>
+                                            </m:Column>
+                                        </m:columns>
+                                        <m:items>
+                                            <m:ColumnListItem>
+                                                <m:cells>
+                                                    <m:Text text="{financeModel>DESIGNATION}"></m:Text>
+                                                    <m:Text text="{financeModel>NAME}"></m:Text>
+                                                    <m:FlexBox>
+                                                        <m:Text text="{financeModel>PHONE}"></m:Text>
+                                                        <!-- <m:Link text="{Phone}" press="handleTelPressI" visible="{device>/system/phone}"></m:Link> -->
+                                                    </m:FlexBox>
+                                                    <m:Text text="{financeModel>EMAIL}"></m:Text>
+                                                </m:cells>
+                                            </m:ColumnListItem>
+                                        </m:items>
+                                    </m:Table>
+                                </blocks>
+                            </ObjectPageSubSection>
+                        </subSections>
+                    </ObjectPageSection>
+
+                    <ObjectPageSection title="Service">
+                        <subSections>
+                            <ObjectPageSubSection title="Service">
+                                <blocks>
+                                <!-- SERVICE TABLE -->
+                                    <m:Table items="{serviceModel>/value}" mode="None" growing="true" growingScrollToLoad="true" fixedLayout="true">
+                                        <m:columns >
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Division"/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Designation"/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Name"/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Phone No."/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Email"/>
+                                            </m:Column>
+                                        </m:columns>
+                                        <m:items>
+                                            <m:ColumnListItem>
+                                                <m:cells>
+                                                    <m:Text text="{serviceModel>DIVISION}"></m:Text>
+                                                    <m:Text text="{serviceModel>DESIGNATION}"></m:Text>
+                                                    <m:Text text="{serviceModel>NAME}"></m:Text>
+                                                    <m:FlexBox>
+                                                        <m:Text text="{serviceModel>PHONE}"></m:Text>
+                                                        <!-- <m:Link text="{Phone}" press="handleTelPressI" visible="{device>/system/phone}"></m:Link> -->
+                                                    </m:FlexBox>
+                                                    <m:Text text="{serviceModel>EMAIL}"></m:Text>
+                                                </m:cells>
+                                            </m:ColumnListItem>
+                                        </m:items>
+                                    </m:Table>
+                                </blocks>
+                            </ObjectPageSubSection>
+                        </subSections>
+                    </ObjectPageSection>
+
+                    <!-- LOGISTICS TABLE -->
+                    <ObjectPageSection title="Logistics">
+                        <subSections>
+                            <ObjectPageSubSection title="Logistics">
+                                <blocks>
+                                <!-- LOGISTICS TABLE -->
+                                    <m:Table items="{logisticsModel>/value}" mode="None" growing="true" growingScrollToLoad="true" fixedLayout="true">
+                                        <m:columns >
+                                            <!--<m:Column minScreenWidth="Tablet" demandPopin="true">-->
+                                            <!--    <m:Label design="Bold" text="Division"/>-->
+                                            <!--</m:Column>-->
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Designation"/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Name"/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Phone No."/>
+                                            </m:Column>
+                                            <m:Column minScreenWidth="Small" demandPopin="true" popinDisplay="Inline">
+                                                <m:Label design="Bold" text="Email"/>
+                                            </m:Column>
+                                        </m:columns>
+                                        <m:items>
+                                            <m:ColumnListItem>
+                                                <m:cells>
+                                                    <!--<m:Text text="{Division}"></m:Text>-->
+                                                    <m:Text text="{logisticsModel>DESIGNATION}"></m:Text>
+                                                    <m:Text text="{logisticsModel>NAME}"></m:Text>
+                                                    <m:FlexBox>
+                                                        <m:Text text="{logisticsModel>PHONE}" visible="{device>/system/desktop}"></m:Text>
+                                                        <!-- <m:Link text="{Phone}" press="handleTelPressI" visible="{device>/system/phone}"></m:Link> -->
+                                                    </m:FlexBox>
+                                                    <m:Text text="{logisticsModel>EMAIL}"></m:Text>
+                                                </m:cells>
+                                            </m:ColumnListItem>
+                                        </m:items>
+                                    </m:Table>
+                                </blocks>
+                            </ObjectPageSubSection>
+                        </subSections>
+                    </ObjectPageSection>
+                </sections>
+            </ObjectPageLayout>
+        </m:content>
+    </m:Page>
+</mvc:View>

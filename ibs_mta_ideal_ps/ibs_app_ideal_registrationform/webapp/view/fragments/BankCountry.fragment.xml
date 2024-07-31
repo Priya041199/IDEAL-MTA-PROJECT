@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Select Country" contentHeight="80%"
+		class="sapUiSizeCompact">
+		<subHeader>
+			<Toolbar>
+				<SearchField id="bcSrchIdHQ" liveChange="handleBankCountrySearchHQ" />
+			</Toolbar>
+		</subHeader>
+
+		<List id="bankCountry_IdHQ" items="{path:'bankCountryJson>/results'}"
+			mode="SingleSelectMaster" selectionChange="handleBankCountrySelection">
+			<StandardListItem title="{bankCountryJson>Landx}" description="{bankCountryJson>Land1}"/>
+		</List>
+        
+		<buttons>
+			<Button text="Cancel" press="closeBankCountryDialog" type="Emphasized" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

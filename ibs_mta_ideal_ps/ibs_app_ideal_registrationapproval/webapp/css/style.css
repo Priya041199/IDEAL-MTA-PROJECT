@@ -1,0 +1,44 @@
+/* Enter your custom styles here */
+/* Enter your custom styles here */
+.sapHightLightText {
+    background-color: yellow;
+    display : inline !important;
+}
+.none {
+	background-color: transparent;
+}
+
+.notificationclass {
+	border-radius: 0.25rem !important;
+    border: 1px solid #b00 !important;
+	margin: 0.5rem !important;
+    padding: 0.3rem !important;
+    background-color: #ffebeb !important;
+}
+
+.setFontSize {
+	font-size: 120%;
+}
+
+.setFontVatSize {
+	font-size: 105%;
+}
+
+.formHiddenTitle .sapUiFormContainerTitle .sapUiFormTitle{
+    display:none;
+}
+
+.title { 
+    text-align: center;
+    /* padding-right: 10%; */
+    /* align-items: center; */
+}
+
+.button{
+    align-items: end;
+}
+.customHeaderTitle .sapMObjPageHeaderContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,634 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:m="sap.m" xmlns="sap.uxap" xmlns:layout="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form" height="100%" xmlns:ui="sap.ui.table" xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" displayBlock="true"
+	xmlns:t="sap.suite.ui.commons" controllerName="com.ibs.ibsappidealdealerprofile.controller.EditDetails"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<m:App>
+		<!--<pages>-->
+		<m:Page class="sapUiSizeCompact" showHeader="false" id="messageHandlingPage">
+			<m:content>
+				<layout:DynamicSideContent id="DynamicSideContent" class="sapUiSizeCompact" containerQuery="true" sideContentFallDown="BelowM"
+					breakpointChanged="handleBreakpointChangeEvent" showSideContent="false">
+					<ObjectPageLayout id="ObjectPageLayout" selectedSection="firstSection" enableLazyLoading="false" showEditHeaderButton="false"
+						editHeaderButtonPress="handleEditBtnPress">
+						<headerTitle>
+							<ObjectPageHeader objectTitle="Request No. : {blankJson>/headerData/REQUEST_NO} "
+								objectSubtitle="Request Type : {parts:[{path:'blankJson>/headerData/REQUEST_TYPE'},{path:'blankJson>/headerData/CREATION_TYPE'}], formatter:'.formatter.creationTypeDesc'}">
+								<!--<m:ObjectStatus class="sapUiTinyMarginTop sapUiMediumMarginEnd" title="Status"-->
+								<!--	text="{detailsForm>/results/0/statusDesc/results/0/DESCRIPTION}" inverted="true"-->
+								<!--	state="{path:'detailsForm>/results/0/statusDesc/results/0/DESCRIPTION', formatter:'.formatter.getStatus'}"/>-->
+								<!--<m:Button text="Messenger" press="handleEvents" type="Emphasized"></m:Button>-->
+								<m:Button icon="sap-icon://nav-back" press="onBack" type="Emphasized"></m:Button>
+							</ObjectPageHeader>
+						</headerTitle>
+						<sections>
+							<ObjectPageSection title="{i18n>Section1}" id="firstSection">
+								<subSections>
+									<ObjectPageSubSection title="Distributor Information" id="vInfo">
+										<m:VBox>
+											<f:SimpleForm id="simpleForm1" editable="true" layout="ResponsiveGridLayout" title="" labelSpanXL="4" labelSpanL="3" labelSpanM="4"
+												labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="2" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+												singleContainerFullSize="false">
+												<!--<core:Title text=""/>-->
+												<m:Label text="{labelJson>/S1G1T1F1}" required="{= ${mandatoryJson>/S1G1T1F1} === 'X' ? true : false}" design="Bold"/>
+												<m:Input value="{blankJson>/headerData/DIST_NAME1}" visible="{= ${visibleJson>/S1G1T1F1} === 'X' ? true : false}"
+													placeholder="Enter {labelJson>/S1G1T1F1}" change="handleCompanyName1Change" maxLength="80"/>
+												<!--<core:Title/>-->
+
+												<m:Label text="{labelJson>/S1G1T1F2}" design="Bold" required="{= ${mandatoryJson>/S1G1T1F2} === 'X' ? true : false}"/>
+												<m:Input value="{blankJson>/headerData/DIST_NAME2}" visible="{= ${visibleJson>/S1G1T1F2} === 'X' ? true : false}"
+													placeholder="Enter {labelJson>/S1G1T1F2}" change="handleCompanyName2Change" maxLength="80"/>
+												<!--<core:Title/>-->
+
+												<m:Label text="{labelJson>/S1G1T1F3}" design="Bold" required="{= ${mandatoryJson>/S1G1T1F3} === 'X' ? true : false}"/>
+												<m:Input value="{blankJson>/headerData/WEBSITE}" visible="{= ${visibleJson>/S1G1T1F3} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G1T1F3}"
+													change="handleWebsiteChange" maxLength="100"/>
+
+												<m:Label text="{labelJson>/S1G1T1F4}" design="Bold" required="{= ${mandatoryJson>/S1G1T1F4} === 'X' ? true : false}"/>
+												<m:Input value="{editDetail>/REGISTERED_ID}" visible="{= ${visibleJson>/S1G1T1F4} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G1T1F4}"
+													change="handleRegisteredChange" maxLength="100"/>
+											</f:SimpleForm>
+										</m:VBox>
+									</ObjectPageSubSection>
+									<ObjectPageSubSection title="Distributor Address" id="vAddress">
+										<blocks>
+											<m:VBox>
+												<f:SimpleForm id="simpleForm2" editable="true" layout="ResponsiveGridLayout" columnsM="2" columnsL="3" columnsXL="4"
+													class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle">
+
+													<core:Title text=""/>
+													<!-- <m:Label text="{labelJson>/S1G1T1F16}" design="Bold" required="{= ${mandatoryJson>/S1G1T1F16} === 'X' ? true : false}"/>
+													<m:Input value="{blankJson>/address/HOUSE_NUM1}" visible="{= ${visibleJson>/S1G1T1F16} === 'X' ? true : false}" 
+													placeholder="Enter {labelJson>/S1G1T1F16}" change="handleHQStreetNo" maxLength="10"/> -->
+
+													<!-- STREET 1 -->
+													<m:Label text="{labelJson>/S1G2T1F1}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F1} === 'X' ? true : false}"/>
+													<m:Input value="{blankJson>/address/STREET1}" visible="{= ${visibleJson>/S1G2T1F1} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G2T1F1}"
+														change="handleHQStreet1" maxLength="60"/>
+
+													<!-- STREET 4 -->
+													<m:Label text="{labelJson>/S1G2T1F4}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F4} === 'X' ? true : false}"/>
+													<m:Input value="{blankJson>/address/STREET4}" visible="{= ${visibleJson>/S1G2T1F4} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G2T1F4}"
+														change="handleHQStreet4" maxLength="40"/>
+
+													<!-- COUNTRY -->
+													<m:Label text="{labelJson>/S1G2T1F6}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F6} === 'X' ? true : false}"/>
+													<m:ComboBox id="S1G2T1F6" placeholder="Select {labelJson>/S1G2T1F6}" items="{countryJson>/}" selectedKey="{blankJson>/address/COUNTRY}"
+														visible="{= ${visibleJson>/S1G2T1F6} === 'X' ? true : false}" selectionChange="handleHQCountry">
+														<core:Item key="{countryJson>LAND1}" text="{countryJson>LANDX}"/>
+													</m:ComboBox>
+
+													<!-- CONTACT NO -->
+													<m:Label text="{labelJson>/S1G2T1F9}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F9} === 'X' ? true : false}"/>
+													<m:ComboBox showSecondaryValues="true" filterSecondaryValues="true" items="{countryCode>/}"
+														selectedKey="{blankJson>/address/CONTACT_TELECODE}" visible="{= ${visibleJson>/S1G2T1F9} === 'X' ? true : false}" placeholder="Code"
+														selectionChange="handleCountryCode">
+														<!--<core:ListItem key="{countryCode>Telefto}" text="+{countryCode>Telefto}" additionalText="{countryCode>LAND1}"/>-->
+														<core:ListItem key="{countryCode>TELEFTO}" text="+{countryCode>TELEFTO}" additionalText="{countryCode>TO_COUNTRY/LANDX}"/>
+														<m:layoutData>
+															<layout:GridData span="XL1 L3 M2 S4"/>
+														</m:layoutData>
+													</m:ComboBox>
+													<m:Input value="{blankJson>/address/CONTACT_NO}" visible="{= ${visibleJson>/S1G2T1F9} === 'X' ? true : false}"
+														placeholder="Enter {labelJson>/S1G2T1F9}" change="_validateMobileNum" maxLength="30"></m:Input>
+
+
+													<!-- POSTAL CODE -->
+													<m:Label text="{labelJson>/S1G2T1F10}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F10} === 'X' ? true : false}"/>
+													<m:Input id="S1G2T1F10" value="{blankJson>/address/POSTAL_CODE}" visible="{= ${visibleJson>/S1G2T1F10} === 'X' ? true : false}" maxLength="10"
+														change="postalCodeValidation" placeholder="Enter {labelJson>/S1G2T1F10}"/>
+
+
+													<core:Title text=""/>
+
+													<!-- STREET 2 -->
+													<m:Label text="{labelJson>/S1G2T1F2}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F2} === 'X' ? true : false}"/>
+													<m:Input value="{blankJson>/address/STREET2}" visible="{= ${visibleJson>/S1G2T1F2} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G2T1F2}"
+														change="handleHQStreet2" maxLength="40"/>
+													
+													<!-- EMAIL -->
+													<m:Label text="{labelJson>/S1G2T1F5}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F5} === 'X' ? true : false}"/>
+													<m:Input value="{blankJson>/address/EMAIL}" visible="{= ${visibleJson>/S1G2T1F5} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G2T1F5}"
+														change="_validateHOAEmail" maxLength="241"/>
+
+													<!-- REGION -->
+													<m:Label text="{labelJson>/S1G2T1F7}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F7} === 'X' ? true : false}"/>
+													<m:ComboBox id="S1G2T1F7" placeholder="Select {labelJson>/S1G2T1F7}" items="{RegionJson>/}" selectedKey="{blankJson>/address/STATE}"
+														visible="{= ${visibleJson>/S1G2T1F7} === 'X' ? true : false}" selectionChange="handleHQRegion"  loadItems=".onSelectRegionArrow">
+														<core:Item key="{RegionJson>BLAND}" text="{RegionJson>BEZEI}"/>
+													</m:ComboBox>
+
+													
+
+													<core:Title text=""/>
+
+													<!-- STREET 3 -->
+													<m:Label text="{labelJson>/S1G2T1F3}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F3} === 'X' ? true : false}"/>
+													<m:Input value="{blankJson>/address/STREET3}" visible="{= ${visibleJson>/S1G2T1F3} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G2T1F3}"
+														change="handleHQStreet3" maxLength="40"/>
+													
+													<!-- CITY -->
+													<m:Label text="{labelJson>/S1G2T1F8}" design="Bold" required="{= ${mandatoryJson>/S1G2T1F8} === 'X' ? true : false}"/>
+													<m:Input id="S1G2T1F8" value="{blankJson>/address/CITY}" visible="{= ${visibleJson>/S1G2T1F8} === 'X' ? true : false}"
+														placeholder="Enter {labelJson>/S1G2T1F8}" change="_charactersValidationHQCity" maxLength="100"/>
+
+													
+													<!-- <m:Label text="{labelJson>/S1G1T1F9}" design="Bold" required="{= ${mandatoryJson>/S1G1T1F9} === 'X' ? true : false}"/>
+													<m:Input value="{blankJson>/address/FAX_NO}" visible="{= ${visibleJson>/S1G1T1F9} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G1T1F9}"
+														change="_numberValidation" maxLength="10"/> -->
+												</f:SimpleForm>
+
+												<m:FlexBox alignItems="Center" justifyContent="Start" visible="{= ${visibleJson>/S1G3T1F1} === 'X' ? true : false}">
+													<m:Title text="Other Office Address"/>
+												</m:FlexBox>
+												<ui:Table id="trAddId" rows="{blankJson>/otherAddress}" visible="{= ${visibleJson>/S1G3T1F1} === 'X' ? true : false}" selectionMode="None"
+													visibleRowCount="1" ariaLabelledBy="title">
+													<ui:extension>
+														<m:OverflowToolbar style="Clear">
+															<m:CheckBox id="checkBoxREGID" text="Register Office Same as Head Office" select="handleRegAddressCheckbox"/>
+															<m:ToolbarSpacer/>
+															<m:Button text="Add Office Address" type="Ghost" visible="{= ${visibleJson>/S1G1T2F2} === 'X' ? true : false}" press="handleOtherAddress"/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+														<!--<ui:Column width="9rem">-->
+														<!--	<m:Label text="Address Type" design="Bold"/>-->
+														<!--	<ui:template>-->
+														<!--		<m:Text text="{path: 'blankJson>ADDRESS_TYPE', formatter: '.formatter.addressType'}"/>-->
+														<!--	</ui:template>-->
+														<!--</ui:Column>-->
+
+														<!-- <ui:Column  width="10rem" visible="{= ${visibleJson>/S1G1T2F15} === 'X' ? true : false}">
+															<m:Label wrapping="true" text="{labelJson>/S1G1T2F15}" design="Bold" required="{= ${mandatoryJson>/S1G1T2F15} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input  value="{blankJson>HOUSE_NUM1}" change="_onTableValueChangeHouseNum1" placeholder="Enter {labelJson>/S1G1T2F15}" maxLength="60"/>
+															</ui:template>
+														</ui:Column>
+														 -->
+
+														<ui:Column width="10rem">
+															<m:Label wrapping="true" text="{labelJson>/S1G3T1F1}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F1} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>STREET1}" change="_onTableValueChangeStreet1" placeholder="Enter {labelJson>/S1G3T1F1}" maxLength="60"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem">
+															<m:Label wrapping="true" text="{labelJson>/S1G3T1F2}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F2} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>STREET2}" change="_onTableValueChangeStreet2" placeholder="Enter {labelJson>/S1G3T1F2}" maxLength="40"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem">
+															<m:Label wrapping="true" text="{labelJson>/S1G3T1F3}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F3} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>STREET3}" change="_onTableValueChangeStreet3" placeholder="Enter {labelJson>/S1G3T1F3}" maxLength="40"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem">
+															<m:Label text="{labelJson>/S1G3T1F4}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F4} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>STREET4}" change="_onTableValueChangeStreet4" placeholder="Enter {labelJson>/S1G3T1F4}" maxLength="40"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem">
+															<m:Label wrapping="true" text="{labelJson>/S1G3T1F5}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F5} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>EMAIL}" placeholder="Enter {labelJson>/S1G3T1F5}" change="_tableValidateEmail" maxLength="241"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem">
+															<m:Label wrapping="true" text="{labelJson>/S1G3T1F6}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F6} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>COUNTRY_DESC}" placeholder="Select {labelJson>/S1G3T1F6}" showValueHelp="true" valueHelpOnly="true"
+																	valueHelpRequest="handleCountryDialog"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem">
+															<m:Label wrapping="true" text="{labelJson>/S1G3T1F7}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F7} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>REGION_DESC}" placeholder="Select {labelJson>/S1G3T1F7}" showValueHelp="true" valueHelpOnly="true"
+																	valueHelpRequest="handleRegionDialog"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem">
+															<m:Label wrapping="true" text="{labelJson>/S1G3T1F8}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F8} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>CITY}" change="_tableCharactersValidationAddCity" placeholder="Enter {labelJson>/S1G3T1F8}" maxLength="100"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="15rem">
+															<m:Label wrapping="true" text="{labelJson>/S1G3T1F9}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F9} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:HBox>
+																	<m:ComboBox showSecondaryValues="true" filterSecondaryValues="true" items="{countryCode>/}"
+																		selectedKey="{blankJson>CONTACT_TELECODE}" width="5rem" 
+																		selectionChange="handleTableCountryCode" placeholder="Code" class="sapUiTinyMargin">
+																		<!--<core:ListItem key="{countryCode>Telefto}" text="+{countryCode>Telefto}" additionalText="{countryCode>LAND1}"/>-->
+																		<core:ListItem key="{countryCode>TELEFTO}" text="+{countryCode>TELEFTO}" additionalText="{countryCode>TeleCountryDesc/LANDX}"/>
+																		<m:layoutData>
+																			<layout:GridData span="L1 M2 S4"/>
+																		</m:layoutData>
+																	</m:ComboBox>
+																	<m:Input value="{blankJson>CONTACT_NO}" placeholder="{labelJson>/S1G3T1F9}" change="_hboxContactNumberValidation" maxLength="30"
+																		class="sapUiTinyMargin"/>
+																</m:HBox>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem">
+															<m:Label wrapping="true" text="{labelJson>/S1G3T1F10}" design="Bold" required="{= ${mandatoryJson>/S1G3T1F10} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input id="regPinId" value="{blankJson>POSTAL_CODE}" placeholder="Enter {labelJson>/S1G3T1F10}" change="validateRegPincode" maxLength="10"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- <ui:Column width="9rem" visible="{= ${visibleJson>/S1G1T2F9} === 'X' ? true : false}">
+															<m:Label wrapping="true" text="{labelJson>/S1G1T2F9}" design="Bold" required="{= ${mandatoryJson>/S1G1T2F9} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>FAX_NO}" placeholder="Enter {labelJson>/S1G1T2F9}" change="_tableNumberValidationFax" maxLength="10"/>
+															</ui:template>
+														</ui:Column> -->
+
+														<!-- <ui:Column width="1.7rem">
+															<m:Label text="" design="Bold"/>
+															<ui:template> -->
+																<!--<core:Icon src="sap-icon://delete" color="red" press="handleDeleteOtherAddress" class="sapUiTinyMarginEnd"-->
+																<!--	visible="{= ${blankJson>deleteInd} === 'X' ? true : false}"/>-->
+																<!-- <core:Icon src="sap-icon://delete" color="red" press="handleDeleteOtherAddress" class="sapUiTinyMarginEnd"/>
+															</ui:template>
+														</ui:Column> -->
+														
+													</ui:columns>
+												</ui:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+
+									<ObjectPageSubSection id="vContact">
+										<blocks>
+											<m:VBox>
+												<f:SimpleForm id="simpleForm40" title="Primary Contact" editable="true" layout="ResponsiveGridLayout" columnsM="2"
+													class="formHiddenTitle sapUiFormContainerTitle sapUiFormTitle" columnsL="3" columnsXL="4"
+													visible="{= ${visibleJson>/S1G4T1F10} === 'X' ? true : false}">
+													<core:Title text=""/>
+
+													<!-- FIRST NAME -->
+													<m:Label id="S1G4T1F1_lbl" text="{labelJson>/S1G4T1F1}" required="{= ${mandatoryJson>/S1G4T1F1} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F1} === 'X' ? true : false}" design="Bold"/>
+													<m:Input id="S1G4T1F1" value="{blankJson>/MDContact/NAME1}" change="_charactersValidationHOC"
+														visible="{= ${visibleJson>/S1G4T1F1} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G4T1F1}" maxLength="35"/>
+
+													<!-- EMAIL -->
+													<m:Label id="S1G4T1F4_lbl" text="{labelJson>/S1G4T1F4}" required="{= ${mandatoryJson>/S1G4T1F4} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F4} === 'X' ? true : false}" design="Bold"/>
+													<m:Input id="S1G4T1F4" maxLength="241" value="{blankJson>/MDContact/EMAIL}" visible="{= ${visibleJson>/S1G4T1F4} === 'X' ? true : false}"
+														change="_validateHOCEmail" placeholder="Enter {labelJson>/S1G4T1F4}"/>
+													
+													<!-- COUNTRY -->
+													<m:Label id="NID_lbl" text="{labelJson>/S1G4T1F3}" design="Bold" required="{= ${mandatoryJson>/S1G4T1F3} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F3} === 'X' ? true : false}"/>
+													<m:ComboBox id="NID" placeholder="Select {labelJson>/S1G4T1F3}" items="{countryJson>/}" selectedKey="{blankJson>/MDContact/NATIONALITY}"
+														visible="{= ${visibleJson>/S1G4T1F3} === 'X' ? true : false}" selectionChange="handleContactNationality">
+														<core:Item key="{countryJson>LAND1}" text="{countryJson>LANDX}"/>
+													</m:ComboBox>
+													<core:Title text=""/>
+
+													<!-- LAST NAME -->
+													<m:Label id="S1G4T1F11_lbl" text="{labelJson>/S1G4T1F11}" required="{= ${mandatoryJson>/S1G4T1F11} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F11} === 'X' ? true : false}" design="Bold"/>
+													<m:Input id="S1G4T1F11" value="{blankJson>/MDContact/NAME2}" change="hocLastNameValidation"
+														visible="{= ${visibleJson>/S1G4T1F11} === 'X' ? true : false}" placeholder="Enter {labelJson>/S1G4T1F11}" maxLength="35"/>
+													
+													<!-- CONTACT NO -->
+													<m:Label id="S1G4T1F5_lbl" text="{labelJson>/S1G4T1F5}" required="{= ${mandatoryJson>/S1G4T1F5} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F5} === 'X' ? true : false}" design="Bold"/>
+													<m:ComboBox id="S1G4T1F5com" showSecondaryValues="true" filterSecondaryValues="true" items="{countryCode>/}"
+														selectedKey="{blankJson>/MDContact/CONTACT_TELECODE}" visible="{= ${visibleJson>/S1G4T1F5} === 'X' ? true : false}"
+														selectionChange="handleCountryCodeHOC" placeholder="Code">
+														<!--<core:ListItem key="{countryCode>Telefto}" text="+{countryCode>Telefto}" additionalText="{countryCode>LAND1}" />-->
+														<core:ListItem key="{countryCode>TELEFTO}" text="+{countryCode>TELEFTO}" additionalText="{countryCode>TeleCountryDesc/LANDX}"/>
+														<m:layoutData>
+															<layout:GridData span="XL1 L3 M2 S4"/>
+														</m:layoutData>
+													</m:ComboBox>
+													<m:Input id="S1G4T1F5" value="{blankJson>/MDContact/CONTACT_NO}" visible="{= ${visibleJson>/S1G4T1F5} === 'X' ? true : false}"
+														change="_validateHOCContactNum" placeholder="Enter {labelJson>/S1G4T1F5}" maxLength="30"/>
+
+													<!-- REGION  -->
+													<m:Label id="S1G4T1F8_lbl" text="{labelJson>/S1G4T1F8}" required="{= ${mandatoryJson>/S1G4T1F8} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F8} === 'X' ? true : false}" design="Bold"/>
+													<m:ComboBox id="S1G4T1F8" placeholder="Select {labelJson>/S1G4T1F8}" items="{contactRegion>/}" selectedKey="{blankJson>/MDContact/STATE}"
+														visible="{= ${visibleJson>/S1G4T1F8} === 'X' ? true : false}" selectionChange="k">
+														<core:Item key="{contactRegion>BLAND}" text="{contactRegion>BEZEI}"/>
+													</m:ComboBox>
+
+													<core:Title text=""/>
+													<!-- DESIGNATION -->
+													<m:Label id="S1G4T1F2_lbl" text="{labelJson>/S1G4T1F2}" required="{= ${mandatoryJson>/S1G4T1F2} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F2} === 'X' ? true : false}" design="Bold"/>
+															<m:Input id="S1G4T1F2" value="{blankJson>/MDContact/DESIGNATION}" visible="{= ${visibleJson>/S1G4T1F2} === 'X' ? true : false}"
+														placeholder="Enter {labelJson>/S1G4T1F2}" change="_charactersValidationHOCDesignation" maxLength="35"/>
+													
+
+													<!-- MOBILE NO -->
+													<m:Label id="S1G4T1F6_lbl" text="{labelJson>/S1G4T1F6}" required="{= ${mandatoryJson>/S1G4T1F6} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F6} === 'X' ? true : false}" design="Bold"/>
+													<m:ComboBox id="S1G4T1F6com" showSecondaryValues="true" filterSecondaryValues="true" items="{countryCode>/}"
+														selectedKey="{blankJson>/MDContact/MOBILE_TELECODE}" visible="{= ${visibleJson>/S1G4T1F6} === 'X' ? true : false}"
+														selectionChange="handleCountryCodeHOCMobile" placeholder="Code">
+														<!--<core:ListItem key="{countryCode>Telefto}" text="+{countryCode>Telefto}" additionalText="{countryCode>LAND1}" />-->
+														<core:ListItem key="{countryCode>TELEFTO}" text="+{countryCode>TELEFTO}" additionalText="{countryCode>TeleCountryDesc/LANDX}"/>
+														<m:layoutData>
+															<layout:GridData span="XL1 L3 M2 S4"/>
+														</m:layoutData>
+													</m:ComboBox>
+													<m:Input id="S1G4T1F6" value="{blankJson>/MDContact/MOBILE_NO}" visible="{= ${visibleJson>/S1G4T1F6} === 'X' ? true : false}"
+														change="_validateHOCMobileNum" placeholder="Enter {labelJson>/S1G4T1F6}" maxLength="30"/>
+													
+													<!-- CITY -->
+													<m:Label id="S1G4T1F7_lbl" text="{labelJson>/S1G4T1F7}" design="Bold" required="{= ${mandatoryJson>/S1G4T1F7} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F7} === 'X' ? true : false}"/>
+													<m:Input id="S1G4T1F7" value="{blankJson>/MDContact/CITY}" placeholder="Enter {labelJson>/S1G4T1F7}" change="_charactersValidationHOCCity"
+														visible="{= ${visibleJson>/S1G4T1F7} === 'X' ? true : false}"/>
+
+													<!-- <core:Title text=""/> -->
+													<!-- POSTAL CODE -->
+													<m:Label id="S1G4T1F9_lbl" text="{labelJson>/S1G4T1F9}" required="{= ${mandatoryJson>/S1G4T1F9} === 'X' ? true : false}"
+														visible="{= ${visibleJson>/S1G4T1F9} === 'X' ? true : false}" design="Bold"/>
+													<m:Input id="S1G4T1F9" value="{blankJson>/MDContact/POSTAL_CODE}" placeholder="Enter {labelJson>/S1G4T1F9}"
+														visible="{= ${visibleJson>/S1G4T1F9} === 'X' ? true : false}" change="contactMDPostalValidation" maxLength="10"/>
+												</f:SimpleForm>
+
+												<f:SimpleForm id="simpleForm3" editable="true" layout="ResponsiveGridLayout" visible="{= ${visibleJson>/S1G2T2F1} === 'X' ? true : false}"
+													title="" columnsM="2" columnsL="3"></f:SimpleForm>
+												<m:MessageStrip id="msgStripContactId" text="Optional fields. If you wish to add details, please make sure to fill up all the fields"
+													type="Information" showIcon="true" visible="false"/>
+
+												<ui:Table id="table_contactId" rows="{blankJson>/contact}" visible="{= ${visibleJson>/S1G5T2F1} === 'X' ? true : false}"
+													selectionMode="None" visibleRowCount="1" ariaLabelledBy="title">
+													<ui:extension>
+														<m:OverflowToolbar style="Clear">
+															<m:ToolbarSpacer/>
+															<m:Button text="Add Contact" visible="{= ${visibleJson>/S1G2T2F2} === 'X' ? true : false}" type="Ghost" press="handleOtherContactDetails"/>
+														</m:OverflowToolbar>
+													</ui:extension>
+													<ui:columns>
+														<ui:Column width="13rem" visible="{= ${visibleJson>/S1G5T2F1} === 'X' ? true : false}">
+															<m:Label text="{labelJson>/S1G5T2F1}" design="Bold" required="{= ${mandatoryJson>/S1G5T2F1} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>NAME1}" placeholder="Enter {labelJson>/S1G5T2F1}" change="_tableCharactersValidationFirstName" maxLength="35"/>
+															</ui:template>
+														</ui:Column>
+
+
+														<ui:Column width="13rem" visible="{= ${visibleJson>/S1G5T2F13} === 'X' ? true : false}">
+															<m:Label text="{labelJson>/S1G5T2F13}" design="Bold" required="{= ${mandatoryJson>/S1G5T2F13} === 'X' ? true : false}"/>
+															<ui:template>
+																<!--<m:Input value="{blankJson>NAME2}" placeholder="Enter Last Name" change="_tableCharactersValidation" maxLength="35"/>-->
+																<m:Input value="{blankJson>NAME2}" placeholder="Enter {labelJson>/S1G5T2F13}" change="lastNameContactValidation" maxLength="35"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem" visible="{= ${visibleJson>/S1G5T2F2} === 'X' ? true : false}">
+															<m:Label text="{labelJson>/S1G5T2F2}" design="Bold" required="{= ${mandatoryJson>/S1G5T2F2} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>DESIGNATION}" placeholder="Enter {labelJson>/S1G5T2F2}" change="_tableCharactersValidationDesignation" maxLength="35"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem" visible="{= ${visibleJson>/S1G5T2F3} === 'X' ? true : false}">
+															<m:Label text="{labelJson>/S1G5T2F3}" design="Bold" required="{= ${mandatoryJson>/S1G5T2F3} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>COUNTRY_DESC}" placeholder="Select {labelJson>/S1G5T2F3}" valueHelpRequest="handleOTHNationality" showValueHelp="true"
+																	valueHelpOnly="true"/>
+															</ui:template>
+														</ui:Column>
+
+
+														<ui:Column width="10rem" visible="{= ${visibleJson>/S1G5T2F8} === 'X' ? true : false}">
+															<m:Label text="{labelJson>/S1G5T2F8}" design="Bold" required="{= ${mandatoryJson>/S1G5T2F8} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:Input value="{blankJson>REGION_DESC}" placeholder="Select {labelJson>/S1G5T2F8}" valueHelpRequest="handleOTHContactRegion" showValueHelp="true"
+																	valueHelpOnly="true"/>
+															</ui:template>
+														</ui:Column>
+
+														<!--18/22-->
+														<ui:Column width="10rem" visible="{= ${visibleJson>/S1G5T2F7} === 'X' ? true : false}">
+															<m:Label text="{labelJson>/S1G5T2F7}" design="Bold" required="{= ${mandatoryJson>/S1G5T2F7} === 'X' ? true : false}"/>
+															<ui:template>
+																<!--new-->
+																<m:Input value="{blankJson>CITY}" placeholder="Enter {labelJson>/S1G5T2F7}" change="_tableCharactersValidationCity" maxLength="30"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="13rem" visible="{= ${visibleJson>/S1G5T2F4} === 'X' ? true : false}">
+															<m:Label text="{labelJson>/S1G5T2F4}" wrapping="true" design="Bold" required="{= ${mandatoryJson>/S1G5T2F4} === 'X' ? true : false}"/>
+															<ui:template>
+																<!--<m:Input value="{blankJson>EMAIL}" placeholder="Enter Email Address" change="_tableValidateEmail" maxLength="241"/>-->
+																<m:Input value="{blankJson>EMAIL}" placeholder="Enter {labelJson>/S1G5T2F4}" change="validateContactEmail" maxLength="241"/>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="15rem" visible="{= ${visibleJson>/S1G5T2F5} === 'X' ? true : false}">
+															<m:Label text="{labelJson>/S1G5T2F5}" wrapping="true" design="Bold" required="{= ${mandatoryJson>/S1G5T2F4} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:HBox>
+																	<m:ComboBox showSecondaryValues="true" filterSecondaryValues="true" items="{countryCode>/}"
+																		selectedKey="{blankJson>CONTACT_TELECODE}" width="5rem" selectionChange="handleTableContactCode" placeholder="Code" class="sapUiTinyMargin">
+																		<core:ListItem key="{countryCode>TELEFTO}" text="+{countryCode>TELEFTO}" additionalText="{countryCode>TeleCountryDesc/LANDX}"/>
+																		<m:layoutData>
+																			<layout:GridData span="L1 M2 S4"/>
+																		</m:layoutData>
+																	</m:ComboBox>
+																	<!--<m:Input value="{blankJson>CONTACT_NO}" placeholder="Enter Contact Number" change="_hboxTableColumnValidation" maxLength="30"-->
+																	<!--	class="sapUiTinyMargin"/>-->
+																	<m:Input value="{blankJson>CONTACT_NO}" placeholder="Enter {labelJson>/S1G5T2F5}" change="hboxcontactNumberValidation" maxLength="30"
+																		class="sapUiTinyMargin"/>
+																</m:HBox>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="15rem" visible="{= ${visibleJson>/S1G5T2F6} === 'X' ? true : false}">
+															<m:Label text="{labelJson>/S1G5T2F6}" wrapping="true" design="Bold" required="{= ${mandatoryJson>/S1G5T2F6} === 'X' ? true : false}"/>
+															<ui:template>
+																<m:HBox>
+																	<m:ComboBox showSecondaryValues="true" filterSecondaryValues="true" items="{countryCode>/}" selectedKey="{blankJson>MOBILE_TELECODE}"
+																		width="5rem" selectionChange="tableContactCountryCode" placeholder="Code" class="sapUiTinyMargin">
+																		<core:ListItem key="{countryCode>TELEFTO}" text="+{countryCode>TELEFTO}" additionalText="{countryCode>TeleCountryDesc/LANDX}"/>
+																		<m:layoutData>
+																			<layout:GridData span="L1 M2 S4"/>
+																		</m:layoutData>
+																	</m:ComboBox>
+																	<!--<m:Input value="{blankJson>MOBILE_NO}" placeholder="Enter Mobile Number" change="_hboxTableColumnValidation" maxLength="30"-->
+																	<!--	class="sapUiTinyMargin"/>-->
+																	<m:Input value="{blankJson>MOBILE_NO}" placeholder="Enter {labelJson>/S1G5T2F6}" change="hboxMobileNumberValidation" maxLength="30"
+																		class="sapUiTinyMargin"/>
+																</m:HBox>
+															</ui:template>
+														</ui:Column>
+
+														<ui:Column width="10rem" visible="{= ${visibleJson>/S1G5T2F9} === 'X' ? true : false}">
+															<m:Label wrapping="true" text="{labelJson>/S1G5T2F9}" design="Bold" required="{= ${mandatoryJson>/S1G5T2F9} === 'X' ? true : false}"/>
+															<ui:template>
+																<!--new-->
+																<!--<m:Input value="{blankJson>PASSPORT_NO}" placeholder="Enter Passport No." change="tableAlphaNumaricVaidation" maxLength="30"/>-->
+																<m:Input value="{blankJson>POSTAL_CODE}" placeholder="Enter {labelJson>/S1G5T2F9}" change="contactOTHPostalValidation" maxLength="10"/>
+															</ui:template>
+														</ui:Column>
+
+														<!-- <ui:Column width="1.7rem">
+															<m:Label text="" design="Bold"/>
+															<ui:template> -->
+																<!--<core:Icon src="sap-icon://delete" color="red" press="deleteContactDetails" class="sapUiTinyMarginEnd"-->
+																<!--	visible="{= ${blankJson>deleteInd} === 'X' ? true : false}"/>-->
+																<!-- <core:Icon src="sap-icon://delete" color="red" press="deleteContactDetails" class="sapUiTinyMarginEnd"/>
+															</ui:template>
+														</ui:Column> -->
+
+													</ui:columns>
+												</ui:Table>
+											</m:VBox>
+										</blocks>
+									</ObjectPageSubSection>
+
+									<ObjectPageSubSection id="bussinessInfoTable_Id" title="Business Information" visible="{= ${visibleJson>/S1G7T1F11} === 'X' ? true : false}">
+										<m:Table id="table_employeeId" class="sapUiSmallMarginBottom">
+											<m:columns>
+												<m:Column width="34rem">
+													<m:Label text="Category" design="Bold"/>
+												</m:Column>
+												<m:Column hAlign="Center">
+													<m:Label text="Number Of Employees" design="Bold" wrapping="true"/>
+												</m:Column>
+											</m:columns>
+
+											<m:items>
+												<!-- tot perm emp -->
+												<m:ColumnListItem visible="{= ${visibleJson>/S1G7T1F1} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label text="{labelJson>/S1G7T1F1}" required="{= ${mandatoryJson>/S1G7T1F1} === 'X' ? true : false}" wrapping="true"/>
+														<m:Input value="{blankJson>/headerData/TOT_PERM_EMP}" width="30%" change="_mTableNumberValidationNO_OF_EMP"/>
+													</m:cells>
+												</m:ColumnListItem>
+												
+												<!-- no of emp in ac -->
+												<m:ColumnListItem visible="{= ${visibleJson>/S1G7T1F3} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label text="{labelJson>/S1G7T1F3}" required="{= ${mandatoryJson>/S1G7T1F3} === 'X' ? true : false}" wrapping="true"/>
+														<m:Input value="{blankJson>/headerData/NOE_ACC}" width="30%" change="_mTableNumberValidationNO_OF_AC"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- no of emp in qa -->
+												<m:ColumnListItem visible="{= ${visibleJson>/S1G7T1F6} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label text="{labelJson>/S1G7T1F6}" required="{= ${mandatoryJson>/S1G7T1F6} === 'X' ? true : false}" wrapping="true"/>
+														<m:Input value="{blankJson>/headerData/NOE_QA}" width="30%" change="_mTableNumberValidationNO_OF_QUALITY"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- no of emp in prod & mngement -->
+												<m:ColumnListItem visible="{= ${visibleJson>/S1G7T1F7} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label text="{labelJson>/S1G7T1F7}" required="{= ${mandatoryJson>/S1G7T1F7} === 'X' ? true : false}" wrapping="true"/>
+														<m:Input value="{blankJson>/headerData/NOE_MAN}" width="30%" change="_mTableNumberValidationNO_OF_PROD"/>
+													</m:cells>
+												</m:ColumnListItem>
+												
+												<!-- no of emp in admin -->
+												<m:ColumnListItem visible="{= ${visibleJson>/S1G7T1F4} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label text="{labelJson>/S1G7T1F4}" required="{= ${mandatoryJson>/S1G7T1F4} === 'X' ? true : false}" wrapping="true"/>
+														<m:Input value="{blankJson>/headerData/NOE_ADM}" width="30%" change="_mTableNumberValidationNO_OF_ADMIN"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- no of emp in any other dept -->
+												<m:ColumnListItem visible="{= ${visibleJson>/S1G7T1F10} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label text="{labelJson>/S1G7T1F10}" required="{= ${mandatoryJson>/S1G7T1F10} === 'X' ? true : false}" wrapping="true"/>
+														<m:Input value="{blankJson>/headerData/NOE_ANY}" width="30%" change="_mTableNumberValidationNO_OF_OTHERS"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- no of emp in hr -->
+												<m:ColumnListItem visible="{= ${visibleJson>/S1G7T1F5} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label text="{labelJson>/S1G7T1F5}" required="{= ${mandatoryJson>/S1G7T1F5} === 'X' ? true : false}" wrapping="true"/>
+														<m:Input value="{blankJson>/headerData/NOE_HR}" width="30%" change="_mTableNumberValidationNO_OF_HR"/>
+													</m:cells>
+												</m:ColumnListItem>
+												
+												<!-- no of emp in SALES -->
+												<m:ColumnListItem visible="{= ${visibleJson>/S1G7T1F8} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label text="{labelJson>/S1G7T1F8}" required="{= ${mandatoryJson>/S1G7T1F8} === 'X' ? true : false}" wrapping="true"/>
+														<m:Input value="{blankJson>/headerData/NOE_SAL}" width="30%" change="_mTableNumberValidationNO_OF_SALES"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+												<!-- no of emp in SECURITY-->
+												<m:ColumnListItem visible="{= ${visibleJson>/S1G7T1F9} === 'X' ? true : false}">
+													<m:cells>
+														<m:Label text="{labelJson>/S1G7T1F9}" required="{= ${mandatoryJson>/S1G7T1F9} === 'X' ? true : false}" wrapping="true"/>
+														<m:Input value="{blankJson>/headerData/NOE_SEC}" width="30%" change="_mTableNumberValidationNO_OF_SECURITY"/>
+													</m:cells>
+												</m:ColumnListItem>
+
+											</m:items>
+										</m:Table>
+									</ObjectPageSubSection>
+
+								</subSections>
+							</ObjectPageSection>
+
+						</sections>
+					</ObjectPageLayout>
+					<!--<layout:sideContent>-->
+					<!--	<m:Toolbar>-->
+					<!--		<m:Title text="Events"/>-->
+					<!--		<m:ToolbarSpacer/>-->
+					<!--		<m:Button icon="sap-icon://refresh" type="Transparent" press="handleRefreshEvents"/>-->
+					<!--		<m:Button text="Close" type="Transparent" press="handleSideContentHide"/>-->
+					<!--	</m:Toolbar>-->
+					<!--	<m:FeedInput id="emailTextId" post="onPost" showIcon="false" placeholder="Enter query here"/>-->
+					<!--	<layout:VerticalLayout width="100%">-->
+					<!--		<t:Timeline id="idTimeline" showHeaderBar="false" showSearch="false" showSort="false" sortOldestFirst="false" sort="false"-->
+					<!--			enableScroll="false" lazyLoading="false" growingThreshold="0"-->
+					<!--			content="{path : 'comm>/results',sorter : { path : 'EVENT_NO',descending : 'true'}}" showIcons="false"-->
+					<!--			noDataText="No Ticket Events are currently available" width="100%">-->
+					<!--			<t:content>-->
+					<!--				<t:TimelineItem id="idTemplateItem" userNameClickable="true"-->
+					<!--					text="Event : {comm>eventDesc/results/0/DESCRIPTION} {i18n>newLine} Comment : {comm>COMMENT}"-->
+					<!--					dateTime="{path:'comm>CREATED_ON', type: 'sap.ui.model.type.DateTime', formatOptions: { style : 'medium', UTC: false }}"-->
+					<!--					userName="{comm>USER_NAME}"/>-->
+					<!--			</t:content>-->
+					<!--		</t:Timeline>-->
+					<!--	</layout:VerticalLayout>-->
+					<!--</layout:sideContent>-->
+				</layout:DynamicSideContent>
+			</m:content>
+			<m:footer>
+				<m:Bar>
+					<m:contentLeft>
+						<m:Button id="messagePopoverBtn" visible="false" type="Ghost" icon="sap-icon://message-popup" text="" press=".handleMessagePopoverPress"/>
+						<!--<m:Button text="" press="handleSampleData" ariaHasPopup="Dialog"/>-->
+					</m:contentLeft>
+					<m:contentRight>
+						<m:Button id="saveBt" text="Save" press="onSave" type="Success"/>
+						<!--<m:Button id="cancelBt" text="Cancel" press="onCancel" type="Negative"/>-->
+					</m:contentRight>
+				</m:Bar>
+			</m:footer>
+		</m:Page>
+		<!--</pages>-->
+	</m:App>
+</mvc:View>

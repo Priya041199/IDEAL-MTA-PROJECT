@@ -1,0 +1,218 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "com.ibs.ibsappidealregistrationform",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.14.2",
+      "toolsId": "8c153874-7b51-4c14-b89c-b56e1ced3cb4"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/ideal-registration-form-srv/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+       "ZIDL_CUSTOMER_REG_SRV": {
+        "uri": "/sap/opu/odata/sap/ZIDL_CUSTOMER_REG_SRV/",
+        "type": "OData",
+        "settings": {
+          "localUri": "localService/ZIDL_CUSTOMER_REG_SRV/metadata.xml"
+        }
+      },
+      "sampleData": {
+        "uri": "model/draftData.json",
+        "type": "JSON"
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "registrationform-display": {
+          "semanticObject": "registrationform",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.126.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.ibs.ibsappidealregistrationform.i18n.i18n"
+        }
+      },
+      "cloudService": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "onPremiseModel": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "OneWay",
+          "defaultCountMode": "Request"
+        },
+        "dataSource": "ZIDL_CUSTOMER_REG_SRV",
+        "preload": true
+      },
+      "SampleModel2": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "sampleData"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.ibs.ibsappidealregistrationform.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "Routeapp", 
+          "pattern": "",
+          "target": ["Targetappview"]
+        },
+        {
+          "name": "RouteLoginPage",
+          "pattern": "Login",
+          "target": ["TargetLoginPage"]
+        },
+        {
+          "pattern": "instructionView",
+          "name": "instructionView",
+          "target": "TargetInstructionView"
+        },
+        {
+          "name": "vendorForm",
+          "pattern": "vendorForm",
+          "target": [
+            "TargetvendorForm"
+          ]
+        },
+        {
+          "pattern": "displayForm",
+          "name": "displayForm",
+          "target": "TargetDisplayForm"
+        },
+        {
+					"name": "ServiceMsg",
+					"pattern": "ServiceMsg",
+					"target": ["ServiceMsg"]
+				}
+      ],
+      "targets": {
+        "Targetappview": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewName": "App"
+        },
+        "TargetLoginPage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "LoginPage",
+          "viewName": "LoginPage"
+        },
+        "TargetInstructionView": {
+          "viewType": "XML",
+          "viewName": "instructionView"
+        },
+        "TargetvendorForm": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "vendorForm",
+          "viewName": "vendorForm"
+        },
+        "TargetDisplayForm": {
+          "viewType": "XML",
+          "viewName": "displayForm"
+        },
+        "ServiceMsg": {
+					"viewType": "XML",
+					"viewName": "ServiceMsg"
+				}
+      }
+    },
+    "rootView": {
+      "viewName": "com.ibs.ibsappidealregistrationform.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "ibs_bs_ideal_ps"
+  }
+}

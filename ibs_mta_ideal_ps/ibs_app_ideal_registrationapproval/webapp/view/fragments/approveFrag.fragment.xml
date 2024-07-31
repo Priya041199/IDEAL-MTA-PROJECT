@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog id="idApproveDialog" title="" draggable="true" resizable="true" titleAlignment="Center" contentWidth="30rem" class="sapUiSizeCompact">
+		<!-- <MessageStrip type="Error" visible="{localModel>/MsgStrip1}" text="Trade licence no : {detailsForm>/results/0/TRADE_LIC_NO} already exist"/>
+		<MessageStrip type="Error" visible="{localModel>/MsgStrip2}" text="Supplier Name: {detailsForm>/results/0/COMPANY_NAME1} already exist"/>
+		<MessageStrip type="Error" visible="{localModel>/MsgStrip3}" text="VAT no : {detailsForm>/results/0/VAT_REG_NUMBER} already exist"/> -->
+		<f:SimpleForm id="simpleform1" editable="false" maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="3"
+			labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
+			<f:content>
+				<Label text="Comment" id="id_lable" required="false"/>
+				<TextArea id="id_comment" value="" rows="4" maxLength="1000" showExceededText="true" required="false" liveChange="handleLiveChange"/>
+			</f:content>
+		</f:SimpleForm>
+		<buttons>
+			<Button text="Submit" id="id_approve" press="onSubmitApproval" icon="sap-icon://accept"></Button>
+			<Button text="Submit" id="id_reject" press="onSubmitRejection" icon="sap-icon://accept"></Button>
+			<Button text="Submit" id="id_back" press="onSubmitBack" icon="sap-icon://accept"></Button>
+			<Button text="Close" press="closeDialog" icon="sap-icon://cancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

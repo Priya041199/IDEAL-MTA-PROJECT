@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog id="idApproveDialog" title="" draggable="true" resizable="true" titleAlignment="Center" contentWidth="30rem" class="sapUiSizeCompact">
+		
+		<f:SimpleForm id="simpleform1" editable="false" minWidth="1024" maxContainerCols="2" layout="ResponsiveGridLayout" labelSpanL="3"
+			labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
+			<f:content>
+				<Label text="Comment" id="id_lable"/>
+				<TextArea id="id_comment" value="" rows="4" maxLength="1000" showExceededText="true" required="false" liveChange="handleLiveChange"/>
+			</f:content>
+		</f:SimpleForm>
+		<buttons>
+			<Button text="Save" id="id_approve" press="onSaveEdit" icon="sap-icon://accept"></Button>
+			<Button text="Cancel" id="id_cancel" press="closeDialog" icon="sap-icon://cancel"/>
+			<Button text="Yes" id="id_yes" press="onSaveEdit" icon="sap-icon://accept"></Button>
+			<Button text="No" id="id_no" press="backCloseDialog" icon="sap-icon://cancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

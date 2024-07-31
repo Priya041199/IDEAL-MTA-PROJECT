@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Select Swift Code" contentHeight="80%"
+		class="sapUiSizeCompact">
+		<subHeader>
+			<Toolbar>
+				<SearchField id="brSrchIdHQ" liveChange="handleBankSwiftSearchHQ" />
+			</Toolbar>
+		</subHeader>
+
+		<List id="bankSwift_IdHQ" items="{path:'swiftJson>/results'}"
+			mode="SingleSelectMaster" selectionChange="handleBankSwiftSelection">
+			<StandardListItem title="{swiftJson>Swift}" description="{swiftJson>Swift}"/>
+		</List>
+        
+		<buttons>
+			<Button text="Cancel" press="closeBankSwiftDialog" type="Emphasized" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

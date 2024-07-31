@@ -1,0 +1,95 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="com.ibs.ibsappidealregistrationform.controller.instructionView" 
+    xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="Instructions and Information" class="sapUiSizeCompact">
+				<customHeader>
+					<Bar>
+						<contentMiddle>
+							<ToolbarSpacer ></ToolbarSpacer>
+							<Title text="Instructions and Information"></Title>
+							<ToolbarSpacer ></ToolbarSpacer>
+						</contentMiddle>
+					</Bar>
+				</customHeader>
+				<content>
+					<VBox class="panelBorder sapUiSmallMargin">
+						<HBox class="sapUiTinyMargin">
+							<Label text="1. "/>
+						    <Label
+							text="Any potential distributor interested in providing services or goods (the “Potential Distributor) to {loginJsonData>/CLIENT_SHORT_NAME} (the “Company”) must go through a registration, qualification, and approval process."
+							wrapping="true" />
+						</HBox>
+						<HBox class="sapUiTinyMargin">
+							<Label text="2. "/>
+							<Label
+								text="The Registration and Prequalification Application Form (this “Form”) facilitates the registration and prequalification of the Company’s potential distributor to ensure that only potential distributors that meet the Company’s requirements (including but not limited to appropriate experience, a proven track record, and necessary annual turnover) will be invited for bidding. This Form is a part of Prequalification Document and the Potential Distributor is expected to carefully examine all instructions, templates and terms and conditions, and to provide the Company with all information or documentation required for the purpose of registration and prequalification, so that the Company can properly assess the Potential Distributor’s application in light of the Company’s requirements. Please note that the Potential Distributor will not receive any confirmation or will not be contacted, immediately after it has submitted its registration application."
+								wrapping="true"/>
+						</HBox>
+						<HBox class="sapUiTinyMargin">
+							<Label text="3. "/>
+							<Label
+								text="No purchase order will be issued to, or no contract will be entered into with, a potential distributor that is not pre-registered with the Company. The successful registration of a potential distributor does not guarantee that the Company will do business with that potential distributor. Any successful registration will be subject to the successful completion of the qualification and approval process."
+								wrapping="true"/>
+						</HBox>
+						<HBox class="sapUiTinyMargin">
+							<Label text="4. "/>
+							<Label
+								text="In any case, the registration process initiated by the Potential Distributor, the successful completion of the Potential Distributor’s registration or the pre-qualification of the Potential Distributor does not intend to create, and does not create any binding obligations on the Company or any of its affiliates for the benefit the Potential Distributor or the benefit of any third party, and shall not be construed as a guarantee or assurance that the Company will do business with the Potential Distributor."
+								wrapping="true" />
+						</HBox>
+						<Label text="5. By initiating the registration process with the Company, the Potential Distributor represents and warrants that:"
+							class="sapUiTinyMargin"/>
+						<HBox class="sapUiTinyMargin">
+							<Label text="(a). "/>
+							<Label
+								text="it (including any of its affiliates) conducts its businesses in compliance with all applicable all laws, regulations and policies it is subject to, including but not limited to any applicable export and import control laws, anti-corruption laws, employment laws, regulations, and standards in relation to labor practices and human rights, health and safety laws, environmental laws and anti-money laundering laws, and has instituted and maintained policies and procedures designed to promote and achieve compliance with such laws;"
+								wrapping="true" />
+						</HBox>
+						<HBox class="sapUiTinyMargin">
+							<Label text="(b). "/>
+							<Label
+								text="no litigation, arbitration or administrative proceedings or investigations of, or before, any court, arbitral body or agency which, if adversely determined, are reasonably likely to have a material adverse effect have (to the best of its knowledge and belief (having made due and careful enquiry)) been started or threatened against it or any of its affiliates; and"
+								wrapping="true" />
+						</HBox>
+						<HBox class="sapUiTinyMargin">
+							<Label text="(c). "/>
+							<Label
+								text="it (including any of its affiliates) is not subject to, and (to the best of its knowledge and belief (having made due and careful enquiry)) there are no circumstances have occurred which could lead to, any corporate action, legal proceedings or other procedure or step seeking a judgment of insolvency or bankruptcy or any other relief under any bankruptcy or insolvency law or other similar law affecting creditors' rights."
+								wrapping="true" />
+						</HBox>
+						
+						<Label
+							text="6. This Form must be completely filled in or approved by the authorized representative of the Potential Distributor."
+							class="sapUiTinyMargin"/>
+						<HBox class="sapUiTinyMargin">
+							<Label text="7. "/>
+						<Label
+							text="All information provided by the Potential Distributor in this Form must match with the information and supporting documents uploaded by the Potential Distributor. Any such information must be true and accurate in all material respects as at the date of the information provided or uploaded by the Potential Distributor."
+							wrapping="true" />
+						</HBox>
+						<HBox class="sapUiTinyMargin">
+							<Label text="8. "/>
+						<Label
+							text="If (before the Company decides in its own absolute discretion to issue a purchase order or to enter into a contract with the Potential Distributor) there is any change in the information provided or uploaded by the Potential Distributor, such change must be immediately communicated in writing by the Potential Distributor to the Company."
+							wrapping="true" />
+						</HBox>
+						<Label text="9. The Potential Distributor will be notified via email through the Distributor’s representative mentioned in this form, whether the application is successful or rejected." class="sapUiTinyMargin"/>
+						<Label
+							text="10. The Potential Distributor will be subject to continuous assessment from all relevant aspects including, for example, based on the evolving term rates and quality of its supplies."
+							class="sapUiTinyMargin"/>
+						
+					</VBox>
+				</content>
+				<footer>
+					<Bar>
+						<contentRight>
+							<Button text="Next" icon="sap-icon://open-command-field" press="handleNext" type="Emphasized" class="sapUiTinyMargin"></Button>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

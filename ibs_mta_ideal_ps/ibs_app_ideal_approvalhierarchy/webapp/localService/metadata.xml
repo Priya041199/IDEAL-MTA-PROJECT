@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ideal_fiori_approval_hierarchy" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="MasterEntityAndType" EntityType="ideal_fiori_approval_hierarchy.MasterEntityAndType">
+                    <NavigationPropertyBinding Path="TO_ENTITY_CODE" Target="MasterEntityCode"/>
+                    <NavigationPropertyBinding Path="TO_REQUEST_CODE" Target="MasterApprovalTypes"/>
+                    <NavigationPropertyBinding Path="TO_MASTER_APPROVAL_HIERARCHY" Target="MasterApprovalHierarchy"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="MasterEntityAndType"/>
+                </EntitySet>
+                <EntitySet Name="MasterApprovalHierarchy" EntityType="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy">
+                    <NavigationPropertyBinding Path="TO_ROLE_DESC" Target="MasterUserRole"/>
+                    <NavigationPropertyBinding Path="TO_ENTITY_HIERARCHY" Target="MasterEntityAndType"/>
+                    <NavigationPropertyBinding Path="SiblingEntity" Target="MasterApprovalHierarchy"/>
+                </EntitySet>
+                <EntitySet Name="MasterEntityCode" EntityType="ideal_fiori_approval_hierarchy.MasterEntityCode"/>
+                <EntitySet Name="MasterIdealSettings" EntityType="ideal_fiori_approval_hierarchy.MasterIdealSettings"/>
+                <EntitySet Name="MasterUserRole" EntityType="ideal_fiori_approval_hierarchy.MasterUserRole"/>
+                <EntitySet Name="MasterIdealUsers" EntityType="ideal_fiori_approval_hierarchy.MasterIdealUsers">
+                    <NavigationPropertyBinding Path="TO_USER_ROLE" Target="MasterUserRole"/>
+                    <NavigationPropertyBinding Path="TO_ENTITY_CODE" Target="MasterEntityCode"/>
+                    <NavigationPropertyBinding Path="TO_USER_ENTITIES" Target="MasterUserEntityUsers"/>
+                </EntitySet>
+                <EntitySet Name="MasterApprovalTypes" EntityType="ideal_fiori_approval_hierarchy.MasterApprovalTypes"/>
+                <EntitySet Name="MasterUserEntityUsers" EntityType="ideal_fiori_approval_hierarchy.MasterUserEntityUsers"/>
+                <EntitySet Name="Users" EntityType="ideal_fiori_approval_hierarchy.Users"/>
+            </EntityContainer>
+            <EntityType Name="MasterEntityAndType">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10"/>
+                <NavigationProperty Name="TO_ENTITY_CODE" Type="ideal_fiori_approval_hierarchy.MasterEntityCode">
+                    <ReferentialConstraint Property="ENTITY_CODE" ReferencedProperty="BUKRS"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_REQUEST_CODE" Type="ideal_fiori_approval_hierarchy.MasterApprovalTypes">
+                    <ReferentialConstraint Property="TYPE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_MASTER_APPROVAL_HIERARCHY" Type="Collection(ideal_fiori_approval_hierarchy.MasterApprovalHierarchy)" Partner="TO_ENTITY_HIERARCHY">
+                    <OnDelete Action="Cascade"/>
+                </NavigationProperty>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="ideal_fiori_approval_hierarchy.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="ideal_fiori_approval_hierarchy.MasterEntityAndType"/>
+            </EntityType>
+            <EntityType Name="MasterApprovalHierarchy">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="IsActiveEntity"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="LEVEL" Type="Edm.Int32"/>
+                <Property Name="ROLE_CODE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="USER_IDS" Type="Edm.String"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="20"/>
+                <Property Name="ACCESS_EDIT" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="ACCESS_APPROVE" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="ACCESS_SENDBACK" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="ACCESS_REJECT" Type="Edm.Boolean" DefaultValue="false"/>
+                <Property Name="ACCESS_HOLD" Type="Edm.Boolean" DefaultValue="false"/>
+                <NavigationProperty Name="TO_ROLE_DESC" Type="ideal_fiori_approval_hierarchy.MasterUserRole">
+                    <ReferentialConstraint Property="ROLE_CODE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_ENTITY_HIERARCHY" Type="ideal_fiori_approval_hierarchy.MasterEntityAndType" Partner="TO_MASTER_APPROVAL_HIERARCHY">
+                    <ReferentialConstraint Property="TO_ENTITY_HIERARCHY_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="TO_ENTITY_HIERARCHY_ID" Type="Edm.Guid"/>
+                <Property Name="IsActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="true"/>
+                <Property Name="HasActiveEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <Property Name="HasDraftEntity" Type="Edm.Boolean" Nullable="false" DefaultValue="false"/>
+                <NavigationProperty Name="DraftAdministrativeData" Type="ideal_fiori_approval_hierarchy.DraftAdministrativeData" ContainsTarget="true"/>
+                <NavigationProperty Name="SiblingEntity" Type="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy"/>
+            </EntityType>
+            <EntityType Name="MasterEntityCode">
+                <Key>
+                    <PropertyRef Name="BUKRS"/>
+                </Key>
+                <Property Name="BUKRS" Type="Edm.String" MaxLength="4" Nullable="false"/>
+                <Property Name="BUTXT" Type="Edm.String" MaxLength="50"/>
+                <Property Name="ORT01" Type="Edm.String" MaxLength="25"/>
+                <Property Name="WAERS" Type="Edm.String" MaxLength="5"/>
+            </EntityType>
+            <EntityType Name="MasterIdealSettings">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.String" MaxLength="25" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="100"/>
+                <Property Name="SETTING" Type="Edm.String" MaxLength="100"/>
+                <Property Name="TYPE" Type="Edm.String" MaxLength="10"/>
+            </EntityType>
+            <EntityType Name="MasterUserRole">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.String" MaxLength="25" Nullable="false"/>
+                <Property Name="DESCRIPTION" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="MasterIdealUsers">
+                <Key>
+                    <PropertyRef Name="SR_NO"/>
+                    <PropertyRef Name="USER_ROLE"/>
+                    <PropertyRef Name="EMAIL"/>
+                </Key>
+                <Property Name="SR_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="500"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150" Nullable="false"/>
+                <Property Name="COMPANY_CODE" Type="Edm.String" MaxLength="500"/>
+                <Property Name="EMP_NO" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="UPDATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="ACTIVE" Type="Edm.String" MaxLength="1"/>
+                <NavigationProperty Name="TO_USER_ROLE" Type="ideal_fiori_approval_hierarchy.MasterUserRole">
+                    <ReferentialConstraint Property="USER_ROLE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_ENTITY_CODE" Type="ideal_fiori_approval_hierarchy.MasterEntityCode">
+                    <ReferentialConstraint Property="COMPANY_CODE" ReferencedProperty="BUKRS"/>
+                </NavigationProperty>
+                <NavigationProperty Name="TO_USER_ENTITIES" Type="Collection(ideal_fiori_approval_hierarchy.MasterUserEntityUsers)"/>
+            </EntityType>
+            <EntityType Name="MasterApprovalTypes">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.String" MaxLength="10" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="50"/>
+            </EntityType>
+            <EntityType Name="MasterUserEntityUsers">
+                <Key>
+                    <PropertyRef Name="USER_ID"/>
+                    <PropertyRef Name="USER_ROLE"/>
+                    <PropertyRef Name="ENTITY_CODE"/>
+                </Key>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="ENTITY_CODE" Type="Edm.String" MaxLength="50" Nullable="false"/>
+                <Property Name="EMAIL" Type="Edm.String" MaxLength="150"/>
+                <Property Name="ENTITY_DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="Users">
+                <Key>
+                    <PropertyRef Name="USER_ID"/>
+                </Key>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="50" Nullable="false"/>
+            </EntityType>
+            <EntityType Name="DraftAdministrativeData">
+                <Key>
+                    <PropertyRef Name="DraftUUID"/>
+                </Key>
+                <Property Name="DraftUUID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="CreationDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="CreatedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsCreatedByMe" Type="Edm.Boolean"/>
+                <Property Name="LastChangeDateTime" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="LastChangedByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="InProcessByUser" Type="Edm.String" MaxLength="256"/>
+                <Property Name="DraftIsProcessedByMe" Type="Edm.Boolean"/>
+            </EntityType>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ideal_fiori_approval_hierarchy.MasterEntityAndType"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="ideal_fiori_approval_hierarchy.MasterEntityAndType"/>
+            </Action>
+            <Action Name="draftPrepare" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy"/>
+                <Parameter Name="SideEffectsQualifier" Type="Edm.String"/>
+                <ReturnType Type="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy"/>
+            </Action>
+            <Action Name="draftActivate" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ideal_fiori_approval_hierarchy.MasterEntityAndType"/>
+                <ReturnType Type="ideal_fiori_approval_hierarchy.MasterEntityAndType"/>
+            </Action>
+            <Action Name="draftEdit" IsBound="true" EntitySetPath="in">
+                <Parameter Name="in" Type="ideal_fiori_approval_hierarchy.MasterEntityAndType"/>
+                <Parameter Name="PreserveChanges" Type="Edm.Boolean"/>
+                <ReturnType Type="ideal_fiori_approval_hierarchy.MasterEntityAndType"/>
+            </Action>
+            <Annotations Target="ideal_fiori_approval_hierarchy.EntityContainer/MasterEntityAndType">
+                <Annotation Term="Common.DraftRoot">
+                    <Record Type="Common.DraftRootType">
+                        <PropertyValue Property="ActivationAction" String="ideal_fiori_approval_hierarchy.draftActivate"/>
+                        <PropertyValue Property="EditAction" String="ideal_fiori_approval_hierarchy.draftEdit"/>
+                        <PropertyValue Property="PreparationAction" String="ideal_fiori_approval_hierarchy.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/TYPE">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/ENTITY_CODE">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterEntityAndType/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.EntityContainer/MasterApprovalHierarchy">
+                <Annotation Term="Common.DraftNode">
+                    <Record Type="Common.DraftNodeType">
+                        <PropertyValue Property="PreparationAction" String="ideal_fiori_approval_hierarchy.draftPrepare"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Created On"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/createdBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Created By"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/modifiedAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="Changed On"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/modifiedBy">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Core.Description" String="User's unique ID"/>
+                <Annotation Term="Common.Label" String="Changed By"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/ENTITY_CODE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/LEVEL">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/ROLE_CODE">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/USER_IDS">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/TYPE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/IsActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/HasActiveEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/HasDraftEntity">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.MasterApprovalHierarchy/DraftAdministrativeData">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.DraftAdministrativeData">
+                <Annotation Term="Common.Label" String="Draft Administrative Data"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.DraftAdministrativeData/DraftUUID">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft (Technical ID)"/>
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.DraftAdministrativeData/CreationDateTime">
+                <Annotation Term="Common.Label" String="Draft Created On"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.DraftAdministrativeData/CreatedByUser">
+                <Annotation Term="Common.Label" String="Draft Created By"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.DraftAdministrativeData/DraftIsCreatedByMe">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft Created By Me"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.DraftAdministrativeData/LastChangeDateTime">
+                <Annotation Term="Common.Label" String="Draft Last Changed On"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.DraftAdministrativeData/LastChangedByUser">
+                <Annotation Term="Common.Label" String="Draft Last Changed By"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.DraftAdministrativeData/InProcessByUser">
+                <Annotation Term="Common.Label" String="Draft In Process By"/>
+            </Annotations>
+            <Annotations Target="ideal_fiori_approval_hierarchy.DraftAdministrativeData/DraftIsProcessedByMe">
+                <Annotation Term="UI.Hidden" Bool="true"/>
+                <Annotation Term="Common.Label" String="Draft In Process By Me"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

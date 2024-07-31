@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		id="idSortFragment"
+		confirm="handleSortDialogConfirm"
+        sortDescending="true"
+		cancel="handleSortCancel">
+		<sortItems>
+			<ViewSettingsItem text="Sap Distributor Code" key="SAP_DIST_CODE" selected="true" />
+			
+		</sortItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

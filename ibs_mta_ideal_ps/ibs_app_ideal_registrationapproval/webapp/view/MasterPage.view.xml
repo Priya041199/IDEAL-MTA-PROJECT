@@ -1,0 +1,77 @@
+<mvc:View controllerName="com.ibs.ibsappidealregistrationapproval.controller.MasterPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m" xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+    <Page id="page" title="{i18n>title}" showHeader="false">
+        <content>
+        <Table id="idRegistrationApprovalTable" sticky="ColumnHeaders,HeaderToolbar" inset="false" autoPopinMode="true"
+						items="{path : 'onBoarding>/',sorter : {path : 'REQUEST_NO',descending : true}}" class="sapUiContentPadding" growing="true"
+						growingThreshold="50">
+						<headerToolbar>
+							<OverflowToolbar>
+								<SearchField id="onSearchMasterData" width="35%" showRefreshButton="false" placeholder="Request No or Distributor Name" liveChange="onSearch" class="sapUiSmallMargin"/>
+								<content>
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://sort" press="handleSort" type="Emphasized"/>
+									<Button icon="sap-icon://filter" press="onFilter" type="Emphasized"/>
+									<Button icon="sap-icon://refresh" press="handleRefresh" type="Emphasized"/>
+								</content>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column hAlign="Left" width="8rem">
+								<Label text="Request No" design="Bold"/>
+							</Column>
+							<Column hAlign="Center" width="10rem">
+								<Label text="Distributor Name" design="Bold"/>
+							</Column>
+							<Column hAlign="Center" width="11rem">
+								<Label text="Entity" design="Bold"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="Country" design="Bold"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="City" design="Bold"/>
+							</Column>
+							<!-- <Column hAlign="Center" width="10rem">
+								<Label text="Vendor Type" design="Bold"/>
+							</Column> -->
+							<Column hAlign="Center" width="10rem">
+								<Label text="Mobile No" design="Bold"/>
+							</Column> 
+							<Column hAlign="Center">
+								<Label text="Created On" design="Bold"/>
+							</Column>
+							<Column hAlign="Center">
+								<Label text="Status" design="Bold"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Navigation" press="onPress">
+								<cells>
+									<!--<Label wrapping="true" text="{onBoarding>OBR_NO}" design="Bold"/>-->
+									<ObjectIdentifier title="{onBoarding>REQUEST_NO}"
+										text="{parts:[{path:'onBoarding>REQUEST_TYPE'},{path:'onBoarding>CREATION_TYPE'}], formatter:'.formatter.creationTypeDesc'}"/>
+									
+									<Text wrapping="true" text="{onBoarding>DIST_NAME1}"/>
+
+									<ObjectIdentifier title="{onBoarding>TO_ENTITY_CODE/BUTXT}" 
+										text="{onBoarding>TO_ENTITY_CODE/BUKRS}"/>
+
+									<Text
+										text="{path:'onBoarding>TO_ADDRESS/0/TO_COUNTRY/LANDX'}"/>
+									<Text
+										text="{path:'onBoarding>TO_ADDRESS/0/CITY', formatter:'.formatter.getDataNullValue'}"></Text>
+									<!-- <Text text="{onBoarding>SUPPL_TYPE_DESC}"></Text> -->
+									<Text text="{onBoarding>MOBILE_NO}"></Text>
+									<Text
+										text="{path:'onBoarding>CREATED_ON', formatter:'.formatter.formatDate'}"/>
+									<ObjectStatus text="{parts:[{path: 'onBoarding>TO_STATUS/DESCRIPTION'},{path : 'onBoarding>APPROVER_ROLE'}] , formatter : '.formatter.getVisibility'}" inverted="true"
+										state="{path:'onBoarding>STATUS', formatter:'.formatter.getStatus'}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+        </content>
+    </Page>
+</mvc:View>

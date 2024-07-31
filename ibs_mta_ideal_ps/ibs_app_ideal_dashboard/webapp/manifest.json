@@ -1,0 +1,212 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "com.ibs.ibsappidealdashboard",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:ovp",
+      "version": "1.14.2",
+      "toolsId": "80f90b80-9759-42ca-bcdb-8858db7c0c5f"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/ideal-dashboard-srv/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "dashboard-display": {
+          "semanticObject": "dashboard",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.126.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ushell": {},
+        "sap.fe.templates": {},
+        "sap.ovp": {},
+        "sap.ui.rta": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.ibs.ibsappidealdashboard.i18n.i18n"
+        }
+      },
+      "mainModel": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [],
+      "targets": {}
+    }
+  },
+  "sap.ovp": {
+    "globalFilterModel": "mainModel",
+    "containerLayout": "resizable",
+    "enableLiveFilter": true,
+    "considerAnalyticalParameters": false,
+    "cards": {
+      "RequestType": {
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "model": "mainModel",
+        "settings": {
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#requestTypeChart",
+          "entitySet": "ViewRequestTypeCount",
+          "title": "Request Types",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#AllRequestTypesIdentificationQ"
+        }
+      },
+      "EntityCounts": {
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "model": "mainModel",
+        "settings": {
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#EntityCount",
+          "entitySet": "ViewEntityCodeCount",
+          "title": "Entity Requests",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#AllEntityIdentificationQ"
+        }
+      },
+      "ActionId": {
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "model": "mainModel",
+        "settings": {
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#ActionStatus",
+          "entitySet": "ViewrequestActionStatus",
+          "title": "All Requests",
+          "dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#ActionQualifier",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#AllStatusIdentificationQ"
+        }
+      },
+      "RejectedId": {
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "model": "mainModel",
+        "settings": {
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#RejectedQualifier",
+          "entitySet": "ViewRequestRejectedStatus",
+          "title": "Rejected Request",
+          "identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#AllRejectedIdentificationQ"
+        }
+      },
+      "RequestTurnAroundId": {
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "model": "mainModel",
+        "settings": {
+          "entitySet": "RequestTat",
+          "title": "Turn Around Time For Registration Process",
+          "tabs": [
+            {
+              "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#RequestTurnAroundQ",
+              "value": "{{TAT_SEC}}"
+            },
+            {
+              "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#RequestAvgMIn",
+              "value": "{{TAT_MIN}}"
+            },
+            {
+              "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#RequestAvgHours",
+              "value": "{{TAT_HRS}}"
+            },
+            {
+              "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#RequestAvgDays",
+              "value": "{{TAT_DAYS}}"
+            }
+          ]
+        }
+      },
+      "RequestsPartId": {
+        "template": "sap.ovp.cards.v4.charts.analytical",
+        "model": "mainModel",
+        "settings": {
+          "chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#RequestPartQ",
+          "entitySet": "ApprovalPending",
+          "title": "Requests"
+        }
+      }
+    },
+    "globalFilterControlType": "MacroFilterBar",
+    "chartSettings": {
+      "showDataLabel": true
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "analytical"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "ibs_bs_ideal_ps"
+  }
+}

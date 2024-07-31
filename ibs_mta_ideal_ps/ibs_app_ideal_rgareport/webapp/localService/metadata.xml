@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="ideal_rga_report_srv" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Rga_Header" EntityType="ideal_rga_report_srv.Rga_Header">
+                    <NavigationPropertyBinding Path="TO_STATUS" Target="Status_Master"/>
+                    <NavigationPropertyBinding Path="RGA_ITEMS_REF" Target="Rga_Items"/>
+                    <NavigationPropertyBinding Path="TO_EVENT" Target="Rga_Event_Logs"/>
+                </EntitySet>
+                <EntitySet Name="Rga_Items" EntityType="ideal_rga_report_srv.Rga_Items"/>
+                <EntitySet Name="Rga_Event_Logs" EntityType="ideal_rga_report_srv.Rga_Event_Logs">
+                    <NavigationPropertyBinding Path="TO_EVENT_STATUS" Target="Master_Rga_Event_Status"/>
+                </EntitySet>
+                <EntitySet Name="Status_Master" EntityType="ideal_rga_report_srv.Status_Master"/>
+                <EntitySet Name="Master_Rga_Event_Status" EntityType="ideal_rga_report_srv.Master_Rga_Event_Status"/>
+                <EntitySet Name="Dist" EntityType="ideal_rga_report_srv.Dist"/>
+            </EntityContainer>
+            <EntityType Name="Rga_Header">
+                <Key>
+                    <PropertyRef Name="RGA_NO"/>
+                </Key>
+                <Property Name="RGA_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="DISTRIBUTOR_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="DISTRIBUTOR_NAME" Type="Edm.String" MaxLength="100"/>
+                <Property Name="DISTRIBUTOR_REASON" Type="Edm.String" MaxLength="100"/>
+                <Property Name="STATUS" Type="Edm.Int32"/>
+                <Property Name="APPROVER_LEVEL" Type="Edm.Int32"/>
+                <Property Name="APPROVER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="BU_CODE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="SAP_RETURN_CODE" Type="Edm.String" MaxLength="10"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="200"/>
+                <Property Name="CREATED_ON" Type="Edm.DateTimeOffset" Precision="7"/>
+                <NavigationProperty Name="TO_STATUS" Type="ideal_rga_report_srv.Status_Master">
+                    <ReferentialConstraint Property="STATUS" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+                <NavigationProperty Name="RGA_ITEMS_REF" Type="Collection(ideal_rga_report_srv.Rga_Items)"/>
+                <NavigationProperty Name="TO_EVENT" Type="Collection(ideal_rga_report_srv.Rga_Event_Logs)"/>
+                <Property Name="RGA_NUM" Type="Edm.String"/>
+                <Property Name="LV_CREATION_DATE" Type="Edm.Date"/>
+            </EntityType>
+            <EntityType Name="Rga_Items">
+                <Key>
+                    <PropertyRef Name="RGA_NO"/>
+                    <PropertyRef Name="RGA_ITEM_NO"/>
+                </Key>
+                <Property Name="RGA_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="RGA_ITEM_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="ITEM_CODE" Type="Edm.String" MaxLength="15"/>
+                <Property Name="ITEM_DESCRIPTION" Type="Edm.String" MaxLength="1000"/>
+                <Property Name="UNIT_OF_MEASURE" Type="Edm.String" MaxLength="3"/>
+                <Property Name="BATCH" Type="Edm.String" MaxLength="15"/>
+                <Property Name="EXPIRY_DATE" Type="Edm.Date"/>
+                <Property Name="SALEABLE" Type="Edm.String" MaxLength="1"/>
+                <Property Name="INVOICE_NO" Type="Edm.String" MaxLength="15"/>
+                <Property Name="INVOICE_DATE" Type="Edm.Date"/>
+                <Property Name="INVOICE_QUANTITY" Type="Edm.Int32"/>
+                <Property Name="PRICE" Type="Edm.Double"/>
+                <Property Name="EXTENDED" Type="Edm.Double"/>
+                <Property Name="RETURN_QUANTITY" Type="Edm.Int32"/>
+                <Property Name="ACCEPTED_QUANTITY" Type="Edm.Int32"/>
+                <Property Name="ACCEPTED_PRICE" Type="Edm.Double"/>
+            </EntityType>
+            <EntityType Name="Rga_Event_Logs">
+                <Key>
+                    <PropertyRef Name="RGA_NO"/>
+                    <PropertyRef Name="EVENT_NO"/>
+                </Key>
+                <Property Name="RGA_NO" Type="Edm.Int64" Nullable="false"/>
+                <Property Name="EVENT_NO" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="EVENT_CODE" Type="Edm.Int32"/>
+                <Property Name="USER_ID" Type="Edm.String" MaxLength="100"/>
+                <Property Name="USER_NAME" Type="Edm.String" MaxLength="50"/>
+                <Property Name="USER_ROLE" Type="Edm.String" MaxLength="50"/>
+                <Property Name="REMARK" Type="Edm.String" MaxLength="100"/>
+                <Property Name="COMMENT" Type="Edm.String" MaxLength="100"/>
+                <Property Name="CREATION_DATE" Type="Edm.DateTimeOffset" Precision="7"/>
+                <NavigationProperty Name="TO_EVENT_STATUS" Type="ideal_rga_report_srv.Master_Rga_Event_Status">
+                    <ReferentialConstraint Property="EVENT_CODE" ReferencedProperty="CODE"/>
+                </NavigationProperty>
+            </EntityType>
+            <EntityType Name="Status_Master">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="Master_Rga_Event_Status">
+                <Key>
+                    <PropertyRef Name="CODE"/>
+                </Key>
+                <Property Name="CODE" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String" MaxLength="100"/>
+            </EntityType>
+            <EntityType Name="Dist">
+                <Key>
+                    <PropertyRef Name="DISTRIBUTOR_NAME"/>
+                </Key>
+                <Property Name="DISTRIBUTOR_NAME" Type="Edm.String" MaxLength="100" Nullable="false"/>
+            </EntityType>
+            <Annotations Target="ideal_rga_report_srv.Rga_Header/LV_CREATION_DATE">
+                <Annotation Term="Core.Computed" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

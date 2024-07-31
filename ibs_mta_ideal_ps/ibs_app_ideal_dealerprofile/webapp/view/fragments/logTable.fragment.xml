@@ -1,0 +1,60 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog id="idlogDialog" title="Log Table" draggable="true" resizable="true" titleAlignment="Center" class="sapUiSizeCompact">
+		<Table id="idLogTable" sticky="ColumnHeaders,HeaderToolbar"  inset="false" items="{path:'displayLog>/' ,sorter : { path : 'UPDATED_ON',descending : true}}" 
+					class="sapUiContentPadding" growing="true" growingThreshold="50" autoPopinMode="true">
+						<headerToolbar>
+							<OverflowToolbar>
+							<SearchField id="searchId" width="45%" showRefreshButton="false" liveChange="onlogSearch"
+							placeholder="Search by Request No, Field Name, Old value, New value" class="sapUiSmallMargin"/>
+							</OverflowToolbar>
+						</headerToolbar>
+						<columns>
+							<Column>
+								<Label text="Request No." design="Bold"/>
+							</Column>
+							<Column>
+								<Label text="Field Name" design="Bold"/>
+							</Column>
+							<Column>
+								<Label text="Old value" design="Bold"/>
+							</Column>
+							<Column>
+								<Label text="New value" design="Bold"/>
+							</Column>
+							<Column>
+								<Label text="Comment" design="Bold"/>
+							</Column>
+							<Column >
+								<Label text="Changed By" design="Bold"/>
+							</Column>
+							<Column >
+								<Label text="Updated on" design="Bold"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<ObjectIdentifier title="{displayLog>REQUEST_NO}"/>
+									<Text text="{displayLog>UPDATED_FIELD_NAME}"/>
+									<HBox>
+										<Text text="{displayLog>ORG_VALUE}" visible="{= ${displayLog>EVENT_TYPE} === 'NDA' ? false : true}"/>
+									<Link text="{path:'displayLog>ORG_VALUE',formatter:'.formatter.getNdaNameDisplay'}" visible="{= ${displayLog>EVENT_TYPE} === 'NDA' ? true : false}" press = "loglinkpress"></Link>
+									</HBox>
+									<HBox>
+										<Text text="{displayLog>CHANGE_VALUE}" visible="{= ${displayLog>EVENT_TYPE} === 'NDA' ? false : true}"></Text>
+									<Link text="{path:'displayLog>CHANGE_VALUE',formatter:'.formatter.getNdaNameDisplay'}" visible="{= ${displayLog>EVENT_TYPE} === 'NDA' ? true : false}" press = "loglinkpress"></Link>
+									</HBox>
+									<Text text="{displayLog>COMMENT}"></Text>
+									<Text text="{displayLog>USER_NAME}"></Text>
+									<Text text="{path:'displayLog>UPDATED_ON', type: 'sap.ui.model.type.DateTime', formatOptions: { style : 'medium', UTC: false }}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+		<buttons>
+			<Button text="Cancel" id="id_logcancel" press="closelogDialog" icon="sap-icon://cancel"/>
+			
+		</buttons>
+		
+	</Dialog>
+</core:FragmentDefinition>

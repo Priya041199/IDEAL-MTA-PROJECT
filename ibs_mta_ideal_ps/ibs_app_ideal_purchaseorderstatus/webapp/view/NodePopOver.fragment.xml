@@ -1,0 +1,77 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns:f="sap.ui.layout.form" xmlns="sap.suite.ui.commons" xmlns:core="sap.ui.core">
+	<m:Dialog id="dialog1" title="Details">
+		<!--<m:VBox>-->
+		<f:SimpleForm id="idSimpleForm1" visible="false" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="6" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="2"
+			singleContainerFullSize="false" class="coreSimpClass">
+			<f:content>
+				<!--<m:Label text="Sales Order"/>-->
+				<m:Text id="idSalesOrder"/>
+				<!--<m:Label text="Line Item"/>-->
+				<m:Text id="idLineItem"/>
+				<!--<m:Label text="Status"/>-->
+				<m:Text id="idStatus"/>
+			</f:content>
+		</f:SimpleForm>
+		<f:SimpleForm id="idSimpleForm2" visible="false" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="6" labelSpanS="12"
+			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="2"
+			singleContainerFullSize="false" class="coreSimpClass">
+			<f:content>
+				<!--<m:Label text="Invoice No."/>-->
+				<m:Text id="idSalesOrder1"/>
+				<!--<m:Label text="Line Item"/>-->
+				<!--<m:Text id="idLineItem"/>-->
+				<!--<m:Label text="Status"/>-->
+				<m:Text id="idStatus1"/>
+			</f:content>
+		</f:SimpleForm>
+		<!--<f:SimpleForm id="idSimpleForm3" visible="false" layout="ResponsiveGridLayout" labelSpanXL="6" labelSpanL="6" labelSpanM="6" labelSpanS="12"-->
+		<!--	adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="2"-->
+		<!--	singleContainerFullSize="false" class="coreSimpClass">-->
+		<!--	<f:content>-->
+				<m:Table id="idSimpleForm3" items="{DispatchedModel>/results}" sticky="HeaderToolbar,ColumnHeaders">
+					<m:columns>
+						<m:Column demandPopin="true">
+							<m:Label text="Invoice Number" design="Bold"/>
+						</m:Column>
+						<m:Column demandPopin="true" minScreenWidth="Tablet">
+							<m:Label text="Eway Bill" design="Bold"/>
+						</m:Column>
+						<m:Column demandPopin="true" minScreenWidth="Tablet">
+							<m:Label text="Eway Date" design="Bold"/>
+						</m:Column>
+						<m:Column demandPopin="true" minScreenWidth="Tablet">
+							<m:Label text="Eway Time" design="Bold"/>
+						</m:Column>
+						<m:Column demandPopin="true">
+							<m:Label text="LR No." design="Bold"/>
+						</m:Column>
+						<m:Column demandPopin="true" minScreenWidth="Tablet">
+							<m:Label text="LR Date" design="Bold"/>
+						</m:Column>
+						<m:Column demandPopin="true" minScreenWidth="Tablet">
+							<m:Label text="Shipment doc" design="Bold"/>
+						</m:Column>
+					</m:columns>
+					<m:items>
+						<m:ColumnListItem>
+							<m:cells>
+								<m:Text text="{DispatchedModel>InvoiceNo}"/>
+								<m:Text text="{DispatchedModel>Eway}"/>
+								<m:Text text="{DispatchedModel>EwayDate}"/>
+								<m:Text text="{DispatchedModel>EwayTime}"/>
+								<m:Text text="{DispatchedModel>LRNo}"/>
+								<m:Text text="{DispatchedModel>LRDate}"/>
+								<m:Text text="{DispatchedModel>ShipmentDoc}"/>
+							</m:cells>
+						</m:ColumnListItem>
+					</m:items>
+				</m:Table>
+		<!--	</f:content>-->
+		<!--</f:SimpleForm>-->
+		<m:buttons>
+			<m:Button text="Cancel" type="Reject" icon="sap-icon://sys-cancel" press="onDetailCancel1"></m:Button>
+		</m:buttons>
+		<!--</m:VBox>-->
+	</m:Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,253 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/odata/v4/ideal-rga-report-srv/$metadata">
+        <edmx:Include Namespace="ideal_rga_report_srv"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local">
+         <Annotations Target="ideal_rga_report_srv.Rga_Header">
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                    
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="RGA_NUM"/>
+                            <PropertyValue Property="Label" String="RGA Request No"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DISTRIBUTOR_NAME"/>
+                            <PropertyValue Property="Label" String="Distributor Name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BU_CODE"/>
+                            <PropertyValue Property="Label" String="Business Unit"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LV_CREATION_DATE"/>
+                            <PropertyValue Property="Label" String="Creation Date"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="TO_STATUS/DESC"/>
+                            <PropertyValue Property="Label" String="Status"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>RGA_NUM</PropertyPath>
+                        <PropertyPath>DISTRIBUTOR_NAME</PropertyPath>
+                    </Collection>
+                </Annotation>
+                
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Header Details"/>
+                            <PropertyValue Property="ID" String="HeaderDetails"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#HeaderDetails"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Item Details"/>
+                            <PropertyValue Property="ID" String="ItemDetails"/>
+                            <PropertyValue Property="Target" AnnotationPath="RGA_ITEMS_REF/@UI.LineItem#ItemDetails"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Comments"/>
+                            <PropertyValue Property="ID" String="Comments"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Comments"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="Events"/>
+                            <PropertyValue Property="ID" String="Events"/>
+                            <PropertyValue Property="Target" AnnotationPath="TO_EVENT/@UI.LineItem#Events"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.FieldGroup" Qualifier="HeaderDetails">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="BU_CODE"/>
+                                    <PropertyValue Property="Label" String="Business Unit"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="DISTRIBUTOR_REASON"/>
+                                    <PropertyValue Property="Label" String="Reason for Return"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="CREATED_ON"/>
+                                    <PropertyValue Property="Label" String="Creation Date"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="SAP_RETURN_CODE"/>
+                                    <PropertyValue Property="Label" String="SAP Return Code"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Comments">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="COMMENT"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderInfo">
+                    <Record>
+                        <PropertyValue Property="TypeName" String=""/>
+                        <PropertyValue Property="TypeNamePlural" String=""/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                            <PropertyValue Property="Value">
+                            <Apply Function="odata.concat">
+                                <String>RGA Request No</String>  
+                                <String> : </String>  
+                                <Path>RGA_NUM</Path>            
+                            </Apply>
+                            </PropertyValue>
+                            </Record>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ideal_rga_report_srv.Rga_Header/RGA_NO">
+                <Annotation Term="Common.Label" String="RGA Request No"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Rga_Header"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="RGA_NO"/>
+                                    <PropertyValue Property="ValueListProperty" String="RGA_NO"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_rga_report_srv.Rga_Header/DISTRIBUTOR_NAME">
+                <Annotation Term="Common.Label" String="Distributor Name"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Dist"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="DISTRIBUTOR_NAME"/>
+                                    <PropertyValue Property="ValueListProperty" String="DISTRIBUTOR_NAME"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_rga_report_srv.Rga_Items">
+                <Annotation Term="UI.LineItem" Qualifier="ItemDetails">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="INVOICE_NO"/>
+                            <PropertyValue Property="Label" String="Invoice No"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ITEM_DESCRIPTION"/>
+                            <PropertyValue Property="Label" String="Material"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BATCH"/>
+                            <PropertyValue Property="Label" String="Batch"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="EXPIRY_DATE"/>
+                            <PropertyValue Property="Label" String="Expiry Date"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="INVOICE_DATE"/>
+                            <PropertyValue Property="Label" String="Invoice Date"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="INVOICE_QUANTITY"/>
+                            <PropertyValue Property="Label" String="Invoice Quantity"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PRICE"/>
+                            <PropertyValue Property="Label" String="Invoice Price"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="RETURN_QUANTITY"/>
+                            <PropertyValue Property="Label" String="RGA Quantity"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="EXTENDED"/>
+                            <PropertyValue Property="Label" String="RGA Amount"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ideal_rga_report_srv.EntityContainer/Rga_Header">
+                <Annotation Term="UI.DeleteHidden" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_rga_report_srv.Rga_Event_Logs">
+                <Annotation Term="UI.LineItem" Qualifier="Events">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="EVENT_NO"/>
+                            <PropertyValue Property="Label" String="Event No"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="USER_NAME"/>
+                            <PropertyValue Property="Label" String="User Name"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="USER_ROLE"/>
+                            <PropertyValue Property="Label" String="User Role"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="COMMENT"/>
+                            <PropertyValue Property="Label" String="Comment"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="ideal_rga_report_srv.Rga_Header/COMMENT">
+                <Annotation Term="UI.MultiLineText" Bool="true"/>
+            </Annotations>
+            <Annotations Target="ideal_rga_report_srv.Rga_Header/RGA_NUM">
+                <Annotation Term="Common.Label" String="RGA No"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="Rga_Header"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="RGA_NUM"/>
+                                    <PropertyValue Property="ValueListProperty" String="RGA_NUM"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

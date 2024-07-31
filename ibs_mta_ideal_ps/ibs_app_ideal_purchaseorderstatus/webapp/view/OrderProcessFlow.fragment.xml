@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns:m="sap.m" xmlns="sap.suite.ui.commons" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<m:Dialog id="dialog" title="Order Details" class="sapUiSizeCompact">
+		<ProcessFlow id="processflow1" scrollable="false" foldedCorners="true" nodePress="onNodePress" nodes="{/nodes}" lanes="{/lanes}">
+			<nodes>
+				<ProcessFlowNode id="idProcessFlowNode" laneId="{lane}" nodeId="{id}" title="{title}" titleAbbreviation="{titleAbbreviation}"
+					children="{children}" state="{state}" stateText="{stateText}" texts="{texts}" highlighted="{highlighted}" focused="{focused}"/>
+			</nodes>
+			<lanes>
+				<ProcessFlowLaneHeader laneId="{id}" iconSrc="{icon}" text="{label}" position="{position}" state="{state}"/>
+			</lanes>
+		</ProcessFlow>
+		<m:buttons>
+			<m:Button text="Cancel" type="Reject" icon="sap-icon://sys-cancel" press="onDetailCancel"></m:Button>
+		</m:buttons>
+	</m:Dialog>
+</core:FragmentDefinition>
